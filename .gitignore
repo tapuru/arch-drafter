@@ -1,0 +1,10 @@
+**/*/build/
+**/*/dist/
+
+node_modules
+.eslintcache
+*.tsbuildinfo
+.next/
+
+.env
+.env.*

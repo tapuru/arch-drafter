@@ -1,0 +1,39 @@
+{
+  "name": "@bc-arch-drafter",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "clean": "pnpm -r run clean",
+    "lint": "pnpm -r run lint",
+    "lint:uncache": "find . -name .eslintcache ! -path '*/node_modules/*' | xargs rm -f",
+    "format:lint": "prettier . --check",
+    "format:fix": "prettier . --write",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build:packages": "pnpm -r --filter \"./packages/*\" run build",
+    "build:watch:model": "pnpm --filter \"@bc-arch-drafter/model\" run build:watch",
+    "build:watch:ui": "pnpm --filter \"@bc-arch-drafter/shared-ui\" run build:watch",
+    "build:watch:lib": "pnpm --filter \"@bc-arch-drafter/lib\" run build:watch",
+    "build:watch:auth": "pnpm --filter \"@bc-arch-drafter/auth\" run build:watch",
+    "build:watch": "concurrently \"pnpm:build:watch:*\""
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.31.0",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "prettier": "^3.6.2",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.8.3"
+  },
+  "private": true,
+  "description": "web application that allows customers and architects work together to build a starter plan draft"
+}

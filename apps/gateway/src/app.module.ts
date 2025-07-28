@@ -17,7 +17,6 @@ import {
       provide: Microservice.PROJECTS,
       useFactory: (configService: ConfigService) => {
         const options = configService.get().services.PROJECTS_SERVICE;
-        console.log(options);
         return ClientProxyFactory.create(options);
       },
       inject: [ConfigService],

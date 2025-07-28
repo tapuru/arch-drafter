@@ -19,9 +19,6 @@ async function bootstrap() {
 
   const options = configService.get().services[Microservice.PROJECTS];
 
-  console.log('AAAA');
-  console.log(options.options.port);
-
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     options,

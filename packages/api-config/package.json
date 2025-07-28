@@ -1,0 +1,18 @@
+{
+  "name": "@bc-arch-drafter/api-config",
+  "version": "0.0.1",
+  "main": "./build/src/index.js",
+  "types": "./build/src/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "tsc && tsc-alias",
+    "build:watch": "concurrently \"tsc -w\" \"tsc-alias -w\"",
+    "lint": "eslint --cache ."
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.5",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/microservices": "^11.1.5",
+    "dotenv": "^17.2.1"
+  }
+}

@@ -77,6 +77,9 @@ importers:
 
   apps/export-service:
     dependencies:
+      '@bc-arch-drafter/api-config':
+        specifier: workspace:*
+        version: link:../../packages/api-config
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -211,6 +214,9 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
     devDependencies:
+      '@bc-arch-drafter/api-config':
+        specifier: workspace:*
+        version: link:../../packages/api-config
       '@eslint/eslintrc':
         specifier: ^3.2.0
         version: 3.3.1
@@ -247,6 +253,9 @@ importers:
 
   apps/sessions-service:
     dependencies:
+      '@bc-arch-drafter/api-config':
+        specifier: workspace:*
+        version: link:../../packages/api-config
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -302,6 +311,9 @@ importers:
 
   apps/storage-service:
     dependencies:
+      '@bc-arch-drafter/api-config':
+        specifier: workspace:*
+        version: link:../../packages/api-config
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)

@@ -1,17 +1,21 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '@/app.module';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { AppModule } from './app.module';
+import { MicroserviceOptions } from '@nestjs/microservices';
+import {
+  ConfigService,
+  DEFAULT_CONFIG,
+  Microservice,
+} from '@bc-arch-drafter/api-config';
 
 async function bootstrap() {
+  const configService = new ConfigService(DEFAULT_CONFIG);
+  configService.loadFromEnv();
+
+  const options = configService.get().services[Microservice.STORAGE];
+
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
-    {
-      transport: Transport.TCP,
-      options: {
-        host: '127.0.0.1',
-        port: 3004,
-      },
-    },
+    options,
   );
   await app.listen();
 }

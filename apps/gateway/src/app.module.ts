@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ProjectsController, ProjectsService } from './projects';
-import { SesisonsService, SessionsController } from './sessions';
+import { ProjectsController, ProjectsService } from '@/projects';
+import { SesisonsService, SessionsController } from '@/sessions';
+import { ExportController, ExportService } from '@/export';
 
 @Module({
   imports: [
@@ -25,8 +26,18 @@ import { SesisonsService, SessionsController } from './sessions';
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'EXPORT_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: '127.0.0.1',
+          port: 3003,
+        },
+      },
+    ]),
   ],
-  controllers: [ProjectsController, SessionsController],
-  providers: [ProjectsService, SesisonsService],
+  controllers: [ProjectsController, SessionsController, ExportController],
+  providers: [ProjectsService, SesisonsService, ExportService],
 })
 export class AppModule {}

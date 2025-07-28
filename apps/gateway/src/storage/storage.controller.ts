@@ -1,12 +1,17 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { StorageService } from './storage.service';
+import { lastValueFrom } from 'rxjs';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Controller('storage')
 export class StorageController {
-  constructor(@Inject() private readonly storageService: StorageService) {}
+  constructor(
+    @Inject('STORAGE_SERVICE') private readonly client: ClientProxy,
+  ) {}
 
   @Get('hello')
-  async getHello() {
-    return this.storageService.getHello();
+  async getHello(): Promise<{ message: string }> {
+    return lastValueFrom(
+      this.client.send<{ message: string }, {}>({ cmd: 'get-hello' }, {}),
+    );
   }
 }

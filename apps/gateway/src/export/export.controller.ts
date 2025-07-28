@@ -1,12 +1,15 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { ExportService } from './export.service';
+import { ClientProxy } from '@nestjs/microservices';
+import { lastValueFrom } from 'rxjs';
 
 @Controller('export')
 export class ExportController {
-  constructor(@Inject() private readonly exportService: ExportService) {}
+  constructor(@Inject('EXPORT_SERVICE') private readonly client: ClientProxy) {}
 
   @Get('hello')
-  async getHello() {
-    return this.exportService.getHello();
+  async getHello(): Promise<{ message: string }> {
+    return lastValueFrom(
+      this.client.send<{ message: string }, {}>({ cmd: 'get-hello' }, {}),
+    );
   }
 }

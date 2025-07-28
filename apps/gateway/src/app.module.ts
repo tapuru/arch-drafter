@@ -1,52 +1,53 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ProjectsController, ProjectsService } from '@/projects';
-import { SesisonsService, SessionsController } from '@/sessions';
-import { ExportController, ExportService } from '@/export';
-import { StorageController, StorageService } from './storage';
+import { ClientProxyFactory } from '@nestjs/microservices';
+import { ProjectsController } from '@/projects';
+import { SessionsController } from '@/sessions';
+import { ExportController } from '@/export';
+import { StorageController } from '@/storage';
+import {
+  ConfigModule,
+  Microservice,
+  ConfigService,
+} from '@bc-arch-drafter/api-config';
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'PROJECTS_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: '127.0.0.1',
-          port: 3001,
-        },
+  imports: [ConfigModule],
+  providers: [
+    {
+      provide: Microservice.PROJECTS,
+      useFactory: (configService: ConfigService) => {
+        const options = configService.get().services.PROJECTS_SERVICE;
+        console.log(options);
+        return ClientProxyFactory.create(options);
       },
-    ]),
-    ClientsModule.register([
-      {
-        name: 'SESSIONS_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: '127.0.0.1',
-          port: 3002,
-        },
+      inject: [ConfigService],
+    },
+    {
+      provide: Microservice.SESSIONS,
+      useFactory: (configService: ConfigService) => {
+        const options = configService.get().services.SESSIONS_SERVICE;
+        return ClientProxyFactory.create(options);
       },
-    ]),
-    ClientsModule.register([
-      {
-        name: 'EXPORT_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: '127.0.0.1',
-          port: 3003,
-        },
+      inject: [ConfigService],
+    },
+    {
+      provide: Microservice.EXPORT,
+      useFactory: (configService: ConfigService) => {
+        const { options, transport } =
+          configService.get().services.EXPORT_SERVICE;
+        return ClientProxyFactory.create({ transport, options });
       },
-    ]),
-    ClientsModule.register([
-      {
-        name: 'STORAGE_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: '127.0.0.1',
-          port: 3004,
-        },
+      inject: [ConfigService],
+    },
+    {
+      provide: Microservice.STORAGE,
+      useFactory: (configService: ConfigService) => {
+        const { options, transport } =
+          configService.get().services.STORAGE_SERVICE;
+        return ClientProxyFactory.create({ transport, options });
       },
-    ]),
+      inject: [ConfigService],
+    },
   ],
   controllers: [
     ProjectsController,
@@ -54,6 +55,5 @@ import { StorageController, StorageService } from './storage';
     ExportController,
     StorageController,
   ],
-  providers: [ProjectsService, SesisonsService, ExportService, StorageService],
 })
 export class AppModule {}

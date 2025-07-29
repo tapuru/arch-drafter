@@ -17,10 +17,7 @@
     "build:watch:lib": "pnpm --filter \"@bc-arch-drafter/lib\" run build:watch",
     "build:watch:auth": "pnpm --filter \"@bc-arch-drafter/auth\" run build:watch",
     "build:watch": "concurrently \"pnpm:build:watch:*\"",
-    "web-client:dev": "pnpm --filter \"web-client\" run dev",
-    "web-client:build": "pnpm --filter \"web-client\" run build",
-    "web-client:lint": "pnpm --filter \"web-client\" run lint",
-    "web-client:preview": "pnpm --filter \"web-client\" run preview"
+    "web-client:dev": "pnpm --filter \"web-client\" run dev"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

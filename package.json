@@ -24,6 +24,7 @@
     "build:watch:ui": "pnpm --filter \"@bc-arch-drafter/shared-ui\" run build:watch",
     "build:watch:lib": "pnpm --filter \"@bc-arch-drafter/lib\" run build:watch",
     "build:watch:auth": "pnpm --filter \"@bc-arch-drafter/auth\" run build:watch",
+    "web-client:dev": "pnpm --filter \"web-client\" run dev"
     "build:watch:db": "pnpm --filter \"@bc-arch-drafter/db\" run build:watch",
     "build:watch:api-config": "pnpm --filter \"@bc-arch-drafter/api-config\" run build:watch",
     "build:watch": "concurrently \"pnpm:build:watch:*\""

@@ -5,6 +5,7 @@ node_modules
 .eslintcache
 *.tsbuildinfo
 .next/
+.idea/
 
 .env
 .env.*

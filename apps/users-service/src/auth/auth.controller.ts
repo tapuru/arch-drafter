@@ -1,7 +1,7 @@
+import { LoginDto, RegisterDto } from '@bc-arch-drafter/db';
 import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
-import { LoginDto, RegisterDto } from './dto/dto';
 
 @Controller('auth')
 export class AuthController {

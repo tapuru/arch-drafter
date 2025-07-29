@@ -1,6 +1,5 @@
+import { LoginDto, RegisterDto } from '@bc-arch-drafter/db';
 import { Injectable } from '@nestjs/common';
-
-import { LoginDto, RegisterDto } from './dto/dto';
 
 @Injectable()
 export class AuthService {

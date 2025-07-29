@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2020",
+    "outDir": "./build",
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+  },
+}

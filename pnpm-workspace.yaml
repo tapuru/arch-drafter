@@ -11,3 +11,5 @@ packages:
   - "packages/model"
   - "packages/ui"
   - "packages/auth"
+  - "packages/db"
+  - "packages/api-config"

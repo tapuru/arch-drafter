@@ -24,7 +24,7 @@
     "build:watch:ui": "pnpm --filter \"@bc-arch-drafter/shared-ui\" run build:watch",
     "build:watch:lib": "pnpm --filter \"@bc-arch-drafter/lib\" run build:watch",
     "build:watch:auth": "pnpm --filter \"@bc-arch-drafter/auth\" run build:watch",
-    "web-client:dev": "pnpm --filter \"web-client\" run dev"
+    "web-client:dev": "pnpm --filter \"web-client\" run dev",
     "build:watch:db": "pnpm --filter \"@bc-arch-drafter/db\" run build:watch",
     "build:watch:api-config": "pnpm --filter \"@bc-arch-drafter/api-config\" run build:watch",
     "build:watch": "concurrently \"pnpm:build:watch:*\""
@@ -37,7 +37,6 @@
     "@testing-library/react": "^16.3.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.1.0",
-    "@types/express": "^5.0.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/express": "^5.0.0",
@@ -55,7 +54,6 @@
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
     "prettier": "^3.6.2",
-    "ts-node": "^10.9.2",
     "ts-jest": "^29.2.5",
     "tsc-alias": "^1.8.16",
     "ts-node": "^10.9.2",

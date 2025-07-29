@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+
     "build": "pnpm -r run build",
     "clean": "pnpm -r run clean",
     "lint": "pnpm -r run lint",

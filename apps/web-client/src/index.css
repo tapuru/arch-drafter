@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "../../../node_modules/.pnpm/tailwindcss@4.1.11/node_modules/tailwindcss";
 
 /*Если в вашей IDE @theme подсвечивается красным, то не переживайте. Это ок.*/
 /*Просто вебшторм так крут, что ещё не умеет хавать все новые штуки tailwind.v4*/

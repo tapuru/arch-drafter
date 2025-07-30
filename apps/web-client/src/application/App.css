@@ -1,0 +1,5 @@
+@import "../../../../node_modules/.pnpm/tailwindcss@4.1.11/node_modules/tailwindcss";
+
+#root {
+    margin: 0 auto;
+}

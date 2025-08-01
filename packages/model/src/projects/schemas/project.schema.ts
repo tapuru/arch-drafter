@@ -1,7 +1,10 @@
 import z from 'zod';
 
-import { AppIdSchema, IsoDateSchema, NullableIsoDateSchema } from '@/shared';
+import { BaseIdSchema, IsoDateSchema, NullableIsoDateSchema } from '@/shared';
 import { UserSchema } from '@/users';
+
+export const ProjectIdSchema = BaseIdSchema.brand<'ProjectId'>();
+export type ProjectId = z.infer<typeof ProjectIdSchema>;
 
 export const ProjectNameSchema = z.string().min(3).max(30);
 export type ProjectName = z.infer<typeof ProjectNameSchema>;
@@ -11,7 +14,7 @@ export const CanvasJsonSchema = z.json();
 export type CanvasJson = z.infer<typeof CanvasJsonSchema>;
 
 export const ProjectSchema = z.object({
-  id: AppIdSchema,
+  id: ProjectIdSchema,
   name: ProjectNameSchema,
   ownerId: UserSchema.shape.id,
   canvasJson: CanvasJsonSchema,

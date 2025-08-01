@@ -1,5 +1,6 @@
-import z from "zod";
-import { ApiErrorSchema } from "./api-error.schema";
+import z from 'zod';
+
+import { ApiErrorSchema } from './api-error.schema';
 
 export const ApiResponseSchema = <T extends z.ZodTypeAny>(data: T) =>
   z.object({
@@ -8,6 +9,4 @@ export const ApiResponseSchema = <T extends z.ZodTypeAny>(data: T) =>
     errors: z.array(ApiErrorSchema).optional(),
   });
 
-export type ApiResponse<T extends z.ZodTypeAny> = z.infer<
-  ReturnType<typeof ApiResponseSchema<T>>
->;
+export type ApiResponse<T extends z.ZodTypeAny> = z.infer<ReturnType<typeof ApiResponseSchema<T>>>;

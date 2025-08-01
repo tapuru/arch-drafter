@@ -1,13 +1,15 @@
-import { ProjectSchema } from "@/projects";
-import { UserProjectRoleSchema, UserSchema } from "@/users";
-import z from "zod";
+import z from 'zod';
+
+import { ProjectSchema } from '@/projects';
+import { AppIdSchema, IsoDateSchema } from '@/shared';
+import { UserProjectRoleSchema, UserSchema } from '@/users';
 
 export const MembershipSchema = z.object({
-  id: z.uuid(),
+  id: AppIdSchema,
   userId: UserSchema.shape.id,
   projectId: ProjectSchema.shape.id,
   role: UserProjectRoleSchema,
-  joinedAt: z.iso.datetime(),
+  joinedAt: IsoDateSchema,
 });
 
 export type Membership = z.infer<typeof MembershipSchema>;

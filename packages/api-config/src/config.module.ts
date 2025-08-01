@@ -1,6 +1,7 @@
-import { ConfigService } from "@/config.service";
-import { DEFAULT_CONFIG } from "@/lib/default-config.const";
-import { Module } from "@nestjs/common";
+import { Module } from '@nestjs/common';
+
+import { ConfigService } from '@/config.service';
+import { DEFAULT_CONFIG } from '@/lib/default-config.const';
 
 const configFactory = {
   provide: ConfigService,

@@ -2,7 +2,7 @@ import { CanvasJson, ProjectId, ProjectName } from '@bc-arch-drafter/model';
 import { customType, pgTable } from 'drizzle-orm/pg-core';
 
 import { ctIsoDate, ctNullableIsoDate } from './shared-custom-types.schema';
-import { ctUserId } from './user.schema';
+import { ctUserId } from './users.schema';
 
 export const ctProjectId = customType<{ data: ProjectId }>({
   dataType: () => 'uuid',

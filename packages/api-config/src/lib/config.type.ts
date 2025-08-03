@@ -1,5 +1,6 @@
-import { Transport } from "@nestjs/microservices";
-import { Microservice } from "./microservices.enum";
+import { Transport } from '@nestjs/microservices';
+
+import { Microservice } from './microservices.enum';
 
 export interface MicroserviceConfig {
   options: {
@@ -10,8 +11,13 @@ export interface MicroserviceConfig {
   transport: Transport.TCP;
 }
 
+export interface PostgresConfig {
+  url: string;
+}
+
 export interface ConfigData {
   env: string;
   port: number;
   services: Record<Microservice, MicroserviceConfig>;
+  postgres: PostgresConfig;
 }

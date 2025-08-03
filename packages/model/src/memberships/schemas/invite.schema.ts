@@ -1,15 +1,20 @@
-import { ProjectSchema } from "@/projects";
-import { UserSchema } from "@/users";
-import z from "zod";
+import z from 'zod';
+
+import { ProjectSchema } from '@/projects';
+import { BaseIdSchema, IsoDateSchema, NullableIsoDateSchema } from '@/shared';
+import { UserSchema } from '@/users';
+
+export const InviteIdSchema = BaseIdSchema.brand<'InviteId'>();
+export type InviteId = z.infer<typeof InviteIdSchema>;
 
 export const InviteSchema = z.object({
-  id: z.uuid(),
+  id: InviteIdSchema,
   projectId: ProjectSchema.shape.id,
   senderId: UserSchema.shape.id,
   userId: UserSchema.shape.id,
-  sentAt: z.iso.datetime(),
-  acceptedAt: z.iso.datetime().nullable(),
-  rejectedAt: z.iso.datetime().nullable(),
+  sentAt: IsoDateSchema,
+  acceptedAt: NullableIsoDateSchema,
+  rejectedAt: NullableIsoDateSchema,
 });
 
 export type Invite = z.infer<typeof InviteSchema>;

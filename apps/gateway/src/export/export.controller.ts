@@ -8,8 +8,6 @@ export class ExportController {
 
   @Get('hello')
   async getHello(): Promise<{ message: string }> {
-    return lastValueFrom(
-      this.client.send<{ message: string }, {}>({ cmd: 'get-hello' }, {}),
-    );
+    return lastValueFrom(this.client.send<{ message: string }, {}>({ cmd: 'get-hello' }, {}));
   }
 }

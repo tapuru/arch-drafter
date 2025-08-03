@@ -2,11 +2,14 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "moduleResolution": "bundler",
+    "skipLibCheck": true,
     "module": "esnext",
-    "target": "es2020",
+    "target": "es2017",
     "outDir": "./build",
     "declaration": true,
     "emitDeclarationOnly": false,
+    "composite": false,
+    "incremental": false,
     "paths": {
       "@/*": ["./src/*"]
     }

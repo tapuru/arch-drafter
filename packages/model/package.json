@@ -1,13 +1,17 @@
 {
   "name": "@bc-arch-drafter/model",
   "version": "0.0.1",
-  "main": "./build/src/index.js",
-  "types": "./build/src/index.d.ts",
   "scripts": {
     "clean": "rm -rf build",
-    "build": "tsc && tsc-alias",
-    "build:watch": "concurrently \"tsc -w\" \"tsc-alias -w\"",
+    "build": "tsup",
+    "build:watch": "tsup --watch",
     "lint": "eslint --cache ."
+  },
+  "type": "module",
+  "main": "./build/index.cjs",
+  "exports": {
+    "require": "./build/index.cjs",
+    "import": "./build/index.js"
   },
   "dependencies": {
     "zod": "^4.0.13"

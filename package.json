@@ -58,7 +58,8 @@
     "tsc-alias": "^1.8.16",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.20.0"
+    "typescript-eslint": "^8.20.0",
+    "tsup": "^8.5.0"
   },
   "private": true,
   "description": "web application that allows customers and architects work together to build a starter plan draft"

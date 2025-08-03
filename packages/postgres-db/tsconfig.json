@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "es2017",
+    "outDir": "./build",
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "composite": false,
+    "incremental": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

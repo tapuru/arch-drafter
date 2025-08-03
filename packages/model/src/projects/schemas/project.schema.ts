@@ -10,7 +10,7 @@ export const ProjectNameSchema = z.string().min(3).max(30);
 export type ProjectName = z.infer<typeof ProjectNameSchema>;
 
 //TODO: write canvasJson type
-export const CanvasJsonSchema = z.json();
+export const CanvasJsonSchema = z.record(z.any(), z.any());
 export type CanvasJson = z.infer<typeof CanvasJsonSchema>;
 
 export const ProjectSchema = z.object({

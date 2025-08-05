@@ -1,3 +1,3 @@
 export * from "./styles/global.css";
-export * from "./lib/cn"
+export * from "./lib/utils"
 export * from "./components/ui"

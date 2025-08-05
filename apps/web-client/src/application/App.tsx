@@ -1,9 +1,7 @@
-import { BaseForm } from '@/pages/example';
-
 import './App.css';
 
 function App() {
-  return <BaseForm />;
+  return <div>hello</div>;
 }
 
 export default App;

@@ -6,6 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "rootDir": "src",
     "moduleResolution": "node",
     "target": "es2020",
     "outDir": "./build",
@@ -21,6 +22,7 @@
       ]
     },
   },
-  "include": ["src/**/*", "src/**/*.d.ts"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
 

@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "es2020",
+    "outDir": "./build",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

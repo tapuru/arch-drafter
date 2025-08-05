@@ -5,6 +5,7 @@
   "scripts": {
     "build": "pnpm -r run build",
     "clean": "pnpm -r run clean",
+    "dev:web-client": "pnpm --filter \"web-client\" run dev",
     "dev:api": "concurrently \"pnpm:dev:api:*\"",
     "dev:api:gateway": "pnpm --filter @bc-arch-drafter/gateway start:dev",
     "dev:api:projects": "pnpm --filter @bc-arch-drafter/projects-service start:dev",
@@ -21,12 +22,13 @@
     "test:watch": "jest --watch",
     "build:packages": "pnpm -r --filter \"./packages/*\" run build",
     "build:watch:model": "pnpm --filter \"@bc-arch-drafter/model\" run build:watch",
+    "build:watch:contracts": "pnpm --filter \"@bc-arch-drafter/contracts\" run build:watch",
     "build:watch:ui": "pnpm --filter \"@bc-arch-drafter/shared-ui\" run build:watch",
     "build:watch:lib": "pnpm --filter \"@bc-arch-drafter/lib\" run build:watch",
     "build:watch:auth": "pnpm --filter \"@bc-arch-drafter/auth\" run build:watch",
-    "web-client:dev": "pnpm --filter \"web-client\" run dev",
     "build:watch:db": "pnpm --filter \"@bc-arch-drafter/db\" run build:watch",
     "build:watch:api-config": "pnpm --filter \"@bc-arch-drafter/api-config\" run build:watch",
+    "build:watch:postgres-db": "pnpm --filter \"@bc-arch-drafter/postgres-db\" run build:watch",
     "build:watch": "concurrently \"pnpm:build:watch:*\""
   },
   "devDependencies": {

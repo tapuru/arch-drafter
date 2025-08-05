@@ -13,6 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      '@bc-arch-drafter/ui': path.resolve(__dirname, '../../packages/ui/build/src'),
     },
   },
 });

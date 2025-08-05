@@ -13,7 +13,16 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@bc-arch-drafter/ui": [
+        "../../packages/ui/build/src"
+      ],
+      "@bc-arch-drafter/ui/*": [
+        "../../packages/ui/build/src/*"
       ]
     }
-  }
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

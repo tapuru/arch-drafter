@@ -1,12 +1,26 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "moduleResolution": "node",
     "target": "es2020",
     "outDir": "./build",
+    "declaration": true,
+    "sourceMap": true,
+    "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+      "@/*": [
+        "./src/*"
+      ],
+      "@bc-arch-drafter/ui/*": [
+        "./src/*"
+      ]
+    },
+  },
+  "include": ["src/**/*", "src/**/*.d.ts"]
 }
+

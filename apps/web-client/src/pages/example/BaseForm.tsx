@@ -1,12 +1,4 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Input,
-} from '@/shared/ui/shadcn-components';
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input } from '@bc-arch-drafter/ui';
 
 export const BaseForm = () => {
   return (

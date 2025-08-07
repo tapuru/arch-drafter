@@ -1,15 +1,9 @@
 import { ConfigModule, ConfigService, Connections } from '@bc-arch-drafter/api-config';
 import { Module } from '@nestjs/common';
-import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 
-import { projects } from '../schemas/projects.schema';
-
-const schema = {
-  projects,
-};
-
-export type PostgresDb = NodePgDatabase<typeof schema>;
+import * as schema from './schema';
 
 @Module({
   providers: [

@@ -1,8 +1,9 @@
+import { ProjectSchema } from '@bc-arch-drafter/model';
 import z from 'zod';
 
 export const CreateProjectRequestSchema = z.object({
-  name: z.string().min(3).max(30),
-  ownerId: z.uuid(),
+  name: ProjectSchema.shape.name.min(3, 'min 3').max(30, 'max 10'),
+  ownerId: ProjectSchema.shape.ownerId,
 });
 export type CreateProjectRequestDto = z.infer<typeof CreateProjectRequestSchema>;
 

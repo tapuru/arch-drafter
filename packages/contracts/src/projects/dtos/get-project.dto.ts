@@ -1,7 +1,8 @@
+import { ProjectSchema } from '@bc-arch-drafter/model';
 import z from 'zod';
 
 export const GetProjectByIdRequestSchema = z.object({
-  id: z.uuid(),
+  id: ProjectSchema.shape.id,
 });
 
 export type GetProjectByIdRequestDto = z.infer<typeof GetProjectByIdRequestSchema>;

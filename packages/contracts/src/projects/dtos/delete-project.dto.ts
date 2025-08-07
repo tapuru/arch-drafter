@@ -1,7 +1,8 @@
+import { ProjectSchema } from '@bc-arch-drafter/model';
 import z from 'zod';
 
 export const DeleteProjectRequestSchema = z.object({
-  id: z.uuid(),
+  id: ProjectSchema.shape.id,
 });
 export type DeleteProjectRequestDto = z.infer<typeof DeleteProjectRequestSchema>;
 export const parseDeleteProjectRequest = (data: unknown): DeleteProjectRequestDto =>

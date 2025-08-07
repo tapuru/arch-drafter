@@ -1,9 +1,9 @@
+import { ProjectSchema } from '@bc-arch-drafter/model';
 import z from 'zod';
 
 export const UpdateProjectRequestSchema = z.object({
-  name: z.string().min(3).max(30),
-  //TODO: type for canvasJson
-  canvasJson: z.record(z.string(), z.any()),
+  name: ProjectSchema.shape.name.min(3, 'min 3').max(30, 'max 10'),
+  canvasJson: ProjectSchema.shape.canvasJson,
 });
 export type UpdateProjectRequestDto = z.infer<typeof UpdateProjectRequestSchema>;
 export const parseUpdateProjectRequest = (data: unknown) => UpdateProjectRequestSchema.parse(data);

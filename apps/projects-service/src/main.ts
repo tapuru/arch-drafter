@@ -1,11 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions } from '@nestjs/microservices';
-import {
-  ConfigService,
-  DEFAULT_CONFIG,
-  Microservice,
-} from '@bc-arch-drafter/api-config';
+import { ConfigService, DEFAULT_CONFIG, Microservice } from '@bc-arch-drafter/api-config';
 import { config } from 'dotenv';
 import { resolve } from 'path';
 
@@ -19,10 +15,7 @@ async function bootstrap() {
 
   const options = configService.get().services[Microservice.PROJECTS];
 
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    options,
-  );
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, options);
   await app.listen();
 }
 bootstrap();

@@ -10,8 +10,8 @@ type GetProjectById = (data: GetProjectByIdRequestDto) => Promise<ProjectRespons
 type DeleteProject = (data: DeleteProjectRequestDto) => Promise<DeleteProjectResponseDto>;
 
 export interface ProjectsApi {
-  createProject: CreateProject;
-  updateProject: UpdateProject;
+  // createProject: CreateProject;
+  // updateProject: UpdateProject;
   getProjectById: GetProjectById;
-  deleteProject: DeleteProject;
+  // deleteProject: DeleteProject;
 }

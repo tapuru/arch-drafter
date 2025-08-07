@@ -10,7 +10,7 @@ export type DeleteProject = (id: ProjectId) => Promise<{ success: boolean }>;
 
 export interface ProjectsService {
   getProjectById: GetProjectById;
-  createProject: CreateProject;
-  updateProject: UpdateProject;
-  deleteProject: DeleteProject;
+  // createProject: CreateProject;
+  // updateProject: UpdateProject;
+  // deleteProject: DeleteProject;
 }

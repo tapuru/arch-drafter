@@ -14,7 +14,7 @@ export const parseProjectName = (data: unknown) => ProjectNameSchema.parse(data)
 export const isProjectName = (data: unknown): data is ProjectName => ProjectNameSchema.safeParse(data).success;
 
 //TODO: write canvasJson type
-export const CanvasJsonSchema = z.record(z.string(), z.any());
+export const CanvasJsonSchema = z.record(z.any(), z.any());
 export type CanvasJson = z.infer<typeof CanvasJsonSchema>;
 export const parseCanvasJson = (data: unknown) => CanvasJsonSchema.parse(data);
 export const isCanvasJson = (data: unknown): data is CanvasJson => CanvasJsonSchema.safeParse(data).success;
@@ -23,7 +23,7 @@ export const ProjectSchema = z.object({
   id: ProjectIdSchema,
   name: ProjectNameSchema,
   ownerId: UserSchema.shape.id,
-  canvasJson: CanvasJsonSchema,
+  canvasJson: CanvasJsonSchema.nullable(),
   createdAt: IsoDateSchema,
   updatedAt: IsoDateSchema,
   deletedAt: NullableIsoDateSchema,

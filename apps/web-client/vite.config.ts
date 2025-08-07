@@ -9,9 +9,10 @@ export default defineConfig({
     react(),
   ],
   resolve: {
+    preserveSymlinks: true,
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      '@bc-arch-drafter/ui': path.resolve(__dirname, '../../packages/ui/build/src'),
+      '@bc-arch-drafter/ui': path.resolve(__dirname, '../../packages/ui/build'),
     },
   },
 });

@@ -1,7 +1,11 @@
+import { BaseForm } from '@/pages/example';
+
 import './App.css';
 
 function App() {
-  return <div className="text-red-600">hello</div>;
+  return (
+    <BaseForm />
+  );
 }
 
 export default App;

@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "module": "esnext",
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -11,18 +9,8 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "composite": true,
-    "incremental": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "paths": {
-      "@bc-arch-drafter/*": [
-        "packages/*/src"
-      ]
-    }
+    "experimentalDecorators": true
   },
-  "exclude": [
-    "node_modules",
-    "*/build/**"
-  ]
+  "exclude": ["node_modules", "*/build/**"]
 }

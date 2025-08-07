@@ -1,15 +1,16 @@
 packages:
-  - "apps/web-client"
-  - "apps/landing"
-  - "apps/export-service"
-  - "apps/projects-service"
-  - "apps/sessions-service"
-  - "apps/storage-service"
-  - "apps/users-service"
-  - "apps/gateway"
-  - "packages/lib"
-  - "packages/model"
-  - "packages/ui"
-  - "packages/auth"
-  - "packages/db"
-  - "packages/api-config"
+  - 'apps/web-client'
+  - 'apps/landing'
+  - 'apps/export-service'
+  - 'apps/projects-service'
+  - 'apps/sessions-service'
+  - 'apps/storage-service'
+  - 'apps/users-service'
+  - 'apps/gateway'
+  - 'packages/lib'
+  - 'packages/model'
+  - 'packages/ui'
+  # - "packages/auth"
+  - 'packages/db'
+  - 'packages/api-config'
+  - 'packages/postgres-db'

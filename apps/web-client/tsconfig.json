@@ -15,10 +15,10 @@
         "./src/*"
       ],
       "@bc-arch-drafter/ui": [
-        "../../packages/ui/build/src"
+        "../../packages/ui/build/"
       ],
       "@bc-arch-drafter/ui/*": [
-        "../../packages/ui/build/src/*"
+        "../../packages/ui/build/*"
       ]
     }
   },

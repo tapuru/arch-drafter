@@ -44,6 +44,7 @@ export default [
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/no-null': 'off',
       'unicorn/prefer-top-level-await': 'off',
+      'unicorn/prefer-number-properties': 'off',
       'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'ignore', propElementValues: 'always' }],
       'perfectionist/sort-imports': [
         'error',

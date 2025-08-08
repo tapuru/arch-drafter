@@ -14,3 +14,4 @@ packages:
   - 'packages/db'
   - 'packages/api-config'
   - 'packages/postgres-db'
+  - 'packages/contracts'

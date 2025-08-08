@@ -10,6 +10,7 @@
     "emitDeclarationOnly": false,
     "composite": false,
     "incremental": false,
+    "experimentalDecorators": true,
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -2,15 +2,20 @@
   "name": "@bc-arch-drafter/lib",
   "version": "0.0.1",
   "type": "module",
+  "main": "./build/index.cjs",
+  "exports": {
+    "require": "./build/index.cjs",
+    "import": "./build/index.js"
+  },
   "scripts": {
     "clean": "rm -rf build",
-    "build": "tsc && tsc-alias",
-    "build:watch": "concurrently \"tsc -w\" \"tsc-alias -w\"",
+    "build": "tsup",
+    "build:watch": "tsup --watch",
     "lint": "eslint --cache ."
   },
-  "exports": {
-    "types": "./build/src/index.d.ts",
-    "default": "./build/src/index.js"
-  },
-  "dependencies": {}
+  "dependencies": {
+    "@bc-arch-drafter/contracts": "workspace:*",
+    "@nestjs/microservices": "^11.1.5",
+    "rxjs": "^7.8.2"
+  }
 }

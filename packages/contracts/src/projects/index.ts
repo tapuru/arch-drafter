@@ -5,3 +5,4 @@ export * from './dtos/get-project.dto';
 export * from './dtos/project-response.dto';
 
 export * from './projects-api.interface';
+export type { ProjectsActions } from './actions.type';

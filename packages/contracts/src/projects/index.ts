@@ -5,5 +5,4 @@ export * from './dtos/get-project.dto';
 export * from './dtos/project-response.dto';
 
 export * from './projects-api.interface';
-
-export { PROJECTS_MESSAGE_PATTERNS } from './message-patterns.const';
+export type { ProjectsActions } from './actions.type';

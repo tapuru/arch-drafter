@@ -5,23 +5,18 @@
   "scripts": {
     "clean": "rm -rf build",
     "build": "tsup",
+    "build:watch": "tsup --watch",
     "lint": "eslint --cache ."
   },
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
       "import": "./build/index.js"
-    },
-    "./styles/global.css": {
-      "types": "./build/styles/global.css.d.ts",
-      "import": "./build/styles/global.css"
-    },
-    "./package.json": "./package.json"
+    }
   },
   "files": [
     "build"
   ],
-  "style": "build/src/styles/index.css",
   "peerDependencies": {
     "@radix-ui/primitive": "^1.0.0",
     "@radix-ui/react-compose-refs": "^1.0.0",

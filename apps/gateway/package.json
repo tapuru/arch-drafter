@@ -23,6 +23,7 @@
     "@bc-arch-drafter/api-config": "workspace:*",
     "@bc-arch-drafter/contracts": "workspace:*",
     "@bc-arch-drafter/model": "workspace:*",
+    "@bc-arch-drafter/lib": "workspace:*",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/microservices": "^11.1.5",

@@ -1,10 +1,15 @@
 import { Microservice } from '@bc-arch-drafter/api-config';
-import { API_ROUTES, GetProjectByIdRequestDto, ProjectResponseDto } from '@bc-arch-drafter/contracts';
+import {
+  API_ROUTES,
+  CreateProjectRequestDto,
+  DeleteProjectResponseDto,
+  ProjectResponseDto,
+  UpdateProjectRequestDto,
+} from '@bc-arch-drafter/contracts';
 import { sendMessage } from '@bc-arch-drafter/lib';
 import { parseProjectId } from '@bc-arch-drafter/model';
-import { BadRequestException, Controller, Get, Inject, Param } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { lastValueFrom } from 'rxjs';
 
 @Controller(API_ROUTES.PROJECTS)
 export class ProjectsController {
@@ -13,9 +18,55 @@ export class ProjectsController {
   @Get('/:id')
   async getProjectById(@Param('id') id: string): Promise<ProjectResponseDto> {
     try {
-      const res = sendMessage({
+      const res = await sendMessage({
         client: this.client,
         pattern: { cmd: 'projects.get-by-id' },
+        payload: { id: parseProjectId(id) },
+      });
+      return res;
+    } catch (error) {
+      throw new BadRequestException(JSON.stringify(error));
+    }
+  }
+
+  @Post()
+  async createProject(@Body() data: CreateProjectRequestDto): Promise<ProjectResponseDto> {
+    try {
+      const res = await sendMessage({
+        client: this.client,
+        pattern: { cmd: 'projects.create' },
+        payload: data,
+      });
+      return res;
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException(JSON.stringify(error));
+    }
+  }
+
+  @Put('/:id')
+  async updateProject(
+    @Param('id') id: string,
+    @Body() data: UpdateProjectRequestDto['data'],
+  ): Promise<ProjectResponseDto> {
+    try {
+      const res = await sendMessage({
+        client: this.client,
+        pattern: { cmd: 'projects.update' },
+        payload: { id: parseProjectId(id), data },
+      });
+      return res;
+    } catch (error) {
+      throw new BadRequestException(JSON.stringify(error));
+    }
+  }
+
+  @Delete('/:id')
+  async deleteProject(@Param('id') id: string): Promise<DeleteProjectResponseDto> {
+    try {
+      const res = await sendMessage({
+        client: this.client,
+        pattern: { cmd: 'projects.delete' },
         payload: { id: parseProjectId(id) },
       });
       return res;

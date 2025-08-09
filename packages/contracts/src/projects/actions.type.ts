@@ -17,7 +17,7 @@ export type ProjectsActions = {
     request: UpdateProjectRequestDto;
     response: ProjectResponseDto;
   };
-  'project.delete': {
+  'projects.delete': {
     request: DeleteProjectRequestDto;
     response: DeleteProjectResponseDto;
   };

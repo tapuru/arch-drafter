@@ -8,7 +8,10 @@ export type ProjectId = z.infer<typeof ProjectIdSchema>;
 export const parseProjectId = (data: unknown) => ProjectIdSchema.parse(data);
 export const isProjectId = (data: unknown): data is ProjectId => ProjectIdSchema.safeParse(data).success;
 
-export const ProjectNameSchema = z.string().min(3).max(30);
+export const ProjectNameSchema = z
+  .string({ error: 'Project name must be a string' })
+  .min(3, 'Project name must be a least 3 characters long')
+  .max(30, 'Project name must be shorter than 30 characters');
 export type ProjectName = z.infer<typeof ProjectNameSchema>;
 export const parseProjectName = (data: unknown) => ProjectNameSchema.parse(data);
 export const isProjectName = (data: unknown): data is ProjectName => ProjectNameSchema.safeParse(data).success;

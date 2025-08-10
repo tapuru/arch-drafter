@@ -1,15 +1,73 @@
-import { GetProjectByIdRequestDto, ProjectsApi } from '@bc-arch-drafter/contracts';
-import { Controller, Get } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import {
+  CreateProjectRequestDto,
+  CreateProjectRequestSchema,
+  DeleteProjectRequestDto,
+  DeleteProjectResponseDto,
+  GetProjectByIdRequestDto,
+  parseCreateProjectRequest,
+  parseDeleteProjectRequest,
+  parseProjectResponse,
+  parseUpdateProjectRequest,
+  ProjectsApi,
+  UpdateProjectRequestDto,
+} from '@bc-arch-drafter/contracts';
+import { ZodValidationPipe } from '@bc-arch-drafter/lib';
+import { Controller, UsePipes } from '@nestjs/common';
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 
 import { ProjectsServiceImpl } from './projects.service';
 
+//TODO: add strict typing
 @Controller()
 export class ProjectsController implements ProjectsApi {
   constructor(private readonly projectsService: ProjectsServiceImpl) {}
 
   @MessagePattern({ cmd: 'projects.get-by-id' })
-  getProjectById(@Payload() { id }: GetProjectByIdRequestDto) {
-    return this.projectsService.getProjectById(id);
+  async getProjectById(@Payload() { id }: GetProjectByIdRequestDto) {
+    try {
+      const project = await this.projectsService.getProjectById(id);
+      return parseProjectResponse(project);
+    } catch (error) {
+      throw new RpcException(JSON.stringify(error));
+    }
+  }
+
+  @UsePipes(new ZodValidationPipe(CreateProjectRequestSchema, (payload) => new RpcException(payload)))
+  @MessagePattern({ cmd: 'projects.create' })
+  async createProject(@Payload() payload: CreateProjectRequestDto) {
+    try {
+      const data = parseCreateProjectRequest(payload);
+      const project = await this.projectsService.createProject(data);
+      const res = parseProjectResponse(project);
+
+      return res;
+    } catch (error) {
+      console.log(error);
+      throw new RpcException(JSON.stringify(error));
+    }
+  }
+
+  @MessagePattern({ cmd: 'projects.update' })
+  async updateProject(@Payload() payload: UpdateProjectRequestDto) {
+    try {
+      //TODO: use decorator
+      const { id, data } = parseUpdateProjectRequest(payload);
+      const project = await this.projectsService.updateProject(id, data);
+      return parseProjectResponse(project);
+    } catch (error) {
+      throw new RpcException(JSON.stringify(error));
+    }
+  }
+
+  @MessagePattern({ cmd: 'projects.delete' })
+  async deleteProject(@Payload() payload: DeleteProjectRequestDto): Promise<DeleteProjectResponseDto> {
+    try {
+      //TODO: use decorator
+      const { id } = parseDeleteProjectRequest(payload);
+      const res = await this.projectsService.deleteProject(id);
+      return res;
+    } catch (error) {
+      throw new RpcException(JSON.stringify(error));
+    }
   }
 }

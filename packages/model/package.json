@@ -9,9 +9,12 @@
   },
   "type": "module",
   "main": "./build/index.cjs",
+  "types": "./build/index.d.ts",
   "exports": {
-    "require": "./build/index.cjs",
-    "import": "./build/index.js"
+    ".": {
+      "require": "./build/index.cjs",
+      "import": "./build/index.js"
+    }
   },
   "dependencies": {
     "zod": "^4.0.13"

@@ -1,1 +1,2 @@
-export * from './shared-custom-types.schema';
+export * from './custom-types.schema';
+export * from './columns.schema';

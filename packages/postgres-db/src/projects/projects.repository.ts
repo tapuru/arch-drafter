@@ -1,5 +1,5 @@
 import { Connections } from '@bc-arch-drafter/api-config';
-import { Project, ProjectId } from '@bc-arch-drafter/model';
+import { Project, ProjectId, ProjectsService } from '@bc-arch-drafter/model';
 import { Inject, Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
@@ -22,5 +22,19 @@ export class ProjectsRepository {
   async create(data: Pick<Project, 'name' | 'ownerId'>) {
     const [project] = await this.db.insert(projects).values(data).returning();
     return project;
+  }
+
+  async update(id: ProjectId, data: Parameters<ProjectsService['updateProject']>[1]) {
+    await this.db.update(projects).set(data).where(eq(projects.id, id));
+    return this.db
+      .select()
+      .from(projects)
+      .where(eq(projects.id, id))
+      .limit(1)
+      .then((rows) => rows[0]);
+  }
+
+  async delete(id: ProjectId) {
+    await this.db.update(projects).set({ deletedAt: new Date().toISOString() });
   }
 }

@@ -11,5 +11,8 @@ export const sendMessage = async <TAction extends keyof AppActions>({
   pattern: { cmd: TAction };
   payload: AppActions[TAction]['request'];
 }): Promise<AppActions[TAction]['response']> => {
-  return lastValueFrom(client.send<AppActions[TAction]['response'], AppActions[TAction]['request']>(pattern, payload));
+  const res = await lastValueFrom(
+    client.send<AppActions[TAction]['response'], AppActions[TAction]['request']>(pattern, payload),
+  );
+  return res;
 };

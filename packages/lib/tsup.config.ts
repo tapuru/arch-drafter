@@ -1,5 +1,5 @@
 import { baseTsupConfig } from '../../tsup.base';
 
 export default baseTsupConfig({
-  external: ['zod'],
+  external: ['zod', '@nestjs/microservices', '@nestjs/common', 'rxjs'],
 });

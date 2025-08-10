@@ -9,6 +9,7 @@
   },
   "type": "module",
   "main": "./build/index.cjs",
+  "types": "./build/index.d.ts",
   "exports": {
     "require": "./build/index.cjs",
     "import": "./build/index.js"

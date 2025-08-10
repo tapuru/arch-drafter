@@ -5,7 +5,7 @@ export const UpdateProjectRequestSchema = z.object({
   id: ProjectSchema.shape.id,
   data: z
     .object({
-      name: ProjectSchema.shape.name.min(3, 'min 3').max(30, 'max 10'),
+      name: ProjectSchema.shape.name,
       ownerId: UserSchema.shape.id,
       canvasJson: ProjectSchema.shape.canvasJson,
     })

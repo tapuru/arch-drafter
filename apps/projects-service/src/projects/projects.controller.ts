@@ -1,5 +1,6 @@
 import {
   CreateProjectRequestDto,
+  CreateProjectRequestSchema,
   DeleteProjectRequestDto,
   DeleteProjectResponseDto,
   GetProjectByIdRequestDto,
@@ -10,7 +11,8 @@ import {
   ProjectsApi,
   UpdateProjectRequestDto,
 } from '@bc-arch-drafter/contracts';
-import { Controller } from '@nestjs/common';
+import { ZodValidationPipe } from '@bc-arch-drafter/lib';
+import { Controller, UsePipes } from '@nestjs/common';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 
 import { ProjectsServiceImpl } from './projects.service';
@@ -30,10 +32,10 @@ export class ProjectsController implements ProjectsApi {
     }
   }
 
+  @UsePipes(new ZodValidationPipe(CreateProjectRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: 'projects.create' })
   async createProject(@Payload() payload: CreateProjectRequestDto) {
     try {
-      //TODO: use decorator
       const data = parseCreateProjectRequest(payload);
       const project = await this.projectsService.createProject(data);
       const res = parseProjectResponse(project);

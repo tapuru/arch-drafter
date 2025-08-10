@@ -2,11 +2,13 @@ import { Microservice } from '@bc-arch-drafter/api-config';
 import {
   API_ROUTES,
   CreateProjectRequestDto,
+  CreateProjectRequestSchema,
   DeleteProjectResponseDto,
   ProjectResponseDto,
   UpdateProjectRequestDto,
+  UpdateProjectRequestSchema,
 } from '@bc-arch-drafter/contracts';
-import { sendMessage } from '@bc-arch-drafter/lib';
+import { sendMessage, ZodValidationPipe } from '@bc-arch-drafter/lib';
 import { parseProjectId } from '@bc-arch-drafter/model';
 import { BadRequestException, Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -30,7 +32,9 @@ export class ProjectsController {
   }
 
   @Post()
-  async createProject(@Body() data: CreateProjectRequestDto): Promise<ProjectResponseDto> {
+  async createProject(
+    @Body(new ZodValidationPipe(CreateProjectRequestSchema)) data: CreateProjectRequestDto,
+  ): Promise<ProjectResponseDto> {
     try {
       const res = await sendMessage({
         client: this.client,
@@ -39,7 +43,6 @@ export class ProjectsController {
       });
       return res;
     } catch (error) {
-      console.log(error);
       throw new BadRequestException(JSON.stringify(error));
     }
   }
@@ -47,7 +50,7 @@ export class ProjectsController {
   @Put('/:id')
   async updateProject(
     @Param('id') id: string,
-    @Body() data: UpdateProjectRequestDto['data'],
+    @Body(new ZodValidationPipe(UpdateProjectRequestSchema.shape.data)) data: UpdateProjectRequestDto['data'],
   ): Promise<ProjectResponseDto> {
     try {
       const res = await sendMessage({

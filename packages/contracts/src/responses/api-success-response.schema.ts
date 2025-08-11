@@ -4,6 +4,7 @@ export const ApiSuccessResponseSchema = <T extends z.ZodTypeAny>(data: T) =>
   z.object({
     success: z.literal(true),
     data: data,
+    status: z.number().optional(),
   });
 export type ApiSuccessResponse<T extends z.ZodTypeAny> = z.infer<ReturnType<typeof ApiSuccessResponseSchema<T>>>;
 

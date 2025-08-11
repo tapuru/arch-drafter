@@ -1,4 +1,5 @@
-import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
+import { AppHttpException } from '@/exceptions';
+import { BadRequestException, HttpStatus, Injectable, PipeTransform } from '@nestjs/common';
 import z from 'zod';
 
 @Injectable()
@@ -9,7 +10,8 @@ export class ZodValidationPipe implements PipeTransform {
     private schema: z.ZodTypeAny,
     exceptionFactory?: (payload: any) => unknown,
   ) {
-    this.exceptionFactory = exceptionFactory ?? ((payload: any) => new BadRequestException(payload));
+    this.exceptionFactory =
+      exceptionFactory ?? ((payload: any) => new AppHttpException(payload.errors, HttpStatus.BAD_REQUEST));
   }
 
   transform(value: unknown) {

@@ -1,18 +1,10 @@
-import z, { success } from 'zod';
+import { z } from 'zod';
 
-import { ApiErrorSchema } from './api-error.schema';
+import { ApiErrorResponseSchema } from './api-error-response.schema';
+import { ApiSuccessResponseSchema } from './api-success-response.schema';
 
 export const ApiResponseSchema = <T extends z.ZodTypeAny>(data: T) =>
-  z.discriminatedUnion('success', [
-    z.object({
-      success: z.literal(false),
-      data: data,
-    }),
-    z.object({
-      success: z.literal(false),
-      errors: z.array(ApiErrorSchema),
-    }),
-  ]);
+  z.discriminatedUnion('success', [ApiSuccessResponseSchema(data), ApiErrorResponseSchema]);
 
 export type ApiResponse<T extends z.ZodTypeAny> = z.infer<ReturnType<typeof ApiResponseSchema<T>>>;
 

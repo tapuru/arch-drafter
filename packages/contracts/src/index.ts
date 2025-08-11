@@ -1,4 +1,4 @@
-export * from '@/shared';
+export * from '@/responses';
 export * from '@/routes';
 export * from '@/projects';
 

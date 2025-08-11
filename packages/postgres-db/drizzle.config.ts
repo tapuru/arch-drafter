@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import { defineConfig } from 'drizzle-kit';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 

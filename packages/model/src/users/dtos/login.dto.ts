@@ -1,16 +1,16 @@
-import z from "zod";
-import { UserSchema } from "../schemas/user.schema";
-import { JwtTokenSchema } from "../schemas/jwt.schema";
+import z from 'zod';
 
-export const PasswordSchema = z.string().min(6).max(30);
+import { JwtTokenSchema, PasswordSchema, EmailSchema } from '@/users';
 
 export const LoginRequestSchema = z.object({
   password: PasswordSchema,
-  email: UserSchema.shape.email,
+  email: EmailSchema,
 });
+
 export type LoginRequestDto = z.infer<typeof LoginRequestSchema>;
 
 export const LoginResponseSchema = z.object({
   accessToken: JwtTokenSchema,
 });
+
 export type LoginResponseDto = z.infer<typeof LoginResponseSchema>;

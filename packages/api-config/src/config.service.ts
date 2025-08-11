@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Microservice } from '@/lib/microservices.enum';
-import { MicroserviceConfig, PostgresConfig } from '@/lib/config.type';
-import type { ConfigData } from '@/lib/config.type';
-import { DEFAULT_CONFIG } from './lib/default-config.const';
 import { Transport } from '@nestjs/microservices';
+
+import type { ConfigData } from '@/lib/config.type';
+
+import { MicroserviceConfig, PostgresConfig } from '@/lib/config.type';
+import { Microservice } from '@/lib/microservices.enum';
+
+import { DEFAULT_CONFIG } from './lib/default-config.const';
 
 @Injectable()
 export class ConfigService {

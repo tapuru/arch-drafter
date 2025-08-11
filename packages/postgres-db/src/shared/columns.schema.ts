@@ -3,17 +3,17 @@ import { uuid } from 'drizzle-orm/pg-core';
 
 import { ctIsoDate, ctNullableIsoDate } from './custom-types.schema';
 
-export const primaryKeyColumn = <T>() => uuid().$type<T>().primaryKey().defaultRandom();
+export const primaryKeyColumn = <T>(name: string) => uuid(name).$type<T>().primaryKey().defaultRandom();
 
-export const createdAtColumn = () =>
-  ctIsoDate()
+export const createdAtColumn = (name: string) =>
+  ctIsoDate(name)
     .default(sql`now()`)
     .notNull();
 
-export const updatedAtColumn = () =>
-  ctIsoDate()
+export const updatedAtColumn = (name: string) =>
+  ctIsoDate(name)
     .default(sql`now()`)
     .$onUpdate(() => new Date().toISOString())
     .notNull();
 
-export const deletedAtColumn = () => ctNullableIsoDate();
+export const deletedAtColumn = (name: string) => ctNullableIsoDate(name);

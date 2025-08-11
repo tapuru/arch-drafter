@@ -1,4 +1,4 @@
-import { MethodFromAction } from '@/shared';
+import { MethodFromAction } from '@/utils';
 
 import { ProjectsActions } from './actions.type';
 

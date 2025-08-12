@@ -1,4 +1,4 @@
 export { ctUserId } from './users-custom-types';
 
-export { users } from './users.schema';
-export { tokens } from './token.schema';
+export { users, userRole } from './users.schema';
+export { tokens, tokenType } from './token.schema';

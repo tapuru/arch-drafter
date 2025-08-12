@@ -10,7 +10,7 @@ export const isProjectId = (data: unknown): data is ProjectId => ProjectIdSchema
 
 export const ProjectNameSchema = z
   .string({ error: 'Project name must be a string' })
-  .min(3, 'Project name must be a least 3 characters long')
+  .min(3, 'Project name must be least 3 characters long')
   .max(30, 'Project name must be shorter than 30 characters');
 export type ProjectName = z.infer<typeof ProjectNameSchema>;
 export const parseProjectName = (data: unknown) => ProjectNameSchema.parse(data);

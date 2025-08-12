@@ -4,11 +4,11 @@ import { jsonb, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { createdAtColumn, deletedAtColumn, primaryKeyColumn, updatedAtColumn } from '@/shared';
 
 export const projects = pgTable('projects', {
-  id: primaryKeyColumn<ProjectId>(),
-  name: text().$type<ProjectName>().notNull(),
-  canvasJson: jsonb().$type<CanvasJson>(),
-  ownerId: uuid().$type<UserId>().notNull(),
-  createdAt: createdAtColumn(),
-  updatedAt: updatedAtColumn(),
-  deletedAt: deletedAtColumn(),
+  id: primaryKeyColumn<ProjectId>('id'),
+  name: text('name').$type<ProjectName>().notNull(),
+  canvasJson: jsonb('canvas_json').$type<CanvasJson>(),
+  ownerId: uuid('owner_id').$type<UserId>().notNull(),
+  createdAt: createdAtColumn('created_at'),
+  updatedAt: updatedAtColumn('updated_at'),
+  deletedAt: deletedAtColumn('deleted_at'),
 });

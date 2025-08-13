@@ -20,7 +20,7 @@
       "@bc-arch-drafter/ui/*": [
         "../../packages/ui/build/*"
       ]
-    }
+    },
   },
   "include": [
     "src/**/*"

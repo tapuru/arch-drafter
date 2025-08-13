@@ -1,10 +1,12 @@
-import { BaseForm } from '@/pages/example';
-
 import './App.css';
+
+import { AppRouter } from './providers/router';
 
 function App() {
   return (
-    <BaseForm />
+    <>
+      <AppRouter />
+    </>
   );
 }
 

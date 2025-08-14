@@ -2,6 +2,9 @@ import { UserId, Email, Password, UserName, UserGlobalRole, UserGlobalRoleSchema
 import { boolean, pgEnum, pgTable, varchar } from 'drizzle-orm/pg-core';
 
 import { createdAtColumn, primaryKeyColumn, updatedAtColumn } from '@/shared';
+import { relations } from 'drizzle-orm';
+import { invites } from '@/invites';
+import { memberships } from '@/memberships';
 
 export const userRole = pgEnum('role_enum', [UserGlobalRoleSchema.enum.admin, UserGlobalRoleSchema.enum.user]);
 
@@ -16,3 +19,9 @@ export const users = pgTable('users', {
   createdAt: createdAtColumn('created_at'),
   updatedAt: updatedAtColumn('updated_at'),
 });
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  sentInvites: many(invites, { relationName: 'user' }),
+  invites: many(invites, { relationName: 'sender' }),
+  memberships: many(memberships),
+}));

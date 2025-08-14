@@ -1,10 +1,10 @@
 import { Connections } from '@bc-arch-drafter/api-config';
-import { Membership, MemebershipId, ProjectId, UserId, UserProjectRole } from '@bc-arch-drafter/model';
+import { Membership, MemebershipId, ProjectId, UserId, UserProjectRole, SortDirection } from '@bc-arch-drafter/model';
 import { Inject, Injectable } from '@nestjs/common';
 import { and, count, eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
-import { buildOrderBy, DEFAULT_PAGE_SIZE } from '@/shared';
+import { buildOrderBy, DEFAULT_PAGE_SIZE, GetAllOptions } from '@/shared';
 
 import { memberships, membershipsRelations } from './memberships.schema';
 
@@ -28,14 +28,16 @@ export class MembershipsRepository {
     return membership;
   }
 
-  async getAll(options?: {
-    relations?: MembershipsRelations;
-    filters?: { projectId?: ProjectId; userId?: UserId; role?: UserProjectRole };
-    sortBy?: keyof Pick<typeof memberships, 'joinedAt' | 'role'>;
-    sortDirection?: 'DESC' | 'ASC';
-    page?: number;
-    pageSize?: number;
-  }) {
+  async getAll(
+    options?: GetAllOptions<
+      typeof memberships,
+      {
+        filters: { projectId?: ProjectId; userId?: UserId; role?: UserProjectRole };
+        relations: MembershipsRelations;
+        sortBy: 'joinedAt' | 'role';
+      }
+    >,
+  ) {
     const conditions = [];
     if (options?.filters?.projectId) conditions.push(eq(memberships.projectId, options.filters.projectId));
     if (options?.filters?.userId) conditions.push(eq(memberships.userId, options.filters.userId));

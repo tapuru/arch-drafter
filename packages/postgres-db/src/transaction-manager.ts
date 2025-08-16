@@ -2,10 +2,10 @@ import { Connections } from '@bc-arch-drafter/api-config';
 import { Inject, Injectable } from '@nestjs/common';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
-import * as schema from '@/config/schema';
-import { ProjectsRepository } from '@/projects';
-import { MembershipsRepository } from '@/memberships';
 import { InvitesRepository } from '@/invites';
+import { MembershipsRepository } from '@/memberships';
+import { ProjectsRepository } from '@/projects';
+import * as schema from '@/schema';
 
 type UnitOfWork = {
   projects: ProjectsRepository;

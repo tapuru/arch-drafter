@@ -4,10 +4,14 @@ import { Inject, Injectable } from '@nestjs/common';
 import { and, count, eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
-import * as schema from '@/config/schema';
 import { buildOrderBy, DEFAULT_PAGE_SIZE, GetAllOptions } from '@/shared';
 
 import { memberships, membershipsRelations } from './memberships.schema';
+
+const schema = {
+  memberships,
+  membershipsRelations,
+};
 
 //TODO: figure out a better way to type relations
 type MembershipsRelations = { project?: true; user?: true };
@@ -18,7 +22,7 @@ export class MembershipsRepository {
 
   async getById(id: MemebershipId, options?: { relations?: MembershipsRelations }) {
     const membership = await this.db.query.memberships.findFirst({
-      where: eq(memberships.id, id),
+      where: eq(schema.memberships.id, id),
       with: options?.relations,
     });
     return membership;
@@ -26,7 +30,7 @@ export class MembershipsRepository {
 
   async getAll(
     options?: GetAllOptions<
-      typeof memberships,
+      typeof schema.memberships,
       {
         filters: { projectId?: ProjectId; userId?: UserId; role?: UserProjectRole };
         relations: MembershipsRelations;
@@ -35,9 +39,9 @@ export class MembershipsRepository {
     >,
   ) {
     const conditions = [];
-    if (options?.filters?.projectId) conditions.push(eq(memberships.projectId, options.filters.projectId));
-    if (options?.filters?.userId) conditions.push(eq(memberships.userId, options.filters.userId));
-    if (options?.filters?.role) conditions.push(eq(memberships.role, options.filters.role));
+    if (options?.filters?.projectId) conditions.push(eq(schema.memberships.projectId, options.filters.projectId));
+    if (options?.filters?.userId) conditions.push(eq(schema.memberships.userId, options.filters.userId));
+    if (options?.filters?.role) conditions.push(eq(schema.memberships.role, options.filters.role));
 
     const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
@@ -49,13 +53,13 @@ export class MembershipsRepository {
       this.db.query.memberships.findMany({
         where: whereClause,
         with: options?.relations,
-        orderBy: buildOrderBy(memberships, options?.sortBy, options?.sortDirection),
+        orderBy: buildOrderBy(schema.memberships, options?.sortBy, options?.sortDirection),
         limit: pageSize,
         offset,
       }),
       this.db
         .select({ value: count() })
-        .from(memberships)
+        .from(schema.memberships)
         .where(whereClause)
         .then((res) => res[0]?.value ?? 0),
     ]);
@@ -63,12 +67,16 @@ export class MembershipsRepository {
   }
 
   async create(data: { userId: UserId; projectId: ProjectId; role: UserProjectRole }) {
-    const [membership] = await this.db.insert(memberships).values(data).returning();
+    const [membership] = await this.db.insert(schema.memberships).values(data).returning();
     return membership;
   }
 
   async update(id: MemebershipId, data: Partial<Omit<Membership, 'id'>>) {
-    const [updated] = await this.db.update(memberships).set(data).where(eq(memberships.id, id)).returning();
+    const [updated] = await this.db
+      .update(schema.memberships)
+      .set(data)
+      .where(eq(schema.memberships.id, id))
+      .returning();
     return updated ?? null;
   }
 }

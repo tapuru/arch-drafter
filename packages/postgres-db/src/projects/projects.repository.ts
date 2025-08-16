@@ -4,11 +4,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
-import { projects } from './projects.schema';
+import * as schema from '@/config/schema';
 
-const schema = {
-  projects,
-};
+import { projects } from './projects.schema';
 
 @Injectable()
 export class ProjectsRepository {

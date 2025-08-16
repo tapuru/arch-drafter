@@ -4,14 +4,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { and, count, eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
+import * as schema from '@/config/schema';
 import { buildOrderBy, DEFAULT_PAGE_SIZE, GetAllOptions } from '@/shared';
 
 import { memberships, membershipsRelations } from './memberships.schema';
-
-const schema = {
-  memberships,
-  membershipsRelations,
-};
 
 //TODO: figure out a better way to type relations
 type MembershipsRelations = { project?: true; user?: true };

@@ -1,11 +1,11 @@
 import { Connections } from '@bc-arch-drafter/api-config';
 import { Inject, Injectable } from '@nestjs/common';
-import { NodePgDatabase } from 'drizzle-orm/node-postgres';
+
+import type { Database } from '@/shared';
 
 import { InvitesRepository } from '@/invites';
 import { MembershipsRepository } from '@/memberships';
 import { ProjectsRepository } from '@/projects';
-import * as schema from '@/schema';
 
 type UnitOfWork = {
   projects: ProjectsRepository;
@@ -15,7 +15,7 @@ type UnitOfWork = {
 
 @Injectable()
 export class TransactionManager {
-  constructor(@Inject(Connections.POSTGRES) private readonly db: NodePgDatabase<typeof schema>) {}
+  constructor(@Inject(Connections.POSTGRES) private readonly db: Database) {}
 
   async runInTransaction<T>(fn: (uow: UnitOfWork) => Promise<T>): Promise<T> {
     return this.db.transaction(async (tx) => {

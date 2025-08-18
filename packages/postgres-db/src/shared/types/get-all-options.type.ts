@@ -9,7 +9,7 @@ export type GetAllOptions<
     relations?: Record<string, any>;
   },
 > = {
-  relations: TOptions['relations'];
+  relations?: TOptions['relations'];
   filters?: TOptions['filters'];
   sortDirection?: SortDirection;
   sortBy?: TOptions['sortBy'];

@@ -1,11 +1,14 @@
 import { AppRpcException } from '@bc-arch-drafter/lib';
-import { Project, ProjectId, ProjectsService } from '@bc-arch-drafter/model';
-import { ProjectsRepository } from '@bc-arch-drafter/postgres-db';
+import { Project, ProjectId, ProjectsService, UserProjectRoleSchema } from '@bc-arch-drafter/model';
+import { ProjectsRepository, TransactionManager } from '@bc-arch-drafter/postgres-db';
 import { HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ProjectsServiceImpl implements ProjectsService {
-  constructor(private readonly projectsRepository: ProjectsRepository) {}
+  constructor(
+    private readonly projectsRepository: ProjectsRepository,
+    private readonly transactionManager: TransactionManager,
+  ) {}
 
   async getProjectById(id: ProjectId) {
     const project = await this.projectsRepository.getById(id);
@@ -16,7 +19,16 @@ export class ProjectsServiceImpl implements ProjectsService {
   }
 
   async createProject(data: Pick<Project, 'name' | 'ownerId'>) {
-    const project = await this.projectsRepository.create(data);
+    const project = await this.transactionManager.runInTransaction(async ({ projects, memberships }) => {
+      const p = await projects.create(data);
+      await memberships.create({ projectId: p.id, userId: data.ownerId, role: UserProjectRoleSchema.enum.owner });
+      const createdProject = await projects.getById(p.id, { relations: { members: true } });
+
+      if (!createdProject) {
+        throw new AppRpcException('Unexpected error during project creation accured', 500);
+      }
+      return createdProject;
+    });
     return project;
   }
 

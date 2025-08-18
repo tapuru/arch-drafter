@@ -2,38 +2,34 @@ import { Connections } from '@bc-arch-drafter/api-config';
 import { Membership, MemebershipId, ProjectId, UserId, UserProjectRole, SortDirection } from '@bc-arch-drafter/model';
 import { Inject, Injectable } from '@nestjs/common';
 import { and, count, eq } from 'drizzle-orm';
-import { NodePgDatabase } from 'drizzle-orm/node-postgres';
+
+import type { Database } from '@/shared';
 
 import { buildOrderBy, DEFAULT_PAGE_SIZE, GetAllOptions } from '@/shared';
 
-import { memberships, membershipsRelations } from './memberships.schema';
-
-const schema = {
-  memberships,
-  membershipsRelations,
-};
+import { memberships } from './memberships.schema';
 
 //TODO: figure out a better way to type relations
 type MembershipsRelations = { project?: true; user?: true };
 
 @Injectable()
 export class MembershipsRepository {
-  constructor(@Inject(Connections.POSTGRES) private readonly db: NodePgDatabase<typeof schema>) {}
+  constructor(@Inject(Connections.POSTGRES) private readonly db: Database) {}
 
-  async getById(id: MemebershipId, options?: { relations?: MembershipsRelations }) {
+  async getById<TRelations extends MembershipsRelations>(id: MemebershipId, options?: { relations?: TRelations }) {
     const membership = await this.db.query.memberships.findFirst({
       where: eq(memberships.id, id),
-      with: options?.relations,
+      with: options?.relations as TRelations,
     });
     return membership;
   }
 
-  async getAll(
+  async getAll<TRelations extends MembershipsRelations>(
     options?: GetAllOptions<
       typeof memberships,
       {
         filters: { projectId?: ProjectId; userId?: UserId; role?: UserProjectRole };
-        relations: MembershipsRelations;
+        relations: TRelations;
         sortBy: 'joinedAt' | 'role';
       }
     >,
@@ -52,7 +48,7 @@ export class MembershipsRepository {
     const [items, totalCount] = await Promise.all([
       this.db.query.memberships.findMany({
         where: whereClause,
-        with: options?.relations,
+        with: options?.relations as TRelations,
         orderBy: buildOrderBy(memberships, options?.sortBy, options?.sortDirection),
         limit: pageSize,
         offset,

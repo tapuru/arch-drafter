@@ -1,7 +1,7 @@
 import { UserId, TokenId, IsoDate, JwtToken, TokenTypeSchema, TokenType } from '@bc-arch-drafter/model';
 import { boolean, pgEnum, pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
-import { users } from '@/users/users.schema';
+import { users } from './users.schema';
 
 export const tokenType = pgEnum('token_type', [TokenTypeSchema.enum.refresh, TokenTypeSchema.enum.verified]);
 

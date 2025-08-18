@@ -1,18 +1,19 @@
 import { ProjectId } from '@/projects';
+import { GetAllRes } from '@/shared';
 import { UserId } from '@/users';
 
-import { Invite } from './invite.schema';
+import { Invite, InviteId, InviteSchema } from './invite.schema';
 import { Membership } from './memebership.schema';
 
-export type GetUserInvites = (id: UserId) => Promise<Invite[]>;
+export type GetUserInvites = (id: UserId) => Promise<GetAllRes<typeof InviteSchema>>;
 
-export type GetProjectInvites = (id: ProjectId) => Promise<Invite[]>;
+export type GetProjectInvites = (id: ProjectId) => Promise<GetAllRes<typeof InviteSchema>>;
 
 export type CreateMembership = (data: Omit<Membership, 'id' | 'joinedAt' | 'role'>) => Promise<Membership>;
 
 export type SendInvite = (data: Pick<Invite, 'userId' | 'senderId' | 'projectId'>) => Promise<Invite>;
 
-export type CancelInvite = (data: Pick<Invite, 'userId' | 'senderId' | 'projectId'>) => Promise<{ success: true }>;
+export type CancelInvite = (data: { id: InviteId; cancelerId: UserId }) => Promise<{ success: true }>;
 
 export type AcceptInvite = (data: Pick<Invite, 'id' | 'userId'>) => Promise<Invite>;
 

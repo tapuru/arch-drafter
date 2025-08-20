@@ -24,6 +24,17 @@ export class MembershipsRepository {
     return membership;
   }
 
+  async findByProjectAndUser<TRelations extends MembershipsRelations>(
+    { projectId, userId }: { projectId: ProjectId; userId: UserId },
+    options?: { relations?: TRelations },
+  ) {
+    const membership = await this.db.query.memberships.findFirst({
+      where: and(eq(memberships.userId, userId), eq(memberships.projectId, projectId)),
+      with: options?.relations as TRelations,
+    });
+    return membership;
+  }
+
   async findMany<TRelations extends MembershipsRelations>(
     options?: FindManyOptions<
       typeof memberships,

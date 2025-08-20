@@ -8,7 +8,7 @@ config({ path: resolve(process.cwd(), `../../.env.${NODE_ENV}`) });
 
 export default defineConfig({
   dialect: 'postgresql',
-  schema: './src/config/schema.ts',
+  schema: './src/schema.ts',
   dbCredentials: {
     url: process.env.POSTGRES_URL!,
     ssl: false,

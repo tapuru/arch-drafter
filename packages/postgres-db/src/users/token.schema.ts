@@ -2,7 +2,7 @@ import { UserId, TokenId, JwtToken, TokenTypeSchema, TokenType } from '@bc-arch-
 import { boolean, pgEnum, pgTable, uuid, varchar } from 'drizzle-orm/pg-core';
 
 import { createdAtColumn, primaryKeyColumn, updatedAtColumn } from '@/shared';
-import { users } from '@/users/users.schema';
+import { users } from './users.schema';
 
 export const tokenType = pgEnum('token_type', [TokenTypeSchema.enum.refresh, TokenTypeSchema.enum.verified]);
 

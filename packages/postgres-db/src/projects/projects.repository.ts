@@ -2,20 +2,25 @@ import { Connections } from '@bc-arch-drafter/api-config';
 import { Project, ProjectId, ProjectsService } from '@bc-arch-drafter/model';
 import { Inject, Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
-import { NodePgDatabase } from 'drizzle-orm/node-postgres';
+
+import type { Database } from '@/shared';
 
 import { projects } from './projects.schema';
 
-const schema = {
-  projects,
+type ProjectsRelations = {
+  invites?: true;
+  owner?: true;
+  members?: true;
 };
 
 @Injectable()
 export class ProjectsRepository {
-  constructor(@Inject(Connections.POSTGRES) private readonly db: NodePgDatabase<typeof schema>) {}
-
-  async getById(id: ProjectId) {
-    const project = await this.db.query.projects.findFirst({ where: eq(projects.id, id) });
+  constructor(@Inject(Connections.POSTGRES) private readonly db: Database) {}
+  async findById<TRelations extends ProjectsRelations>(id: ProjectId, options?: { relations?: TRelations }) {
+    const project = await this.db.query.projects.findFirst({
+      where: eq(projects.id, id),
+      with: options?.relations as TRelations,
+    });
     return project;
   }
 

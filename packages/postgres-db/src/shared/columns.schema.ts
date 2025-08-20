@@ -5,6 +5,8 @@ import { ctIsoDate, ctNullableIsoDate } from './custom-types.schema';
 
 export const primaryKeyColumn = <T>(name: string) => uuid(name).$type<T>().primaryKey().defaultRandom();
 
+export const idColumn = <T>(name: string) => uuid(name).$type<T>();
+
 export const createdAtColumn = (name: string) =>
   ctIsoDate(name)
     .default(sql`now()`)

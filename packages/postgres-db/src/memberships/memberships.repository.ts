@@ -3,9 +3,9 @@ import { Membership, MemebershipId, ProjectId, UserId, UserProjectRole, SortDire
 import { Inject, Injectable } from '@nestjs/common';
 import { and, count, eq } from 'drizzle-orm';
 
-import type { Database } from '@/shared';
+import type { Database, FindManyOptions } from '@/shared';
 
-import { buildOrderBy, DEFAULT_PAGE_SIZE, GetAllOptions } from '@/shared';
+import { buildOrderBy, DEFAULT_PAGE_SIZE } from '@/shared';
 
 import { memberships } from './memberships.schema';
 
@@ -16,7 +16,7 @@ type MembershipsRelations = { project?: true; user?: true };
 export class MembershipsRepository {
   constructor(@Inject(Connections.POSTGRES) private readonly db: Database) {}
 
-  async getById<TRelations extends MembershipsRelations>(id: MemebershipId, options?: { relations?: TRelations }) {
+  async findById<TRelations extends MembershipsRelations>(id: MemebershipId, options?: { relations?: TRelations }) {
     const membership = await this.db.query.memberships.findFirst({
       where: eq(memberships.id, id),
       with: options?.relations as TRelations,
@@ -24,8 +24,8 @@ export class MembershipsRepository {
     return membership;
   }
 
-  async getAll<TRelations extends MembershipsRelations>(
-    options?: GetAllOptions<
+  async findMany<TRelations extends MembershipsRelations>(
+    options?: FindManyOptions<
       typeof memberships,
       {
         filters: { projectId?: ProjectId; userId?: UserId; role?: UserProjectRole };

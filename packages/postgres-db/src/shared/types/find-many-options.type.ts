@@ -1,7 +1,7 @@
 import { SortDirection } from '@bc-arch-drafter/model';
 import { PgTableWithColumns } from 'drizzle-orm/pg-core';
 
-export type GetAllOptions<
+export type FindManyOptions<
   TTable extends PgTableWithColumns<{ columns: any; dialect: any; name: any; schema: any }>,
   TOptions extends {
     filters?: Record<string, any>;

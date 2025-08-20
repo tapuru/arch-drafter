@@ -11,7 +11,7 @@ export class ProjectsServiceImpl implements ProjectsService {
   ) {}
 
   async getProjectById(id: ProjectId) {
-    const project = await this.projectsRepository.getById(id);
+    const project = await this.projectsRepository.findById(id);
     if (!project || project.deletedAt !== null) {
       throw new AppRpcException('project not found', HttpStatus.NOT_FOUND);
     }
@@ -22,7 +22,7 @@ export class ProjectsServiceImpl implements ProjectsService {
     const project = await this.transactionManager.runInTransaction(async ({ projects, memberships }) => {
       const p = await projects.create(data);
       await memberships.create({ projectId: p.id, userId: data.ownerId, role: UserProjectRoleSchema.enum.owner });
-      const createdProject = await projects.getById(p.id, { relations: { members: true } });
+      const createdProject = await projects.findById(p.id, { relations: { members: true } });
 
       if (!createdProject) {
         throw new AppRpcException('Unexpected error during project creation accured', 500);
@@ -33,7 +33,7 @@ export class ProjectsServiceImpl implements ProjectsService {
   }
 
   async updateProject(id: ProjectId, data: Parameters<ProjectsService['updateProject']>[1]) {
-    const project = await this.projectsRepository.getById(id);
+    const project = await this.projectsRepository.findById(id);
     if (!project) {
       throw new AppRpcException('project not found', HttpStatus.NOT_FOUND);
     }
@@ -43,7 +43,7 @@ export class ProjectsServiceImpl implements ProjectsService {
   }
 
   async deleteProject(id: ProjectId) {
-    const project = await this.projectsRepository.getById(id);
+    const project = await this.projectsRepository.findById(id);
     if (!project) {
       throw new AppRpcException('project not found', HttpStatus.NOT_FOUND);
     }

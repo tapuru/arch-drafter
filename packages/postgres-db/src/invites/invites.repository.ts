@@ -3,9 +3,9 @@ import { Invite, InviteId, InviteStatus, MembershipService, ProjectId, UserId } 
 import { Inject, Injectable } from '@nestjs/common';
 import { and, count, eq } from 'drizzle-orm';
 
-import type { Database } from '@/shared';
+import type { Database, FindManyOptions } from '@/shared';
 
-import { buildOrderBy, DEFAULT_PAGE_SIZE, GetAllOptions } from '@/shared';
+import { buildOrderBy, DEFAULT_PAGE_SIZE } from '@/shared';
 
 import { invites } from './invites.schema';
 
@@ -16,7 +16,7 @@ type InvitesRelations = { project?: true; sender?: true; user?: true };
 export class InvitesRepository {
   constructor(@Inject(Connections.POSTGRES) private readonly db: Database) {}
 
-  async getById<TRelations extends InvitesRelations>(id: InviteId, options?: { relations?: TRelations }) {
+  async findById<TRelations extends InvitesRelations>(id: InviteId, options?: { relations?: TRelations }) {
     const invite = await this.db.query.invites.findFirst({
       where: eq(invites.id, id),
       with: options?.relations as TRelations,
@@ -24,8 +24,8 @@ export class InvitesRepository {
     return invite;
   }
 
-  async getAll<TRelations extends InvitesRelations>(
-    options?: GetAllOptions<
+  async findMany<TRelations extends InvitesRelations>(
+    options?: FindManyOptions<
       typeof invites,
       {
         filters: { status?: InviteStatus; userId?: UserId; senderId?: UserId; projectId?: ProjectId };

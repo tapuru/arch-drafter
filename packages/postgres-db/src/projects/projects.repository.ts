@@ -16,7 +16,7 @@ type ProjectsRelations = {
 @Injectable()
 export class ProjectsRepository {
   constructor(@Inject(Connections.POSTGRES) private readonly db: Database) {}
-  async getById<TRelations extends ProjectsRelations>(id: ProjectId, options?: { relations?: TRelations }) {
+  async findById<TRelations extends ProjectsRelations>(id: ProjectId, options?: { relations?: TRelations }) {
     const project = await this.db.query.projects.findFirst({
       where: eq(projects.id, id),
       with: options?.relations as TRelations,

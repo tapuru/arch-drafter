@@ -1,7 +1,7 @@
 import { Connections } from '@bc-arch-drafter/api-config';
-import { Membership, MemebershipId, ProjectId, UserId, UserProjectRole, SortDirection } from '@bc-arch-drafter/model';
+import { InviteId, Membership, MemebershipId, ProjectId, UserId, UserProjectRole } from '@bc-arch-drafter/model';
 import { Inject, Injectable } from '@nestjs/common';
-import { and, count, eq } from 'drizzle-orm';
+import { and, count, eq, isNull } from 'drizzle-orm';
 
 import type { Database, FindManyOptions } from '@/shared';
 
@@ -10,7 +10,7 @@ import { buildOrderBy, DEFAULT_PAGE_SIZE } from '@/shared';
 import { memberships } from './memberships.schema';
 
 //TODO: figure out a better way to type relations
-type MembershipsRelations = { project?: true; user?: true };
+type MembershipsRelations = { project?: true; user?: true; invite?: true };
 
 @Injectable()
 export class MembershipsRepository {
@@ -18,7 +18,18 @@ export class MembershipsRepository {
 
   async findById<TRelations extends MembershipsRelations>(id: MemebershipId, options?: { relations?: TRelations }) {
     const membership = await this.db.query.memberships.findFirst({
-      where: eq(memberships.id, id),
+      where: and(eq(memberships.id, id), isNull(memberships.leftAt)),
+      with: options?.relations as TRelations,
+    });
+    return membership;
+  }
+
+  async findByProjectAndUser<TRelations extends MembershipsRelations>(
+    { projectId, userId }: { projectId: ProjectId; userId: UserId },
+    options?: { relations?: TRelations },
+  ) {
+    const membership = await this.db.query.memberships.findFirst({
+      where: and(eq(memberships.userId, userId), eq(memberships.projectId, projectId), isNull(memberships.leftAt)),
       with: options?.relations as TRelations,
     });
     return membership;
@@ -34,7 +45,7 @@ export class MembershipsRepository {
       }
     >,
   ) {
-    const conditions = [];
+    const conditions = [isNull(memberships.leftAt)];
     if (options?.filters?.projectId) conditions.push(eq(memberships.projectId, options.filters.projectId));
     if (options?.filters?.userId) conditions.push(eq(memberships.userId, options.filters.userId));
     if (options?.filters?.role) conditions.push(eq(memberships.role, options.filters.role));
@@ -62,7 +73,7 @@ export class MembershipsRepository {
     return { items, totalCount };
   }
 
-  async create(data: { userId: UserId; projectId: ProjectId; role: UserProjectRole }) {
+  async create(data: { userId: UserId; projectId: ProjectId; role: UserProjectRole; inviteId?: InviteId }) {
     const [membership] = await this.db.insert(memberships).values(data).returning();
     return membership;
   }
@@ -70,5 +81,9 @@ export class MembershipsRepository {
   async update(id: MemebershipId, data: Partial<Omit<Membership, 'id'>>) {
     const [updated] = await this.db.update(memberships).set(data).where(eq(memberships.id, id)).returning();
     return updated ?? null;
+  }
+
+  async softDelete(id: MemebershipId) {
+    await this.db.update(memberships).set({ leftAt: new Date().toISOString() }).where(eq(memberships.id, id));
   }
 }

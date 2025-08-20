@@ -1,7 +1,7 @@
 import { Connections } from '@bc-arch-drafter/api-config';
 import { Invite, InviteId, InviteStatus, MembershipService, ProjectId, UserId } from '@bc-arch-drafter/model';
 import { Inject, Injectable } from '@nestjs/common';
-import { and, count, eq } from 'drizzle-orm';
+import { and, count, eq, isNull } from 'drizzle-orm';
 
 import type { Database, FindManyOptions } from '@/shared';
 
@@ -10,7 +10,7 @@ import { buildOrderBy, DEFAULT_PAGE_SIZE } from '@/shared';
 import { invites } from './invites.schema';
 
 //TODO: figure out a better way to type relations
-type InvitesRelations = { project?: true; sender?: true; user?: true };
+type InvitesRelations = { project?: true; sender?: true; user?: true; membership?: true };
 
 @Injectable()
 export class InvitesRepository {
@@ -18,7 +18,18 @@ export class InvitesRepository {
 
   async findById<TRelations extends InvitesRelations>(id: InviteId, options?: { relations?: TRelations }) {
     const invite = await this.db.query.invites.findFirst({
-      where: eq(invites.id, id),
+      where: and(eq(invites.id, id), isNull(invites.canceledAt)),
+      with: options?.relations as TRelations,
+    });
+    return invite;
+  }
+
+  async findByProjectAndUser<TRelations extends InvitesRelations>(
+    { projectId, userId }: { projectId: ProjectId; userId: UserId },
+    options?: { relations?: TRelations },
+  ) {
+    const invite = await this.db.query.invites.findFirst({
+      where: and(eq(invites.projectId, projectId), eq(invites.userId, userId), isNull(invites.canceledAt)),
       with: options?.relations as TRelations,
     });
     return invite;

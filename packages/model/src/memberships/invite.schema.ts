@@ -2,7 +2,7 @@ import z from 'zod';
 
 import { ProjectSchema } from '@/projects';
 import { BaseIdSchema, IsoDateSchema, NullableIsoDateSchema } from '@/shared';
-import { UserSchema } from '@/users';
+import { UserProjectRoleSchema, UserSchema } from '@/users';
 
 export const InviteIdSchema = BaseIdSchema.brand<'InviteId'>();
 export type InviteId = z.infer<typeof InviteIdSchema>;
@@ -21,6 +21,7 @@ export const InviteSchema = z.object({
   userId: UserSchema.shape.id,
   sentAt: IsoDateSchema,
   status: InviteStatusSchema,
+  role: UserProjectRoleSchema,
   acceptedAt: NullableIsoDateSchema,
   rejectedAt: NullableIsoDateSchema,
   canceledAt: NullableIsoDateSchema,

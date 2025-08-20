@@ -9,9 +9,9 @@ export type GetUserInvites = (id: UserId) => Promise<GetAllRes<typeof InviteSche
 
 export type GetProjectInvites = (id: ProjectId) => Promise<GetAllRes<typeof InviteSchema>>;
 
-export type CreateMembership = (data: Omit<Membership, 'id' | 'joinedAt' | 'role'>) => Promise<Membership>;
+export type CreateMembership = (data: Omit<Membership, 'id' | 'joinedAt'>) => Promise<Membership>;
 
-export type SendInvite = (data: Pick<Invite, 'userId' | 'senderId' | 'projectId'>) => Promise<Invite>;
+export type SendInvite = (data: Pick<Invite, 'userId' | 'senderId' | 'projectId' | 'role'>) => Promise<Invite>;
 
 export type CancelInvite = (data: { id: InviteId; cancelerId: UserId }) => Promise<{ success: true }>;
 

@@ -3,4 +3,5 @@ export enum Microservice {
   SESSIONS = 'SESSIONS_SERVICE',
   EXPORT = 'EXPORT_SERVICE',
   STORAGE = 'STORAGE_SERVICE',
+  USERS = 'USERS_SERVICE',
 }

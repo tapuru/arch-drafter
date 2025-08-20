@@ -10,7 +10,7 @@ import { buildOrderBy, DEFAULT_PAGE_SIZE } from '@/shared';
 import { invites } from './invites.schema';
 
 //TODO: figure out a better way to type relations
-type InvitesRelations = { project?: true; sender?: true; user?: true };
+type InvitesRelations = { project?: true; sender?: true; user?: true; membership?: true };
 
 @Injectable()
 export class InvitesRepository {

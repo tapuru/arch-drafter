@@ -1,5 +1,5 @@
 import { Connections } from '@bc-arch-drafter/api-config';
-import { Membership, MemebershipId, ProjectId, UserId, UserProjectRole, SortDirection } from '@bc-arch-drafter/model';
+import { Membership, MemebershipId, ProjectId, UserId, UserProjectRole } from '@bc-arch-drafter/model';
 import { Inject, Injectable } from '@nestjs/common';
 import { and, count, eq, isNull } from 'drizzle-orm';
 
@@ -10,7 +10,7 @@ import { buildOrderBy, DEFAULT_PAGE_SIZE } from '@/shared';
 import { memberships } from './memberships.schema';
 
 //TODO: figure out a better way to type relations
-type MembershipsRelations = { project?: true; user?: true };
+type MembershipsRelations = { project?: true; user?: true; invite?: true };
 
 @Injectable()
 export class MembershipsRepository {

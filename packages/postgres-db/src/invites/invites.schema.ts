@@ -1,7 +1,8 @@
-import { InviteId, InviteStatusSchema, ProjectId, UserId, InviteStatus } from '@bc-arch-drafter/model';
+import { InviteId, InviteStatusSchema, ProjectId, UserId, InviteStatus, MemebershipId } from '@bc-arch-drafter/model';
 import { relations } from 'drizzle-orm';
 import { pgEnum, pgTable } from 'drizzle-orm/pg-core';
 
+import { memberships } from '@/memberships';
 import { projects } from '@/projects';
 import { createdAtColumn, ctNullableIsoDate, deletedAtColumn, idColumn, primaryKeyColumn } from '@/shared';
 import { users } from '@/users';
@@ -18,6 +19,7 @@ export const invites = pgTable('invites', {
   projectId: idColumn<ProjectId>('project_id').notNull(),
   senderId: idColumn<UserId>('sender_id').notNull(),
   userId: idColumn<UserId>('user_id').notNull(),
+  membershipId: idColumn<MemebershipId>('membership_id'),
   status: inviteStatus('status').$type<InviteStatus>().notNull().default(InviteStatusSchema.enum.pending),
   sentAt: createdAtColumn('sent_at'),
   acceptedAt: ctNullableIsoDate('accepted_at').default(null),
@@ -39,5 +41,9 @@ export const invitesRelations = relations(invites, ({ one }) => ({
     fields: [invites.userId],
     references: [users.id],
     relationName: 'user',
+  }),
+  membership: one(memberships, {
+    fields: [invites.membershipId],
+    references: [memberships.id],
   }),
 }));

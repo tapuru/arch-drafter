@@ -3,7 +3,7 @@ import { relations } from 'drizzle-orm';
 import { pgEnum, pgTable, uuid } from 'drizzle-orm/pg-core';
 
 import { projects } from '@/projects';
-import { createdAtColumn, primaryKeyColumn } from '@/shared';
+import { createdAtColumn, deletedAtColumn, primaryKeyColumn } from '@/shared';
 import { users } from '@/users';
 
 export const userProjectRole = pgEnum('project_role_enum', [
@@ -18,6 +18,7 @@ export const memberships = pgTable('memberships', {
   projectId: uuid('project_id').$type<ProjectId>().notNull(),
   userId: uuid('user_id').$type<UserId>().notNull(),
   joinedAt: createdAtColumn('joined_at'),
+  leftAt: deletedAtColumn('left_at'),
 });
 
 export const membershipsRelations = relations(memberships, ({ one }) => ({

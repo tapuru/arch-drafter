@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@bc-arch-drafter/api-config": "workspace:*",
+    "@bc-arch-drafter/contracts": "workspace:*",
     "@bc-arch-drafter/model": "workspace:*",
     "@nestjs/common": "^11.1.5",
     "@types/pg": "^8.15.5",

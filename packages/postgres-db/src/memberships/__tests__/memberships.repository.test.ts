@@ -37,7 +37,7 @@ describe('MembershipsRepository', () => {
     it('should call findFirst with correct where condition and relations', async () => {
       mockDb.query.memberships.findFirst.mockReturnValueOnce({ id: 'test-id' });
 
-      const result = await repo.getById('test-id' as MemebershipId, { relations: { project: true } });
+      const result = await repo.findById('test-id' as MemebershipId, { relations: { project: true } });
 
       expect(eq).toHaveBeenCalledWith(memberships.id, 'test-id');
 

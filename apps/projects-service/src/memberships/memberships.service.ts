@@ -1,5 +1,13 @@
 import { AppRpcException } from '@bc-arch-drafter/lib';
-import { Invite, InviteStatusSchema, MembershipService, UserId, UserProjectRoleSchema } from '@bc-arch-drafter/model';
+import {
+  Invite,
+  InviteStatusSchema,
+  MembershipService,
+  PROJECT_ROLE_ASSIGNMENT_RULES,
+  UserId,
+  UserProjectRole,
+  UserProjectRoleSchema,
+} from '@bc-arch-drafter/model';
 import { InvitesRepository, MembershipsRepository, TransactionManager } from '@bc-arch-drafter/postgres-db';
 import { HttpStatus, Injectable } from '@nestjs/common';
 
@@ -21,15 +29,22 @@ export class MemberhipsServiceImpl implements MembershipService {
     return invites;
   }
 
-  async sendInvite({ projectId, senderId, userId }: Parameters<MembershipService['sendInvite']>[0]) {
+  async sendInvite({ projectId, senderId, userId, role }: Parameters<MembershipService['sendInvite']>[0]) {
     const membershipCandidate = await this.memberhipsRepository.findByProjectAndUser({ projectId, userId });
     if (membershipCandidate)
       throw new AppRpcException('This user already participates this project', HttpStatus.BAD_REQUEST);
+
     const candidate = await this.invitesRepository.findMany({ filters: { projectId, userId } });
     if (candidate.totalCount > 0)
       throw new AppRpcException('This user have already been invited to this project', HttpStatus.BAD_REQUEST);
 
-    const invite = await this.invitesRepository.create({ userId, projectId, senderId });
+    const senderMembership = await this.memberhipsRepository.findByProjectAndUser({ projectId, userId: senderId });
+    if (!senderMembership)
+      throw new AppRpcException('Trying to send invite to a project you do not participate into', HttpStatus.FORBIDDEN);
+
+    this.validateRoleAssignment(senderMembership.role, role);
+
+    const invite = await this.invitesRepository.create({ userId, projectId, senderId, role });
 
     return invite;
   }
@@ -50,13 +65,13 @@ export class MemberhipsServiceImpl implements MembershipService {
 
     const res = await this.transactionManager.runInTransaction(async ({ invites, memberships }) => {
       const acceptedInvite = await invites.update(id, { status: InviteStatusSchema.enum.accepted });
-      //TODO: dynamic role
       await memberships.create({
         projectId: invite.projectId,
         userId,
-        role: UserProjectRoleSchema.enum.member,
+        role: invite.role,
         inviteId: acceptedInvite.id,
       });
+
       return acceptedInvite;
     });
 
@@ -111,15 +126,16 @@ export class MemberhipsServiceImpl implements MembershipService {
     return { success: true } as const;
   }
 
-  async createMembership({ projectId, userId }: Parameters<MembershipService['createMembership']>[0]) {
+  //not sure if this method will be used only by admins or not
+  //leave it without role assignment check for now
+  async createMembership({ projectId, userId, role }: Parameters<MembershipService['createMembership']>[0]) {
     const candidate = await this.memberhipsRepository.findByProjectAndUser({ projectId, userId });
     if (candidate) throw new AppRpcException('This user already participates in this project', HttpStatus.BAD_REQUEST);
 
-    //TODO: dynamic role
     const membership = await this.memberhipsRepository.create({
       projectId,
       userId,
-      role: UserProjectRoleSchema.enum.member,
+      role,
     });
 
     return membership;
@@ -135,5 +151,11 @@ export class MemberhipsServiceImpl implements MembershipService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  private validateRoleAssignment(assingnerRole: UserProjectRole, userRole: UserProjectRole) {
+    const res = PROJECT_ROLE_ASSIGNMENT_RULES[assingnerRole].includes(userRole);
+    if (!res) throw new AppRpcException('Invalid role assignment', HttpStatus.FORBIDDEN);
+    return true;
   }
 }

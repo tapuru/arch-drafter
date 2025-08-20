@@ -1,15 +1,15 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+
+import { ProviderComposer, AppRouterProvider } from '@/application/providers';
 
 import './index.css';
 
-import App from './application/App.tsx';
+const PROVIDERS = [
+  StrictMode,
+  AppRouterProvider,
+];
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
+  <ProviderComposer providers={PROVIDERS} />,
 );

@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router';
 
+import { WEB_ROUTES } from '@bc-arch-drafter/contracts';
 import { Button } from '@bc-arch-drafter/ui';
 
-import { MainRoutesFullPaths } from '@/shared/config/routing';
 
 export const HomePage = () => {
 
   const navigate = useNavigate();
-  const toBaseForm = () => navigate(MainRoutesFullPaths.EXAMPLE);
+  const toBaseForm = () => navigate(WEB_ROUTES.EXAMPLE);
 
   return (
     <div className="flex flex-col items-center justify-center m-5 gap-5">

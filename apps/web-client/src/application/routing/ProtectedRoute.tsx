@@ -9,7 +9,7 @@ interface ProtectedRouteProps {
 export const ProtectedRoute = ({
                                  children,
                                }: ProtectedRouteProps) => {
-  //todo: добавить логику🐉🐉🐉
+  //todo: добавить логику
 
   return <>{children}</>;
 };

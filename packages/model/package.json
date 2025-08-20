@@ -17,6 +17,7 @@
     }
   },
   "dependencies": {
-    "zod": "^4.0.13"
+    "zod": "^4.0.13",
+    "@bc-arch-drafter/contracts": "workspace:*"
   }
 }

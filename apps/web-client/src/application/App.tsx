@@ -1,10 +1,9 @@
-import { BaseForm } from '@/pages/example';
-
 import './App.css';
+
 
 function App() {
   return (
-    <BaseForm />
+    <div className="app" />
   );
 }
 

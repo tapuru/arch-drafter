@@ -1,6 +1,5 @@
+import { JwtTokenSchema, EmailSchema, PasswordSchema } from '@bc-arch-drafter/model';
 import z from 'zod';
-
-import { JwtTokenSchema, PasswordSchema, EmailSchema } from '@/users';
 
 export const LoginRequestSchema = z.object({
   password: PasswordSchema,

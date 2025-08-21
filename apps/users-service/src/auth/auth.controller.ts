@@ -1,24 +1,36 @@
-import { LoginRequestDto, RegistrationRequestDto } from '@bc-arch-drafter/model';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  RegistrationRequestSchema,
+  RegistrationRequestDto,
+  LoginRequestSchema,
+  LoginRequestDto,
+  AuthApi,
+} from '@bc-arch-drafter/contracts';
+import { ZodValidationPipe } from '@bc-arch-drafter/lib';
+import { Controller, UsePipes } from '@nestjs/common';
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 
-import { AuthService } from './auth.service';
+import { AuthServiceImpl } from './auth.service';
 
 @Controller('auth')
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+export class AuthController implements AuthApi {
+  constructor(private readonly authService: AuthServiceImpl) {}
 
-  @Post('register')
-  async register(@Body() dto: RegistrationRequestDto) {
-    return this.authService.register(dto);
+  @UsePipes(new ZodValidationPipe(RegistrationRequestSchema, (payload) => new RpcException(payload)))
+  @MessagePattern({ cmd: 'auth.register' })
+  async registerUser(@Payload() data: RegistrationRequestDto) {
+    return await this.authService.register(data);
   }
 
-  @Post('login')
-  async login(@Body() dto: LoginRequestDto) {
-    return this.authService.login(dto);
+  @UsePipes(new ZodValidationPipe(LoginRequestSchema, (payload) => new RpcException(payload)))
+  @MessagePattern({ cmd: 'auth.login' })
+  async login(@Payload() data: LoginRequestDto) {
+    return await this.authService.login(data);
   }
 
-  @Get('me')
-  async Me() {
-    return this.authService.me();
+  @UsePipes(new ZodValidationPipe(LoginRequestSchema, (payload) => new RpcException(payload)))
+  @MessagePattern({ cmd: 'auth.me' })
+  async me(@Payload() data: any) {
+    // return await this.authService.me(data);
+    return '' as const;
   }
 }

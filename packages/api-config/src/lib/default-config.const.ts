@@ -25,5 +25,9 @@ export const DEFAULT_CONFIG: ConfigData = {
       options: { host: '127.0.0.1', port: 3004 },
       transport: Transport.TCP,
     },
+    USERS_SERVICE: {
+      options: { host: '127.0.0.1', port: 3005 },
+      transport: Transport.TCP,
+    },
   },
 };

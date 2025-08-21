@@ -1,7 +1,5 @@
+import { JwtTokenSchema, UserNameSchema, EmailSchema, PasswordSchema } from '@bc-arch-drafter/model';
 import z from 'zod';
-
-import { JwtTokenSchema } from '@/users';
-import { UserNameSchema, EmailSchema, PasswordSchema } from '@/users';
 
 export const RegistrationRequestSchema = z
   .object({
@@ -10,9 +8,7 @@ export const RegistrationRequestSchema = z
     password: PasswordSchema,
     passwordRepeat: PasswordSchema,
   })
-  .refine((data) => {
-    return data.password === data.passwordRepeat;
-  });
+  .refine((data) => data.passwordRepeat === data.password, { message: 'Passwords do not match' });
 
 export type RegistrationRequestDto = z.infer<typeof RegistrationRequestSchema>;
 

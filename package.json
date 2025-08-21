@@ -21,6 +21,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "build:packages": "pnpm -r --filter \"./packages/*\" run build",
+    "build:gateway": "pnpm -r --filter \"./packages/*\" run build",
     "build:watch:model": "pnpm --filter \"@bc-arch-drafter/model\" run build:watch",
     "build:watch:ui": "pnpm --filter \"@bc-arch-drafter/shared-ui\" run build:watch",
     "build:watch:contracts": "pnpm --filter \"@bc-arch-drafter/contracts\" run build:watch",

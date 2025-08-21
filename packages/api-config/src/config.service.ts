@@ -46,6 +46,10 @@ export class ConfigService {
           options: this.parseServiceOptionsFromEnv(Microservice.EXPORT, env),
           transport: Transport.TCP,
         },
+        USERS_SERVICE: {
+          options: this.parseServiceOptionsFromEnv(Microservice.USERS, env),
+          transport: Transport.TCP,
+        },
       },
     };
   }

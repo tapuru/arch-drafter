@@ -1,14 +1,13 @@
-import { DatabaseModule } from '@bc-arch-drafter/postgres-db';
+import { DatabaseModule, UsersRepository } from '@bc-arch-drafter/postgres-db';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { AuthController } from '@/auth/auth.controller';
+
+import { AuthServiceImpl } from './auth.service';
 
 @Module({
-  imports: [DatabaseModule, ConfigModule.forRoot({ isGlobal: true })],
+  imports: [DatabaseModule],
+  providers: [AuthServiceImpl, UsersRepository],
   controllers: [AuthController],
-  providers: [AuthService],
-  exports: [AuthService],
 })
 export class AuthModule {}

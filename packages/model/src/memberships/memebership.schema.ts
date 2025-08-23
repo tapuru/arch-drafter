@@ -2,7 +2,9 @@ import z from 'zod';
 
 import { ProjectSchema } from '@/projects';
 import { BaseIdSchema, IsoDateSchema } from '@/shared';
-import { UserProjectRoleSchema, UserSchema } from '@/users';
+import { UserSchema } from '@/users';
+
+import { UserProjectRoleSchema } from './porject-roles.schema';
 
 export const MembershipIdSchema = BaseIdSchema.brand<'MemebershipId'>();
 export type MemebershipId = z.infer<typeof MembershipIdSchema>;

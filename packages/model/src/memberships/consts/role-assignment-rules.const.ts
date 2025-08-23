@@ -1,4 +1,4 @@
-import { UserProjectRole, UserProjectRoleSchema } from '@/users';
+import { UserProjectRole, UserProjectRoleSchema } from '../porject-roles.schema';
 
 export const PROJECT_ROLE_ASSIGNMENT_RULES: Record<UserProjectRole, UserProjectRole[]> = {
   [UserProjectRoleSchema.enum.owner]: [

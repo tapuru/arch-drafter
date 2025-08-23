@@ -12,6 +12,6 @@ import { MemberhipsServiceImpl } from './memberships.service';
 @Module({
   imports: [DatabaseModule],
   controllers: [MemberhipsController],
-  providers: [MembershipsRepository, MemberhipsServiceImpl, InvitesRepository, TransactionManager],
+  providers: [MembershipsRepository, MemberhipsServiceImpl],
 })
 export class MembershipsModule {}

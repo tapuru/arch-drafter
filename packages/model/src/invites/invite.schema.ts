@@ -1,8 +1,9 @@
 import z from 'zod';
 
+import { UserProjectRoleSchema } from '@/memberships';
 import { ProjectSchema } from '@/projects';
 import { BaseIdSchema, IsoDateSchema, NullableIsoDateSchema } from '@/shared';
-import { UserProjectRoleSchema, UserSchema } from '@/users';
+import { UserSchema } from '@/users';
 
 export const InviteIdSchema = BaseIdSchema.brand<'InviteId'>();
 export type InviteId = z.infer<typeof InviteIdSchema>;

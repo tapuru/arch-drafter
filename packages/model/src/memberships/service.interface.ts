@@ -1,6 +1,6 @@
 import { UserId } from '@/users';
 
-import { Membership } from './memebership.schema';
+import { Membership } from './schemas/memebership.schema';
 
 export type CreateMembership = (data: Omit<Membership, 'id' | 'joinedAt'>) => Promise<Membership>;
 

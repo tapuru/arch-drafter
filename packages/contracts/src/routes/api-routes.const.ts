@@ -7,6 +7,11 @@ export const API_ROUTES = {
     ACCEPT: '/invites/accept',
     REJECT: '/invites/reject',
   },
+  MEMBERHIPS: {
+    ROOT: '/memberhips',
+    LEAVE_PROJECT: '/projects/leave',
+    REMOVE_FROM_PROJECT: '/projects/remove',
+  },
   AUTH: {
     ROOT: '/auth',
     ME: '/me',

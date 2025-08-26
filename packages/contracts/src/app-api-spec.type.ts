@@ -1,7 +1,7 @@
 import { AuthActions } from '@/auth';
 import { InvitesApiSpec } from '@/invites';
+import { MembershipsApiSpec } from '@/memberships';
+import { ProjectsActions } from '@/projects';
 import { UsersActions } from '@/users';
 
-import { ProjectsActions } from './projects';
-
-export type AppApiSpec = ProjectsActions & UsersActions & AuthActions & InvitesApiSpec;
+export type AppApiSpec = ProjectsActions & UsersActions & AuthActions & InvitesApiSpec & MembershipsApiSpec;

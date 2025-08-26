@@ -10,6 +10,7 @@ import {
   InvitesApi,
   parseManyInvitesResponse,
   parseOneIviteResponse,
+  parseSuccessTrueResponse,
   RejectInviteRequestDto,
   RejectInviteRequestSchema,
   SendInviteRequestDto,
@@ -29,42 +30,60 @@ export class InvitesController implements InvitesApi {
   @UsePipes(new ZodValidationPipe(GetProjectInvitesRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: INVITES_ACTIONS.GET_PROJECT_INVITES })
   async getProjectInvites(@Payload() payload: GetProjectInvitesRequestDto) {
-    const res = await this.invitesService.getProjectInvites(payload.id);
-    return parseManyInvitesResponse(res);
+    const data = await this.invitesService.getProjectInvites(payload.id);
+    return parseManyInvitesResponse({
+      success: true,
+      data,
+    });
   }
 
   @UsePipes(new ZodValidationPipe(GetUserInvitesRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: INVITES_ACTIONS.GET_USER_INVITES })
   async getUserInvites(@Payload() payload: GetUserInvitesRequestDto) {
-    const res = await this.invitesService.getUserInvites(payload.id);
-    return parseManyInvitesResponse(res);
+    const data = await this.invitesService.getUserInvites(payload.id);
+    return parseManyInvitesResponse({
+      success: true,
+      data,
+    });
   }
 
   @UsePipes(new ZodValidationPipe(SendInviteRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: INVITES_ACTIONS.SEND })
   async sendInvite(@Payload() payload: SendInviteRequestDto) {
-    const res = await this.invitesService.sendInvite(payload);
-    return parseOneIviteResponse(res);
+    const data = await this.invitesService.sendInvite(payload);
+    return parseOneIviteResponse({
+      success: true,
+      data,
+    });
   }
 
   @UsePipes(new ZodValidationPipe(CancelInviteRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: INVITES_ACTIONS.CANCEL })
   async cancelInvite(@Payload() payload: CancelInviteRequestDto) {
-    const res = await this.invitesService.cancelInvite(payload);
-    return res;
+    const data = await this.invitesService.cancelInvite(payload);
+    return parseSuccessTrueResponse({
+      success: true,
+      data,
+    });
   }
 
   @UsePipes(new ZodValidationPipe(AcceptInviteRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: INVITES_ACTIONS.ACCEPT })
   async acceptInvite(@Payload() payload: AcceptInviteRequestDto) {
-    const res = await this.invitesService.acceptInvite(payload);
-    return parseOneIviteResponse(res);
+    const data = await this.invitesService.acceptInvite(payload);
+    return parseOneIviteResponse({
+      success: true,
+      data,
+    });
   }
 
   @UsePipes(new ZodValidationPipe(RejectInviteRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: INVITES_ACTIONS.REJECT })
   async rejectInvite(@Payload() payload: RejectInviteRequestDto) {
-    const res = await this.invitesService.rejectInvite(payload);
-    return parseOneIviteResponse(res);
+    const data = await this.invitesService.rejectInvite(payload);
+    return parseOneIviteResponse({
+      success: true,
+      data,
+    });
   }
 }

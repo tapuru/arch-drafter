@@ -1,5 +1,6 @@
 import { INVITES_ACTIONS } from '@bc-arch-drafter/model';
 
+import { SuccessTrueResponseDto } from '@/responses';
 import { ApiSpec, ApiFromSpec } from '@/utils';
 
 import { AcceptInviteRequestDto, RejectInviteRequestDto } from './dtos/accept-reject-invite.dto';
@@ -22,7 +23,7 @@ export type InvitesApiSpec = ApiSpec<
     [INVITES_ACTIONS.SEND]: { request: SendInviteRequestDto; response: OneInviteResponseDto };
     [INVITES_ACTIONS.CANCEL]: {
       request: CancelInviteRequestDto;
-      response: { success: true };
+      response: SuccessTrueResponseDto;
     };
     [INVITES_ACTIONS.ACCEPT]: {
       request: AcceptInviteRequestDto;

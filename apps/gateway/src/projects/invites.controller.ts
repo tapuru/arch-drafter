@@ -11,6 +11,7 @@ import {
   RejectInviteRequestSchema,
   SendInviteRequestDto,
   SendInviteRequestSchema,
+  SuccessTrueResponseDto,
 } from '@bc-arch-drafter/contracts';
 import { sendMessage, ZodValidationPipe } from '@bc-arch-drafter/lib';
 import { INVITES_ACTIONS, parseProjectId, parseUserId } from '@bc-arch-drafter/model';
@@ -68,7 +69,7 @@ export class InvitesController {
   @Delete(API_ROUTES.INVITES.ROOT)
   async cancelInvite(
     @Body(new ZodValidationPipe(CancelInviteRequestSchema)) body: CancelInviteRequestDto,
-  ): Promise<{ success: true }> {
+  ): Promise<SuccessTrueResponseDto> {
     const res = await sendMessage({ client: this.client, pattern: { cmd: INVITES_ACTIONS.CANCEL }, payload: body });
     return res;
   }

@@ -5,4 +5,4 @@ export * from '@/users';
 export * from '@/auth';
 export * from '@/invites';
 
-export type { AppActions } from './app-actions.type';
+export type { AppApiSpec } from './app-api-spec.type';

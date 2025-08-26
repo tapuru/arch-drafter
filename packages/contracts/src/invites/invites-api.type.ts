@@ -11,12 +11,27 @@ import { SendInviteRequestDto } from './dtos/send-invite.dto';
 export type InvitesApiSpec = ApiSpec<
   typeof INVITES_ACTIONS,
   {
-    [INVITES_ACTIONS.GET_USER_INVITES]: { request: GetUserInvitesRequestDto; response: ManyInvitesResponseDto };
-    [INVITES_ACTIONS.GET_PROJECT_INVITES]: { request: GetProjectInvitesRequestDto; response: ManyInvitesResponseDto };
+    [INVITES_ACTIONS.GET_USER_INVITES]: {
+      request: GetUserInvitesRequestDto;
+      response: ManyInvitesResponseDto;
+    };
+    [INVITES_ACTIONS.GET_PROJECT_INVITES]: {
+      request: GetProjectInvitesRequestDto;
+      response: ManyInvitesResponseDto;
+    };
     [INVITES_ACTIONS.SEND]: { request: SendInviteRequestDto; response: OneInviteResponseDto };
-    [INVITES_ACTIONS.CANCEL]: { request: CancelInviteRequestDto; response: { success: true } };
-    [INVITES_ACTIONS.ACCEPT]: { request: AcceptInviteRequestDto; response: OneInviteResponseDto };
-    [INVITES_ACTIONS.REJECT]: { request: RejectInviteRequestDto; response: OneInviteResponseDto };
+    [INVITES_ACTIONS.CANCEL]: {
+      request: CancelInviteRequestDto;
+      response: { success: true };
+    };
+    [INVITES_ACTIONS.ACCEPT]: {
+      request: AcceptInviteRequestDto;
+      response: OneInviteResponseDto;
+    };
+    [INVITES_ACTIONS.REJECT]: {
+      request: RejectInviteRequestDto;
+      response: OneInviteResponseDto;
+    };
   }
 >;
 

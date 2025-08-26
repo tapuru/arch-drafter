@@ -1,18 +1,18 @@
-import { AppActions } from '@bc-arch-drafter/contracts';
+import { AppApiSpec } from '@bc-arch-drafter/contracts';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 
-export const sendMessage = async <TAction extends keyof AppActions>({
+export const sendMessage = async <TAction extends keyof AppApiSpec>({
   client,
   pattern,
   payload,
 }: {
   client: ClientProxy;
   pattern: { cmd: TAction };
-  payload: AppActions[TAction]['request'];
-}): Promise<AppActions[TAction]['response']> => {
+  payload: AppApiSpec[TAction]['request'];
+}): Promise<AppApiSpec[TAction]['response']> => {
   const res = await lastValueFrom(
-    client.send<AppActions[TAction]['response'], AppActions[TAction]['request']>(pattern, payload),
+    client.send<AppApiSpec[TAction]['response'], AppApiSpec[TAction]['request']>(pattern, payload),
   );
   return res;
 };

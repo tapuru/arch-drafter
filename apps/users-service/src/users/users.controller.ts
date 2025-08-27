@@ -8,6 +8,7 @@ import {
   UpdateUserResponseDto,
   parseUpdateUser,
   parseGetUserByIdResponse,
+  DeleteUserByIdRequestDto,
 } from '@bc-arch-drafter/contracts';
 import { ZodValidationPipe } from '@bc-arch-drafter/lib';
 import { Controller, UsePipes } from '@nestjs/common';
@@ -26,15 +27,16 @@ export class UsersController implements UsersApi {
     return parseGetUserByIdResponse(user);
   }
 
-  @UsePipes(new ZodValidationPipe(UpdateUserRequestSchema), (payload) => new RpcException(payload))
+  @UsePipes(new ZodValidationPipe(UpdateUserRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: 'users.update-by-id' })
   async updateUserById(@Payload() payload: UpdateUserRequestDto): Promise<UpdateUserResponseDto> {
     const user = await this.usersService.updateUserById(payload.id, payload.data);
     return parseUpdateUser(user);
   }
 
-  @MessagePattern({ cmd: 'users.delete-by-id' }, (payload) => new RpcException(payload))
-  async deleteUserById({ id }: any) {
+  @UsePipes(new ZodValidationPipe(GetUserByIdRequestSchema, (payload) => new RpcException(payload)))
+  @MessagePattern({ cmd: 'users.delete-by-id' })
+  async deleteUserById({ id }: DeleteUserByIdRequestDto) {
     await this.usersService.deleteUserById(id);
 
     // todo response after delete

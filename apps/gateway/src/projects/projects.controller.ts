@@ -3,13 +3,13 @@ import {
   API_ROUTES,
   CreateProjectRequestDto,
   CreateProjectRequestSchema,
-  DeleteProjectResponseDto,
   ProjectResponseDto,
+  SuccessTrueResponseDto,
   UpdateProjectRequestDto,
   UpdateProjectRequestSchema,
 } from '@bc-arch-drafter/contracts';
 import { sendMessage, ZodValidationPipe } from '@bc-arch-drafter/lib';
-import { parseProjectId } from '@bc-arch-drafter/model';
+import { parseProjectId, PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
 import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
@@ -21,7 +21,7 @@ export class ProjectsController {
   async getProjectById(@Param('id') id: string): Promise<ProjectResponseDto> {
     const res = await sendMessage({
       client: this.client,
-      pattern: { cmd: 'projects.get-by-id' },
+      pattern: { cmd: PROJECTS_ACTIONS.GET_BY_ID },
       payload: { id: parseProjectId(id) },
     });
     return res;
@@ -33,7 +33,7 @@ export class ProjectsController {
   ): Promise<ProjectResponseDto> {
     const res = await sendMessage({
       client: this.client,
-      pattern: { cmd: 'projects.create' },
+      pattern: { cmd: PROJECTS_ACTIONS.CREATE },
       payload: data,
     });
     return res;
@@ -46,17 +46,17 @@ export class ProjectsController {
   ): Promise<ProjectResponseDto> {
     const res = await sendMessage({
       client: this.client,
-      pattern: { cmd: 'projects.update' },
+      pattern: { cmd: PROJECTS_ACTIONS.UPDATE },
       payload: { id: parseProjectId(id), data },
     });
     return res;
   }
 
   @Delete('/:id')
-  async deleteProject(@Param('id') id: string): Promise<DeleteProjectResponseDto> {
+  async deleteProject(@Param('id') id: string): Promise<SuccessTrueResponseDto> {
     const res = await sendMessage({
       client: this.client,
-      pattern: { cmd: 'projects.delete' },
+      pattern: { cmd: PROJECTS_ACTIONS.DELETE },
       payload: { id: parseProjectId(id) },
     });
     return res;

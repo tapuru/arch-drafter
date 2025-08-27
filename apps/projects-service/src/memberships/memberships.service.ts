@@ -37,7 +37,7 @@ export class MemberhipsServiceImpl implements MembershipService {
 
   //not sure if this method will be used only by admins or not
   //leave it without role assignment check for now
-  async createMembership({ projectId, userId, role }: Parameters<MembershipService['createMembership']>[0]) {
+  async create({ projectId, userId, role }: Parameters<MembershipService['create']>[0]) {
     const candidate = await this.memberhipsRepository.findByProjectAndUser({ projectId, userId });
     if (candidate) throw new AppRpcException('This user already participates in this project', HttpStatus.BAD_REQUEST);
 

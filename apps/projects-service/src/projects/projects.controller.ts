@@ -3,11 +3,12 @@ import {
   CreateProjectRequestSchema,
   DeleteProjectRequestDto,
   DeleteProjectRequestSchema,
-  DeleteProjectResponseDto,
   GetProjectByIdRequestDto,
   GetProjectByIdRequestSchema,
   parseProjectResponse,
+  parseSuccessTrueResponse,
   ProjectsApi,
+  SuccessTrueResponseDto,
   UpdateProjectRequestDto,
   UpdateProjectRequestSchema,
 } from '@bc-arch-drafter/contracts';
@@ -25,28 +26,28 @@ export class ProjectsController implements ProjectsApi {
   @UsePipes(new ZodValidationPipe(GetProjectByIdRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: 'projects.get-by-id' })
   async getProjectById(@Payload() { id }: GetProjectByIdRequestDto) {
-    const project = await this.projectsService.getProjectById(id);
-    return parseProjectResponse(project);
+    const data = await this.projectsService.getProjectById(id);
+    return parseProjectResponse({ success: true, data });
   }
 
   @UsePipes(new ZodValidationPipe(CreateProjectRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: 'projects.create' })
   async createProject(@Payload() payload: CreateProjectRequestDto) {
-    const project = await this.projectsService.createProject(payload);
-    return parseProjectResponse(project);
+    const data = await this.projectsService.createProject(payload);
+    return parseProjectResponse({ success: true, data });
   }
 
   @UsePipes(new ZodValidationPipe(UpdateProjectRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: 'projects.update' })
   async updateProject(@Payload() payload: UpdateProjectRequestDto) {
-    const project = await this.projectsService.updateProject(payload.id, payload.data);
-    return parseProjectResponse(project);
+    const data = await this.projectsService.updateProject(payload.id, payload.data);
+    return parseProjectResponse({ success: true, data });
   }
 
   @UsePipes(new ZodValidationPipe(DeleteProjectRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: 'projects.delete' })
-  async deleteProject(@Payload() payload: DeleteProjectRequestDto): Promise<DeleteProjectResponseDto> {
-    const res = await this.projectsService.deleteProject(payload.id);
-    return res;
+  async deleteProject(@Payload() payload: DeleteProjectRequestDto): Promise<SuccessTrueResponseDto> {
+    const data = await this.projectsService.deleteProject(payload.id);
+    return parseSuccessTrueResponse({ success: true, data });
   }
 }

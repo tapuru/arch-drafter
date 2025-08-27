@@ -1,5 +1,5 @@
 import { Connections } from '@bc-arch-drafter/api-config';
-import { Invite, InviteId, InviteStatus, MembershipService, ProjectId, UserId } from '@bc-arch-drafter/model';
+import { Invite, InviteId, InvitesService, InviteStatus, ProjectId, UserId } from '@bc-arch-drafter/model';
 import { Inject, Injectable } from '@nestjs/common';
 import { and, count, eq, isNull } from 'drizzle-orm';
 
@@ -74,7 +74,7 @@ export class InvitesRepository {
     return { items, totalCount };
   }
 
-  async create(data: Parameters<MembershipService['sendInvite']>[0]) {
+  async create(data: Parameters<InvitesService['sendInvite']>[0]) {
     const [invite] = await this.db.insert(invites).values(data).returning();
     return invite;
   }

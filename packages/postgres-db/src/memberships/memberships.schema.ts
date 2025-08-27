@@ -25,7 +25,7 @@ export const memberships = pgTable('memberships', {
   role: userProjectRole('role').$type<UserProjectRole>().notNull().default(UserProjectRoleSchema.enum.viewer),
   projectId: uuid('project_id').$type<ProjectId>().notNull(),
   userId: uuid('user_id').$type<UserId>().notNull(),
-  inviteId: idColumn<InviteId>('invite_id'),
+  inviteId: idColumn<InviteId | null>('invite_id').default(null),
   joinedAt: createdAtColumn('joined_at'),
   leftAt: deletedAtColumn('left_at'),
 });

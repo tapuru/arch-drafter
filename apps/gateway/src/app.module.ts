@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { ClientProxyFactory } from '@nestjs/microservices';
 
 import { ExportController } from '@/export';
-import { ProjectsController } from '@/projects';
+import { InvitesController, MembeshipsController, ProjectsController } from '@/projects';
 import { SessionsController } from '@/sessions';
 import { StorageController } from '@/storage';
 import { UsersController, AuthController } from '@/users';
@@ -59,6 +59,8 @@ import { UsersController, AuthController } from '@/users';
     StorageController,
     AuthController,
     UsersController,
+    InvitesController,
+    MembeshipsController,
   ],
 })
 export class AppModule {}

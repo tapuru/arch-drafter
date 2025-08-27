@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { BaseIdSchema } from '@/shared';
+import { BaseIdSchema, NullableIsoDateSchema } from '@/shared';
 import { UserGlobalRoleSchema } from '@/users';
 
 export const UserIdSchema = BaseIdSchema.brand<'UserId'>();
@@ -31,6 +31,9 @@ export const UserSchema = z.object({
   name: UserNameSchema,
   email: EmailSchema,
   role: UserGlobalRoleSchema,
+  deleteAt: NullableIsoDateSchema,
+  isBanned: z.boolean(),
+  isVerified: z.boolean(),
 });
 
 export type User = z.infer<typeof UserSchema>;

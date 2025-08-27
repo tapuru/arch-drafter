@@ -40,6 +40,6 @@ export class ProjectsRepository {
   }
 
   async delete(id: ProjectId) {
-    await this.db.update(projects).set({ deletedAt: new Date().toISOString() });
+    await this.db.update(projects).set({ deletedAt: new Date().toISOString() }).where(eq(projects.id, id));
   }
 }

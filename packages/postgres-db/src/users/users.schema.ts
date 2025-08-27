@@ -1,10 +1,10 @@
 import { UserId, Email, Password, UserName, UserGlobalRole, UserGlobalRoleSchema } from '@bc-arch-drafter/model';
+import { relations } from 'drizzle-orm';
 import { boolean, pgEnum, pgTable, varchar } from 'drizzle-orm/pg-core';
 
-import { createdAtColumn, primaryKeyColumn, updatedAtColumn } from '@/shared';
-import { relations } from 'drizzle-orm';
 import { invites } from '@/invites';
 import { memberships } from '@/memberships';
+import { createdAtColumn, primaryKeyColumn, updatedAtColumn, deletedAtColumn } from '@/shared';
 
 export const userRole = pgEnum('role_enum', [UserGlobalRoleSchema.enum.admin, UserGlobalRoleSchema.enum.user]);
 
@@ -16,6 +16,7 @@ export const users = pgTable('users', {
   role: userRole('role').$type<UserGlobalRole>().notNull().default(UserGlobalRoleSchema.enum.user),
   isVerified: boolean('is_verified').notNull().default(false),
   isBanned: boolean('is_banned').notNull().default(false),
+  deleteAt: deletedAtColumn('deleted_at'),
   createdAt: createdAtColumn('created_at'),
   updatedAt: updatedAtColumn('updated_at'),
 });

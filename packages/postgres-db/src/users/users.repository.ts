@@ -51,7 +51,7 @@ export class UsersRepository {
   }
 
   public async deleteUser(userId: User['id']) {
-    this.db
+    await this.db
       .update(users)
       .set({
         deleteAt: new Date().toISOString(),

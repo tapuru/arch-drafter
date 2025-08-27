@@ -23,7 +23,7 @@ export class MemberhipsController implements MembershipsApi {
   @UsePipes(new ZodValidationPipe(CreateMembershipRequestSchema, (payload) => new RpcException(payload)))
   @MessagePattern({ cmd: MEMBERSHIPS_ACTIONS.CREATE_MEMBERHIP })
   async create(@Payload() payload: CreateMembershipRequestDto) {
-    const res = await this.memberhipsService.createMembership(payload);
+    const res = await this.memberhipsService.create(payload);
     return parseOneMembershipResponse({
       success: true,
       data: res,

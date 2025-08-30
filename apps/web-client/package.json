@@ -16,6 +16,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cookie": "^1.0.2",
+    "immer": "^10.1.1",
     "its-fine": "^2.0.0",
     "konva": "^9.3.22",
     "lucide-react": "^0.536.0",
@@ -32,7 +33,7 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^11.1.0",
-    "zustand": "^5.0.6"
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.7.0",

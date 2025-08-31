@@ -1,0 +1,6 @@
+export const DEFAULT_ARROW_CONFIG = {
+  OFFSET: 20,
+  STROKE_COLOR: '#000000',
+  FILL_COLOR: '#000000',
+  STROKE_WIDTH: 1,
+} as const;

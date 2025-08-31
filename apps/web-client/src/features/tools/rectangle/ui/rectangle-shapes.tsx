@@ -9,7 +9,7 @@ export const RectangleShapes = ({
   onClick,
 }: {
   draggable?: boolean;
-  onClick: (rectangle: Rectangle) => (e: KonvaEventObject<MouseEvent, Node<NodeConfig>>) => void;
+  onClick: (e: KonvaEventObject<MouseEvent, Node<NodeConfig>>) => void;
 }) => {
   const rectangles = useSelectRectangles();
 
@@ -24,7 +24,7 @@ export const RectangleShapes = ({
       height={r.height}
       width={r.width}
       draggable={draggable}
-      onClick={(e) => onClick(r)(e)}
+      onClick={(e) => onClick(e)}
     />
   ));
 };

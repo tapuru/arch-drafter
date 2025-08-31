@@ -10,8 +10,6 @@ import type { AppShape } from '../../shared/lib/types';
 export const useRectangles = ({ currentShapeId }: { currentShapeId: string | null }) => {
   const { addRectangle, updateRectangle } = useRectanglesActions();
   const currentRectangle = useSelectRectangleById(currentShapeId);
-  console.log(currentShapeId);
-  console.log(currentRectangle);
 
   const initRectanlge = ({
     pos,

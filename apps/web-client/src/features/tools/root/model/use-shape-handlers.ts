@@ -9,14 +9,11 @@ export const useShapeHandlers = () => {
 
   const currentTool = useSelectCurrentTool();
 
-  const handleShapeClick = (shape: AppShape) => (e: KonvaEventObject<MouseEvent, Node<NodeConfig>>) => {
+  const handleShapeClick = (e: KonvaEventObject<MouseEvent, Node<NodeConfig>>) => {
     if (currentTool !== TOOLS.SELECT || !transformerRef.current) return;
 
     const target = e.currentTarget;
     transformerRef.current.nodes([target]);
-
-    console.log('SELECTED SHAPE:');
-    console.log(shape);
   };
 
   return { handleShapeClick };

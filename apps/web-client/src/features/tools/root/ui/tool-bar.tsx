@@ -2,6 +2,7 @@ import { Button } from '@bc-arch-drafter/ui';
 import { RectangleToolButton } from '../../rectangle';
 import { LoadExampleButton } from './load-example-button';
 import { SaveButton } from './save-button';
+import { ArrowToolButton } from '../../arrow';
 
 export const ToolBar = () => {
   return (
@@ -11,6 +12,7 @@ export const ToolBar = () => {
       {/*   Export */}
       {/* </Button> */}
       <RectangleToolButton />
+      <ArrowToolButton />
       <LoadExampleButton />
     </div>
   );

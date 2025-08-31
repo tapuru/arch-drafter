@@ -4,6 +4,7 @@ import type { Stage } from 'konva/lib/Stage';
 
 import { useRef } from 'react';
 
+import { useArrows, useSelectArrows } from '@/features/tools/arrow';
 import { useRectangles, useSelectRectangles } from '@/features/tools/rectangle';
 import { TOOLS, useSelectCurrentTool, type AppShape } from '@/features/tools/shared';
 
@@ -13,12 +14,14 @@ export const useTools = ({ stage }: { stage: Stage | null }) => {
   const isPaintingRef = useRef<boolean>(false);
 
   useSelectRectangles();
+  useSelectArrows();
 
   const currentTool = useSelectCurrentTool();
 
   const { extendRectangle, initRectanlge, finishRectangle } = useRectangles({
     currentShapeId: currentShapeIdRef.current,
   });
+  const { extendArrow, finishArrow, initArrow } = useArrows({ currentShapeId: currentShapeIdRef.current });
 
   const handleToolsPointerDown = () => {
     if (currentTool === TOOLS.SELECT || !stage) return;
@@ -32,6 +35,9 @@ export const useTools = ({ stage }: { stage: Stage | null }) => {
     switch (currentTool) {
       case TOOLS.RECTANGLE:
         id = initRectanlge({ pos });
+        break;
+      case TOOLS.ARROW:
+        id = initArrow({ pos });
         break;
       default:
         throw new Error('unknown tool');
@@ -49,6 +55,10 @@ export const useTools = ({ stage }: { stage: Stage | null }) => {
     switch (currentTool) {
       case TOOLS.RECTANGLE:
         extendRectangle({ pos });
+        break;
+      case TOOLS.ARROW:
+        extendArrow({ pos });
+        break;
     }
   };
 
@@ -66,6 +76,10 @@ export const useTools = ({ stage }: { stage: Stage | null }) => {
     switch (currentTool) {
       case TOOLS.RECTANGLE:
         finishRectangle(sendAddShapeEventMock);
+        break;
+      case TOOLS.ARROW:
+        finishArrow(sendAddShapeEventMock);
+        break;
     }
   };
 

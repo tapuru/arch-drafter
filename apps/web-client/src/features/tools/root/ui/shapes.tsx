@@ -1,15 +1,17 @@
-import { RectangleShapes } from '@/features/tools/rectangle';
+import { Transformer } from 'react-konva';
 
-import { useShapeHandlers } from '../model/use-shape-handlers';
-import { ArrowShapes } from '../../arrow';
+import { ArrowShapes } from '@/features/tools/arrow';
+import { RectangleShapes } from '@/features/tools/rectangle';
+import { useSelect } from '@/features/tools/select';
 
 export const Shapes = () => {
-  const { handleShapeClick } = useShapeHandlers();
+  const { handleSelect, transformerRef } = useSelect();
 
   return (
     <>
-      <RectangleShapes onClick={handleShapeClick} />
-      <ArrowShapes onClick={handleShapeClick} />
+      <RectangleShapes onClick={handleSelect} />
+      <ArrowShapes onClick={handleSelect} />
+      <Transformer ref={transformerRef} />
     </>
   );
 };

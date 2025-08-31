@@ -2,7 +2,7 @@ import type { Stage } from 'konva/lib/Stage';
 
 import React from 'react';
 
-import { TOOLS, type AppShape, type ToolManager } from '@/features/tools/shared';
+import { TOOLS, type AppShape, type Tool, type ToolManager } from '@/features/tools/shared';
 
 //TODO: event logic here
 const sendAddShapeEventMock = (shape: AppShape) => {
@@ -17,7 +17,7 @@ export const useToolHandlers = ({
   currentShapeIdRef,
 }: {
   stage: Stage | null;
-  currentToolManager: ToolManager;
+  currentToolManager: ToolManager<Tool>;
   isPaintingRef: React.RefObject<boolean | null>;
   currentShapeIdRef: React.RefObject<string | null>;
 }) => {

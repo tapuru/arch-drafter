@@ -4,10 +4,10 @@ import React, { useRef } from 'react';
 
 import { useArrowManager } from '@/features/tools/arrow';
 import { useRectangleManager } from '@/features/tools/rectangle';
-import { TOOLS, useSelectCurrentTool, type ToolManager } from '@/features/tools/shared';
+import { TOOLS, useSelectCurrentTool, type Tool, type ToolManager } from '@/features/tools/shared';
 
 export const useToolManagers = (): {
-  currentToolManager: ToolManager;
+  currentToolManager: ToolManager<Tool>;
   isPaintingRef: React.RefObject<boolean | null>;
   currentShapeIdRef: React.RefObject<string | null>;
 } => {
@@ -20,7 +20,7 @@ export const useToolManagers = (): {
 
   const currentTool = useSelectCurrentTool();
 
-  let currentToolManager: ToolManager = rectangleManager;
+  let currentToolManager: ToolManager<typeof TOOLS.SELECT> = { name: TOOLS.SELECT };
 
   switch (currentTool) {
     case TOOLS.RECTANGLE:
@@ -28,6 +28,9 @@ export const useToolManagers = (): {
       break;
     case TOOLS.ARROW:
       currentToolManager = arrowManager;
+      break;
+    case TOOLS.SELECT:
+      currentToolManager = { name: TOOLS.SELECT };
       break;
   }
 

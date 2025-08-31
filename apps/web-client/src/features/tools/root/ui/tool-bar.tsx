@@ -4,6 +4,7 @@ import { LoadExampleButton } from './load-example-button';
 import { SaveButton } from './save-button';
 import { ArrowToolButton } from '../../arrow';
 import { SelectToolButton } from '../../select';
+import { ScribbleToolButton } from '../../scribble';
 
 export const ToolBar = () => {
   return (
@@ -14,6 +15,7 @@ export const ToolBar = () => {
       {/*   Export */}
       {/* </Button> */}
       <RectangleToolButton />
+      <ScribbleToolButton />
       <ArrowToolButton />
       <LoadExampleButton />
     </div>

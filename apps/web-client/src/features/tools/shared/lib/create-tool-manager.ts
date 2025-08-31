@@ -1,3 +1,6 @@
+import type { Tool } from './tools.const';
 import type { ToolManager } from './types';
 
-export const createToolManagerHook = (hook: (currentShapeId: string | null) => ToolManager) => hook;
+export const createToolManagerHook = <TName extends Tool>(
+  hook: (currentShapeId: string | null) => ToolManager<TName>,
+) => hook;

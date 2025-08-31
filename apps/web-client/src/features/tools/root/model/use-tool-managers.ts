@@ -5,6 +5,7 @@ import React, { useRef } from 'react';
 import { useArrowManager } from '@/features/tools/arrow';
 import { useRectangleManager } from '@/features/tools/rectangle';
 import { TOOLS, useSelectCurrentTool, type Tool, type ToolManager } from '@/features/tools/shared';
+import { useScribbleManager } from '../../scribble';
 
 export const useToolManagers = (): {
   currentToolManager: ToolManager<Tool>;
@@ -17,10 +18,11 @@ export const useToolManagers = (): {
 
   const rectangleManager = useRectangleManager(currentShapeIdRef.current);
   const arrowManager = useArrowManager(currentShapeIdRef.current);
+  const scribbleManager = useScribbleManager(currentShapeIdRef.current);
 
   const currentTool = useSelectCurrentTool();
 
-  let currentToolManager: ToolManager<typeof TOOLS.SELECT> = { name: TOOLS.SELECT };
+  let currentToolManager: ToolManager<Tool> = { name: TOOLS.SELECT };
 
   switch (currentTool) {
     case TOOLS.RECTANGLE:
@@ -28,6 +30,9 @@ export const useToolManagers = (): {
       break;
     case TOOLS.ARROW:
       currentToolManager = arrowManager;
+      break;
+    case TOOLS.SCRIBBLE:
+      currentToolManager = scribbleManager;
       break;
     case TOOLS.SELECT:
       currentToolManager = { name: TOOLS.SELECT };

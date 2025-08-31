@@ -1,16 +1,18 @@
 import { useLoadRectangles } from '@/features/tools/rectangle';
+import { useLoadScribbles } from '@/features/tools/scribble';
 
 import json from '../../example.json';
-import { useLoadArrows } from '../../arrow/model/use-load-arrows';
 
 export const useLoadShapes = () => {
   const { loadRectangles } = useLoadRectangles();
   const { loadArrows } = useLoadArrows();
+  const { loadSapes: loadScribbles } = useLoadScribbles();
 
   const handleLoadExample = () => {
     if (!json) return;
-    loadRectangles(json.rectangles);
-    loadArrows(json.arrows);
+    loadRectangles(json.shapes.rectangles);
+    loadArrows(json.shapes.arrows);
+    loadScribbles(json.shapes.scribbles);
   };
 
   return { handleLoadExample };

@@ -1,6 +1,7 @@
 export const TOOLS = {
   SELECT: 'SELECT',
   RECTANGLE: 'RECTANGLE',
+  SCRIBBLE: 'SCRIBBLE',
   ARROW: 'ARROW',
 } as const;
 

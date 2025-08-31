@@ -1,5 +1,5 @@
 export { RectangleShapes } from './ui/rectangle-shapes';
-export { useRectangles } from './model/use-rectangles';
+export { useRectangleManager } from './model/use-rectangle-manager';
 export { useLoadRectangles } from './model/use-load-rectangles';
 export { RectangleToolButton } from './ui/rectangle-tool-button';
 

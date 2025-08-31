@@ -1,6 +1,9 @@
-import React, { useRef } from 'react';
-import { useTools } from '../model/use-tool-handlers';
 import type { Stage } from 'konva/lib/Stage';
+
+import React, { useRef } from 'react';
+
+import { useToolHandlers } from '../model/use-tool-handlers';
+import { useToolManagers } from '../model/use-tool-managers';
 
 export const ToolsProvider = ({
   renderBoard,
@@ -15,8 +18,13 @@ export const ToolsProvider = ({
   //TODO: maybe move this away
   const stageRef = useRef<Stage>(null);
 
-  const { handleToolsPointerDown, handleToolsPointerMove, handleToolsPointerUp } = useTools({
+  const { currentToolManager, isPaintingRef, currentShapeIdRef } = useToolManagers();
+
+  const { handleToolsPointerDown, handleToolsPointerMove, handleToolsPointerUp } = useToolHandlers({
     stage: stageRef.current,
+    currentShapeIdRef,
+    currentToolManager,
+    isPaintingRef,
   });
 
   return renderBoard({

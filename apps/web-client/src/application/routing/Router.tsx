@@ -9,7 +9,7 @@ import { BaseForm } from '@/pages/example';
 import { HomePage } from '@/pages/home';
 
 import { ProtectedRoute } from './ProtectedRoute.tsx';
-
+import { ProjectPage } from '@/pages/project';
 
 export const createAppRouter = () => {
   return createBrowserRouter([
@@ -41,27 +41,39 @@ export const createAppRouter = () => {
         //profile
         {
           path: WEB_ROUTES.PROFILE,
-          element: <ProtectedRoute withAuth>
-            <div>profile</div>
-          </ProtectedRoute>,
+          element: (
+            <ProtectedRoute withAuth>
+              <div>profile</div>
+            </ProtectedRoute>
+          ),
         },
         {
           path: WEB_ROUTES.SETTINGS,
-          element: <ProtectedRoute withAuth>
-            <div>profile settings</div>
-          </ProtectedRoute>,
+          element: (
+            <ProtectedRoute withAuth>
+              <div>profile settings</div>
+            </ProtectedRoute>
+          ),
         },
         {
           path: WEB_ROUTES.USER_DATA,
-          element: <ProtectedRoute withAuth>
-            <div>profile user-data</div>
-          </ProtectedRoute>,
+          element: (
+            <ProtectedRoute withAuth>
+              <div>profile user-data</div>
+            </ProtectedRoute>
+          ),
         },
         {
           path: WEB_ROUTES.ABOUT_APP,
-          element: <ProtectedRoute withAuth>
-            <div>profile about-app</div>
-          </ProtectedRoute>,
+          element: (
+            <ProtectedRoute withAuth>
+              <div>profile about-app</div>
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: '/project',
+          element: <ProjectPage />,
         },
       ],
       errorElement: <ErrorPage />,
@@ -81,3 +93,4 @@ export const createAppRouter = () => {
     },
   ]);
 };
+

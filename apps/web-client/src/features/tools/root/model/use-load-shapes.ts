@@ -1,3 +1,4 @@
+import { useLoadArrows } from '@/features/tools/arrow';
 import { useLoadRectangles } from '@/features/tools/rectangle';
 import { useLoadScribbles } from '@/features/tools/scribble';
 

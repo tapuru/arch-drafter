@@ -10,12 +10,11 @@ import type { LineConfig } from 'konva/lib/shapes/Line';
 import type { RectConfig } from 'konva/lib/shapes/Rect';
 import type { Stage as StageType } from 'konva/lib/Stage';
 
-import { useEffect, useRef, useState, type ChangeEvent } from 'react';
+import { type ChangeEvent, useRef, useState } from 'react';
 import { Arrow, Circle, Layer, Line, Rect, Stage, Transformer } from 'react-konva';
 
 import { Button } from '@bc-arch-drafter/ui';
 import { clsx } from 'clsx';
-import Konva from 'konva';
 import { v4 } from 'uuid';
 
 import json from '../example.json';

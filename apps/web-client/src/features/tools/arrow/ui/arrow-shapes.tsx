@@ -1,6 +1,8 @@
-import { Arrow } from 'react-konva';
-import { useSelectArrows, type Arrow as ArrowType } from '../model/arrow.store';
 import type { KonvaEventObject, Node, NodeConfig } from 'konva/lib/Node';
+
+import { Arrow } from 'react-konva';
+
+import { useSelectArrows } from '../model/arrow.store';
 
 export const ArrowShapes = ({
   onClick,

@@ -2,7 +2,7 @@ import type { KonvaEventObject, Node, NodeConfig } from 'konva/lib/Node';
 
 import { Rect } from 'react-konva';
 
-import { useSelectRectangles, type Rectangle } from '../model/rectangle.store';
+import { useSelectRectangles } from '../model/rectangle.store';
 
 export const RectangleShapes = ({
   draggable,

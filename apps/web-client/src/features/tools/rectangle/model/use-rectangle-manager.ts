@@ -2,10 +2,10 @@ import type { Vector2d } from 'konva/lib/types';
 
 import { v4 } from 'uuid';
 
-import { DEFAULT_RECTANGLE_CONFIG } from '../lib/defaults.const';
-import { useRectanglesActions, useSelectRectangleById, useSelectRectangles, type Rectangle } from './rectangle.store';
+import { type AppShape, createToolManagerHook, TOOLS } from '@/features/tools/shared';
 
-import { createToolManagerHook, TOOLS, type AppShape } from '@/features/tools/shared';
+import { DEFAULT_RECTANGLE_CONFIG } from '../lib/defaults.const';
+import { useRectanglesActions, useSelectRectangleById, useSelectRectangles } from './rectangle.store';
 
 //TODO: add currentShape type
 

@@ -82,6 +82,7 @@ const config: Config.InitialOptions = {
   projects: [
     project('packages/model', 'node', 'cyan'),
     project('packages/contracts', 'node', 'cyan'),
+    project('packages/client-services', 'node', 'cyan'),
 
     nestProject('packages/lib', 'cyan'),
     nestProject('packages/postgres-db', 'cyan'),

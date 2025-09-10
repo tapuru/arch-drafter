@@ -15,3 +15,4 @@ packages:
   - 'packages/api-config'
   - 'packages/postgres-db'
   - 'packages/contracts'
+  - 'packages/client-services'

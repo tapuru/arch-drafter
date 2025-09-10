@@ -4,7 +4,6 @@ import type { Vector2d } from 'konva/lib/types';
 
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import type { AppShape } from '../../shared';
 
 //TODO: create model schemas for this (dont use konva types)
 export type Arrow = Pick<ArrowConfig, 'fill' | 'strokeWidth' | 'points'> &

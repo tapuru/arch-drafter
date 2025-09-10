@@ -1,1 +1,1 @@
-export { BaseForm } from './BaseForm';
+export { BaseForm } from './base-form';

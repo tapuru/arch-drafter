@@ -1,6 +1,7 @@
-import { type Stage as StageType } from 'konva/lib/Stage';
 import type React from 'react';
 import { Layer, Rect, Stage } from 'react-konva';
+
+import { type Stage as StageType } from 'konva/lib/Stage';
 
 export const Board = ({
   onBgClick,

@@ -13,6 +13,12 @@ config({ path: resolve(process.cwd(), `../../.env.${NODE_ENV}`) });
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const PORT = process.env.GATEWAY_PORT ?? DEFAULT_CONFIG.port;
+
+  app.enableCors({
+    origin: ['http://localhost:5173'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   app.useGlobalInterceptors(new RpcExceptionsInterceptor());
 
   await app.listen(PORT, () => console.log(`Gateway app started at port ${PORT}`));

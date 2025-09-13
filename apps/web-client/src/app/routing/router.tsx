@@ -72,7 +72,7 @@ export const createAppRouter = () => {
           ),
         },
         {
-          path: '/project',
+          path: '/project/:projectId',
           element: <ProjectPage />,
         },
       ],
@@ -93,4 +93,3 @@ export const createAppRouter = () => {
     },
   ]);
 };
-

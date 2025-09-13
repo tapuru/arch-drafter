@@ -1,4 +1,5 @@
 import { BoardExample } from '@/features/board';
+import { ProjectsList } from '@/features/projects-list';
 
 export const HomePage = () => {
   // const navigate = useNavigate();
@@ -14,6 +15,7 @@ export const HomePage = () => {
       {/* Home. Sweet Home... */}
       {/* <Button onClick={toBaseForm}>Go to Base Form</Button> */}
       {/* <BoardExample /> */}
+      <ProjectsList />
     </div>
   );
 };

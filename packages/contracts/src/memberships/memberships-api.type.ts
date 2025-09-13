@@ -4,8 +4,9 @@ import { SuccessTrueResponseDto } from '@/responses';
 import { ApiFromSpec, ApiSpec } from '@/utils';
 
 import { CreateMembershipRequestDto } from './dtos/create-membership.dto';
+import { GetUserMembershipsRequestDto } from './dtos/get-memberships.dto';
 import { LeaveProjectRequestDto } from './dtos/leave-project.dto';
-import { OneMembershipResponseDto } from './dtos/memberships-response';
+import { ManyMembershipResponseDto, OneMembershipResponseDto } from './dtos/memberships-response';
 import { RemoveFromProjectRequestDto } from './dtos/remove-from-project.dto';
 
 export type MembershipsApiSpec = ApiSpec<
@@ -22,6 +23,10 @@ export type MembershipsApiSpec = ApiSpec<
     [MEMBERSHIPS_ACTIONS.REMOVE_FROM_PROJECT]: {
       request: RemoveFromProjectRequestDto;
       response: SuccessTrueResponseDto;
+    };
+    [MEMBERSHIPS_ACTIONS.GET_USER_MEMBERHIPS]: {
+      request: GetUserMembershipsRequestDto;
+      response: ManyMembershipResponseDto;
     };
   }
 >;

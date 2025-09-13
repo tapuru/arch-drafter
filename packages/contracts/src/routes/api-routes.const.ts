@@ -16,6 +16,7 @@ export const API_ROUTES = {
     ROOT: '/memberhips',
     LEAVE_PROJECT: '/projects/leave',
     REMOVE_FROM_PROJECT: '/projects/remove',
+    GET_USER_MEMBERSHIPS: (userId: string) => `/memberships/${userId}`,
   },
   AUTH: {
     ROOT: '/auth',

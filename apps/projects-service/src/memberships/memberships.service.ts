@@ -7,6 +7,11 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 export class MemberhipsServiceImpl implements MembershipService {
   constructor(private readonly memberhipsRepository: MembershipsRepository) {}
 
+  async getUserMemberships({ userId }: Parameters<MembershipService['getUserMemberships']>[0]) {
+    const res = await this.memberhipsRepository.findMany({ filters: { userId }, relations: { project: true } });
+    return res;
+  }
+
   async leaveProject({ projectId, userId }: Parameters<MembershipService['leaveProject']>[0]) {
     const membership = await this.memberhipsRepository.findByProjectAndUser({ projectId, userId });
     if (!membership) throw new AppRpcException('This user is not a member of that project', HttpStatus.FORBIDDEN);

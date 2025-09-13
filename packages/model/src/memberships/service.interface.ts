@@ -1,9 +1,9 @@
-import { GetAllRes, ServiceFromActions } from '@/shared';
+import { Project } from '@/projects';
+import { ServiceFromActions } from '@/shared';
 import { UserId } from '@/users';
 
 import { MEMBERSHIPS_ACTIONS } from './consts/actions.const';
-import { Membership, MembershipSchema } from './schemas/memebership.schema';
-import { Project, ProjectSchema } from '@/projects';
+import { Membership } from './schemas/memebership.schema';
 
 export type CreateMembership = (data: Omit<Membership, 'id' | 'joinedAt'>) => Promise<Membership>;
 

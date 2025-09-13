@@ -3,6 +3,7 @@ import { UserId } from '@/users';
 
 import { MEMBERSHIPS_ACTIONS } from './consts/actions.const';
 import { Membership, MembershipSchema } from './schemas/memebership.schema';
+import { Project, ProjectSchema } from '@/projects';
 
 export type CreateMembership = (data: Omit<Membership, 'id' | 'joinedAt'>) => Promise<Membership>;
 
@@ -12,7 +13,10 @@ export type RemoveFromProject = (
   data: Pick<Membership, 'projectId' | 'userId'> & { removerId: UserId },
 ) => Promise<{ success: true }>;
 
-type GetUserMemberships = (data: { userId: UserId }) => Promise<GetAllRes<typeof MembershipSchema>>;
+type GetUserMemberships = (data: { userId: UserId }) => Promise<{
+  items: Array<Membership & { project: Project }>;
+  totalCount: number;
+}>;
 
 export interface MembershipService
   extends ServiceFromActions<

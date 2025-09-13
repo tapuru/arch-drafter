@@ -32,21 +32,21 @@ export class ProjectsController implements ProjectsApi {
   }
 
   @UsePipes(new ZodValidationPipe(CreateProjectRequestSchema, (payload) => new RpcException(payload)))
-  @MessagePattern({ cmd: 'projects.create' })
+  @MessagePattern({ cmd: PROJECTS_ACTIONS.CREATE })
   async createProject(@Payload() payload: CreateProjectRequestDto) {
     const data = await this.projectsService.createProject(payload);
     return parseProjectResponse({ success: true, data });
   }
 
   @UsePipes(new ZodValidationPipe(UpdateProjectRequestSchema, (payload) => new RpcException(payload)))
-  @MessagePattern({ cmd: 'projects.update' })
+  @MessagePattern({ cmd: PROJECTS_ACTIONS.UPDATE })
   async updateProject(@Payload() payload: UpdateProjectRequestDto) {
     const data = await this.projectsService.updateProject(payload.id, payload.data);
     return parseProjectResponse({ success: true, data });
   }
 
   @UsePipes(new ZodValidationPipe(DeleteProjectRequestSchema, (payload) => new RpcException(payload)))
-  @MessagePattern({ cmd: 'projects.delete' })
+  @MessagePattern({ cmd: PROJECTS_ACTIONS.DELETE })
   async deleteProject(@Payload() payload: DeleteProjectRequestDto): Promise<SuccessTrueResponseDto> {
     const data = await this.projectsService.deleteProject(payload.id);
     return parseSuccessTrueResponse({ success: true, data });

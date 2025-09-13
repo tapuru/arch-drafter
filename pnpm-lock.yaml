@@ -538,6 +538,9 @@ importers:
       '@bc-arch-drafter/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@bc-arch-drafter/model':
+        specifier: workspace:*
+        version: link:../../packages/model
       '@bc-arch-drafter/ui':
         specifier: workspace:*
         version: link:../../packages/ui

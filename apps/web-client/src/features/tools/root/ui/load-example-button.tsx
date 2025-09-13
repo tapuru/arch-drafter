@@ -1,5 +1,4 @@
 import { ToolButton } from '@/features/tools/shared';
-
 import { useLoadShapes } from '../model/use-load-shapes';
 
 export const LoadExampleButton = () => {

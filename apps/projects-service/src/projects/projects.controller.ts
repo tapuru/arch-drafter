@@ -17,6 +17,7 @@ import { Controller, UsePipes } from '@nestjs/common';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 
 import { ProjectsServiceImpl } from './projects.service';
+import { PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
 
 //TODO: add strict typing
 @Controller()
@@ -24,7 +25,7 @@ export class ProjectsController implements ProjectsApi {
   constructor(private readonly projectsService: ProjectsServiceImpl) {}
 
   @UsePipes(new ZodValidationPipe(GetProjectByIdRequestSchema, (payload) => new RpcException(payload)))
-  @MessagePattern({ cmd: 'projects.get-by-id' })
+  @MessagePattern({ cmd: PROJECTS_ACTIONS.GET_BY_ID })
   async getProjectById(@Payload() { id }: GetProjectByIdRequestDto) {
     const data = await this.projectsService.getProjectById(id);
     return parseProjectResponse({ success: true, data });

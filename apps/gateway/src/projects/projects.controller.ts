@@ -8,26 +8,29 @@ import {
   UpdateProjectRequestDto,
   UpdateProjectRequestSchema,
 } from '@bc-arch-drafter/contracts';
-import { sendMessage, ZodValidationPipe } from '@bc-arch-drafter/lib';
-import { parseProjectId, PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
+import { AppHttpException, sendMessage, ZodValidationPipe } from '@bc-arch-drafter/lib';
+import { isProjectId, parseProjectId, PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
+import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Post, Put } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
-@Controller(API_ROUTES.PROJECTS)
+@Controller()
 export class ProjectsController {
   constructor(@Inject(Microservice.PROJECTS) private readonly client: ClientProxy) {}
 
-  @Get('/:id')
+  @Get(API_ROUTES.PROJECTS.GET_BY_ID(':id'))
   async getProjectById(@Param('id') id: string): Promise<ProjectResponseDto> {
+    if (!isProjectId(id)) {
+      throw new AppHttpException('Invalid uuid', HttpStatus.BAD_REQUEST);
+    }
     const res = await sendMessage({
       client: this.client,
       pattern: { cmd: PROJECTS_ACTIONS.GET_BY_ID },
-      payload: { id: parseProjectId(id) },
+      payload: { id },
     });
     return res;
   }
 
-  @Post()
+  @Post(API_ROUTES.PROJECTS.ROOT)
   async createProject(
     @Body(new ZodValidationPipe(CreateProjectRequestSchema)) data: CreateProjectRequestDto,
   ): Promise<ProjectResponseDto> {
@@ -39,11 +42,14 @@ export class ProjectsController {
     return res;
   }
 
-  @Put('/:id')
+  @Put(API_ROUTES.PROJECTS.UPDATE(':id'))
   async updateProject(
     @Param('id') id: string,
     @Body(new ZodValidationPipe(UpdateProjectRequestSchema.shape.data)) data: UpdateProjectRequestDto['data'],
   ): Promise<ProjectResponseDto> {
+    if (!isProjectId(id)) {
+      throw new AppHttpException('Invalid uuid', HttpStatus.BAD_REQUEST);
+    }
     const res = await sendMessage({
       client: this.client,
       pattern: { cmd: PROJECTS_ACTIONS.UPDATE },
@@ -52,8 +58,11 @@ export class ProjectsController {
     return res;
   }
 
-  @Delete('/:id')
+  @Delete(API_ROUTES.PROJECTS.DELETE(':id'))
   async deleteProject(@Param('id') id: string): Promise<SuccessTrueResponseDto> {
+    if (!isProjectId(id)) {
+      throw new AppHttpException('Invalid uuid', HttpStatus.BAD_REQUEST);
+    }
     const res = await sendMessage({
       client: this.client,
       pattern: { cmd: PROJECTS_ACTIONS.DELETE },

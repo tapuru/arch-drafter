@@ -1,0 +1,21 @@
+{
+  "name": "@bc-arch-drafter/client-services",
+  "version": "0.0.1",
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "lint": "eslint --cache ."
+  },
+  "type": "module",
+  "main": "./build/index.cjs",
+  "exports": {
+    "require": "./build/index.cjs",
+    "import": "./build/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "@bc-arch-drafter/contracts": "workspace:*",
+    "dotenv": "^17.2.1"
+  }
+}

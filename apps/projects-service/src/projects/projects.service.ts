@@ -12,6 +12,7 @@ export class ProjectsServiceImpl implements ProjectsService {
 
   async getProjectById(id: ProjectId) {
     const project = await this.projectsRepository.findById(id);
+    console.log(project);
     if (!project || project.deletedAt !== null) {
       throw new AppRpcException('project not found', HttpStatus.NOT_FOUND);
     }

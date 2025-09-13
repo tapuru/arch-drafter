@@ -3,7 +3,7 @@ export const API_ROUTES = {
     ROOT: '/projects',
     GET_BY_ID: (id: string) => `/projects/${id}`,
     DELETE: (id: string) => `/projects/${id}`,
-    UPDATE: (id: string) => `/project/${id}`,
+    UPDATE: (id: string) => `/projects/${id}`,
   },
   INVITES: {
     ROOT: '/invites',

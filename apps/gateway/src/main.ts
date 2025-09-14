@@ -15,7 +15,7 @@ async function bootstrap() {
   const PORT = process.env.GATEWAY_PORT ?? DEFAULT_CONFIG.port;
 
   app.enableCors({
-    origin: ['http://localhost:5173', 'http://localhost', 'https://localhost'],
+    origin: ['http://localhost:5173', 'http://localhost', 'https://localhost', 'https://arch-drafter.ru'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

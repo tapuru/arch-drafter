@@ -1,1 +1,1 @@
-export { projectsApi } from './projects.api';
+export { ProjectsApiImpl } from './projects.api';

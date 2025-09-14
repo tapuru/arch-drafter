@@ -1,1 +1,1 @@
-export { membershipsApi } from './memberships.api';
+export { MembershipsApiImpl } from './memberships.api';

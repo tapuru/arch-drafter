@@ -1,3 +1,4 @@
+import { Project } from '@/projects';
 import { ServiceFromActions } from '@/shared';
 import { UserId } from '@/users';
 
@@ -12,6 +13,11 @@ export type RemoveFromProject = (
   data: Pick<Membership, 'projectId' | 'userId'> & { removerId: UserId },
 ) => Promise<{ success: true }>;
 
+type GetUserMemberships = (data: { userId: UserId }) => Promise<{
+  items: Array<Membership & { project: Project }>;
+  totalCount: number;
+}>;
+
 export interface MembershipService
   extends ServiceFromActions<
     typeof MEMBERSHIPS_ACTIONS,
@@ -19,5 +25,6 @@ export interface MembershipService
       [MEMBERSHIPS_ACTIONS.CREATE_MEMBERHIP]: CreateMembership;
       [MEMBERSHIPS_ACTIONS.LEAVE_PROJECT]: LeaveProject;
       [MEMBERSHIPS_ACTIONS.REMOVE_FROM_PROJECT]: RemoveFromProject;
+      [MEMBERSHIPS_ACTIONS.GET_USER_MEMBERHIPS]: GetUserMemberships;
     }
   > {}

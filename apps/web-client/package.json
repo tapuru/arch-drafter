@@ -6,13 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:prod": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@bc-arch-drafter/client-services": "workspace:*",
     "@bc-arch-drafter/contracts": "workspace:*",
+    "@bc-arch-drafter/model": "workspace:*",
     "@bc-arch-drafter/ui": "workspace:*",
+    "@hookform/resolvers": "^5.2.1",
     "@tanstack/query-core": "^5.87.4",
     "@tanstack/query-devtools": "^5.87.3",
     "@tanstack/react-query": "^5.83.0",
@@ -26,7 +29,7 @@
     "lucide-react": "^0.536.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-hook-form": "^7.61.1",
+    "react-hook-form": "^7.62.0",
     "react-konva": "^19.0.7",
     "react-reconciler": "^0.32.0",
     "react-router": "^7.1.5",
@@ -37,6 +40,7 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^11.1.0",
+    "zod": "^4.1.3",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

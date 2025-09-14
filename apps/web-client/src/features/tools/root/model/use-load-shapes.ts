@@ -1,3 +1,7 @@
+import type { Arrow } from '../../arrow/model/arrow.store';
+import type { Rectangle } from '../../rectangle/model/rectangle.store';
+import type { Scribble } from '../../scribble/model/scribble.store';
+
 import { useLoadArrows } from '@/features/tools/arrow';
 import { useLoadRectangles } from '@/features/tools/rectangle';
 import { useLoadScribbles } from '@/features/tools/scribble';
@@ -5,16 +9,34 @@ import { useLoadScribbles } from '@/features/tools/scribble';
 import json from '../../example.json';
 
 export const useLoadShapes = () => {
-  const { loadRectangles } = useLoadRectangles();
-  const { loadArrows } = useLoadArrows();
-  const { loadSapes: loadScribbles } = useLoadScribbles();
+  const { loadRectangles, clearRectangles } = useLoadRectangles();
+  const { loadArrows, clearArrows } = useLoadArrows();
+  const { loadSapes: loadScribbles, clearScribbles } = useLoadScribbles();
+
+  const handleLoad = ({
+    arrows,
+    rectangles,
+    scribbles,
+  }: {
+    rectangles: Rectangle[];
+    arrows: Arrow[];
+    scribbles: Scribble[];
+  }) => {
+    loadRectangles(rectangles);
+    loadArrows(arrows);
+    loadScribbles(scribbles);
+  };
+
+  const handleClearAll = () => {
+    clearArrows();
+    clearRectangles();
+    clearScribbles();
+  };
 
   const handleLoadExample = () => {
     if (!json) return;
-    loadRectangles(json.shapes.rectangles);
-    loadArrows(json.shapes.arrows);
-    loadScribbles(json.shapes.scribbles);
+    handleLoad(json.shapes);
   };
 
-  return { handleLoadExample };
+  return { handleLoadExample, handleClearAll, handleLoad };
 };

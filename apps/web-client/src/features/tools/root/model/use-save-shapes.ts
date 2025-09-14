@@ -1,9 +1,16 @@
-import { useSelectArrows } from '../../arrow';
 import type { Arrow } from '../../arrow/model/arrow.store';
-import { useSelectRectangles } from '../../rectangle';
 import type { Rectangle } from '../../rectangle/model/rectangle.store';
-import { useSelectScribbles } from '../../scribble';
 import type { Scribble } from '../../scribble/model/scribble.store';
+import type { ProjectId } from '@bc-arch-drafter/model';
+
+import { useMutation } from '@tanstack/react-query';
+import { useParams } from 'react-router';
+
+import { projectsApi } from '@/shared/api';
+
+import { useSelectArrows } from '../../arrow';
+import { useSelectRectangles } from '../../rectangle';
+import { useSelectScribbles } from '../../scribble';
 
 //TODO: write this type in contracts (model?) package
 type SaveShapesDto = {
@@ -19,9 +26,12 @@ export const useSaveShapes = () => {
   const rectangles = useSelectRectangles();
   const scribbles = useSelectScribbles();
   const arrows = useSelectArrows();
+  const { projectId } = useParams();
 
-  const handleSave = () => {
-    const res: SaveShapesDto = {
+  const { mutate } = useMutation({ mutationFn: projectsApi.updateProject.bind(projectsApi) });
+
+  const handleSave = async () => {
+    const dto: SaveShapesDto = {
       someMetadata: 'example metadata field',
       shapes: {
         rectangles,
@@ -30,8 +40,7 @@ export const useSaveShapes = () => {
       },
     };
 
-    // save logic
-    console.log(JSON.stringify(res));
+    mutate({ id: projectId as ProjectId, data: { canvasJson: dto.shapes } });
   };
 
   return { handleSave };

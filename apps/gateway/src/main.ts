@@ -15,10 +15,11 @@ async function bootstrap() {
   const PORT = process.env.GATEWAY_PORT ?? DEFAULT_CONFIG.port;
 
   app.enableCors({
-    origin: ['http://localhost:5173'],
+    origin: ['http://localhost:5173', 'http://localhost', 'https://localhost'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
+  app.setGlobalPrefix('api');
   app.useGlobalInterceptors(new RpcExceptionsInterceptor());
 
   await app.listen(PORT, () => console.log(`Gateway app started at port ${PORT}`));

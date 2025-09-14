@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { WEB_ROUTES } from '@bc-arch-drafter/contracts';
 
 import { DefaultLayout } from '@/app/layouts';
+import { CreateProjectPage } from '@/pages/create-project';
 import { ErrorPage } from '@/pages/error';
 import { BaseForm } from '@/pages/example';
 import { HomePage } from '@/pages/home';
@@ -72,8 +73,14 @@ export const createAppRouter = () => {
           ),
         },
         {
-          path: '/project',
-          element: <ProjectPage />,
+          path: '/projects',
+          children: [
+            {
+              path: '/projects/:projectId',
+              element: <ProjectPage />,
+            },
+            { path: '/projects/create', element: <CreateProjectPage /> },
+          ],
         },
       ],
       errorElement: <ErrorPage />,
@@ -93,4 +100,3 @@ export const createAppRouter = () => {
     },
   ]);
 };
-

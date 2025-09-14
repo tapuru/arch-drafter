@@ -1,9 +1,12 @@
 import {
   CreateMembershipRequestDto,
   CreateMembershipRequestSchema,
+  GetUserMembershipsRequestDto,
+  GetUserMembershipsRequestSchema,
   LeaveProjectRequestDto,
   LeaveProjectRequestSchema,
   MembershipsApi,
+  parseManyMembershipResponse,
   parseOneMembershipResponse,
   parseSuccessTrueResponse,
   RemoveFromProjectRequestDto,
@@ -25,6 +28,16 @@ export class MemberhipsController implements MembershipsApi {
   async create(@Payload() payload: CreateMembershipRequestDto) {
     const res = await this.memberhipsService.create(payload);
     return parseOneMembershipResponse({
+      success: true,
+      data: res,
+    });
+  }
+
+  @UsePipes(new ZodValidationPipe(GetUserMembershipsRequestSchema, (payload) => new RpcException(payload)))
+  @MessagePattern({ cmd: MEMBERSHIPS_ACTIONS.GET_USER_MEMBERHIPS })
+  async getUserMemberships(@Payload() payload: GetUserMembershipsRequestDto) {
+    const res = await this.memberhipsService.getUserMemberships(payload);
+    return parseManyMembershipResponse({
       success: true,
       data: res,
     });

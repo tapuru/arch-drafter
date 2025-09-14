@@ -5,14 +5,15 @@ import {
   CreateMembershipRequestSchema,
   LeaveProjectRequestDto,
   LeaveProjectRequestSchema,
+  ManyMembershipResponseDto,
   OneMembershipResponseDto,
   RemoveFromProjectRequestDto,
   RemoveFromProjectRequestSchema,
   SuccessTrueResponseDto,
 } from '@bc-arch-drafter/contracts';
-import { sendMessage, ZodValidationPipe } from '@bc-arch-drafter/lib';
-import { MEMBERSHIPS_ACTIONS } from '@bc-arch-drafter/model';
-import { Body, Controller, Inject, Patch, Post } from '@nestjs/common';
+import { AppHttpException, sendMessage, ZodValidationPipe } from '@bc-arch-drafter/lib';
+import { isUseId, MEMBERSHIPS_ACTIONS, parseUserId } from '@bc-arch-drafter/model';
+import { Body, Controller, Get, HttpStatus, Inject, Param, Patch, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Controller()
@@ -27,6 +28,19 @@ export class MembeshipsController {
       client: this.client,
       pattern: { cmd: MEMBERSHIPS_ACTIONS.CREATE_MEMBERHIP },
       payload: body,
+    });
+    return res;
+  }
+
+  @Get(API_ROUTES.MEMBERHIPS.GET_USER_MEMBERSHIPS(':id'))
+  async getUserMemberships(@Param('id') id: string): Promise<ManyMembershipResponseDto> {
+    if (!isUseId(id)) {
+      throw new AppHttpException('Invalid uuid', HttpStatus.BAD_REQUEST);
+    }
+    const res = await sendMessage({
+      client: this.client,
+      pattern: { cmd: MEMBERSHIPS_ACTIONS.GET_USER_MEMBERHIPS },
+      payload: { userId: id },
     });
     return res;
   }

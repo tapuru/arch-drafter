@@ -1,0 +1,10 @@
+
+arch-drafter.ru {
+  handle /api/* {
+    reverse_proxy gateway:3000
+  }
+
+  handle {
+    reverse_proxy web:3000
+  }
+}

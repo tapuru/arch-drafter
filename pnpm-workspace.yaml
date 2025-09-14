@@ -10,8 +10,6 @@ packages:
   - 'packages/lib'
   - 'packages/model'
   - 'packages/ui'
-  # - "packages/auth"
-  - 'packages/db'
   - 'packages/api-config'
   - 'packages/postgres-db'
   - 'packages/contracts'

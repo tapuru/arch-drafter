@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom';
 import type { Membership, Project } from '@bc-arch-drafter/model';
+
+import { Link } from 'react-router-dom';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@bc-arch-drafter/ui';
 
 export const ProjectsListItem = ({ membership }: { membership: Membership & { project: Project } }) => {

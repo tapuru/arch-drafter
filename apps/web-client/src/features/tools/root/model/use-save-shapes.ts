@@ -1,13 +1,16 @@
-import { useMutation } from '@tanstack/react-query';
-import { useSelectArrows } from '../../arrow';
 import type { Arrow } from '../../arrow/model/arrow.store';
-import { useSelectRectangles } from '../../rectangle';
 import type { Rectangle } from '../../rectangle/model/rectangle.store';
-import { useSelectScribbles } from '../../scribble';
 import type { Scribble } from '../../scribble/model/scribble.store';
-import { projectsApi } from '@bc-arch-drafter/client-services';
-import { useParams } from 'react-router';
 import type { ProjectId } from '@bc-arch-drafter/model';
+
+import { useMutation } from '@tanstack/react-query';
+import { useParams } from 'react-router';
+
+import { projectsApi } from '@/shared/api';
+
+import { useSelectArrows } from '../../arrow';
+import { useSelectRectangles } from '../../rectangle';
+import { useSelectScribbles } from '../../scribble';
 
 //TODO: write this type in contracts (model?) package
 type SaveShapesDto = {
@@ -25,7 +28,7 @@ export const useSaveShapes = () => {
   const arrows = useSelectArrows();
   const { projectId } = useParams();
 
-  const { mutate } = useMutation({ mutationFn: projectsApi.updateProject });
+  const { mutate } = useMutation({ mutationFn: projectsApi.updateProject.bind(projectsApi) });
 
   const handleSave = async () => {
     const dto: SaveShapesDto = {

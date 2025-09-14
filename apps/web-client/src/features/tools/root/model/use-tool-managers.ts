@@ -1,10 +1,11 @@
-/* eslint-disable unicorn/consistent-function-scoping */
+ 
 /* eslint-disable unicorn/switch-case-braces */
 import React, { useRef } from 'react';
 
 import { useArrowManager } from '@/features/tools/arrow';
 import { useRectangleManager } from '@/features/tools/rectangle';
 import { TOOLS, useSelectCurrentTool, type Tool, type ToolManager } from '@/features/tools/shared';
+
 import { useScribbleManager } from '../../scribble';
 
 export const useToolManagers = (): {

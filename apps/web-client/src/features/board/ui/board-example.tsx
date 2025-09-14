@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/consistent-function-scoping */
+ 
 /* eslint-disable unicorn/switch-case-braces */
 /*eslint-disable unicorn/prefer-dom-node-append*/
 /*eslint-disable unicorn/prefer-dom-node-remove*/

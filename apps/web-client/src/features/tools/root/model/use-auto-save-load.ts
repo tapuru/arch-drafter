@@ -1,8 +1,13 @@
-import { projectsApi } from '@bc-arch-drafter/client-services';
-import { PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
+import type { ProjectId } from '@bc-arch-drafter/model';
+
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
+
+import { PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
+
+import { projectsApi } from '@/shared/api';
+
 import { useLoadShapes } from './use-load-shapes';
 
 export const useAutoSaveLoad = () => {

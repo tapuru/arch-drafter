@@ -1,12 +1,14 @@
-import { MOCK_USER_ID } from '@/shared/mocks';
-import { projectsApi } from '@bc-arch-drafter/client-services';
-import { Button, Input } from '@bc-arch-drafter/ui';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import { Button, Input } from '@bc-arch-drafter/ui';
+
+import { projectsApi } from '@/shared/api';
+import { MOCK_USER_ID } from '@/shared/mocks';
+
 export const CreateProjectForm = () => {
-  const { mutateAsync } = useMutation({ mutationFn: projectsApi.createProject });
+  const { mutateAsync } = useMutation({ mutationFn: projectsApi.createProject.bind(projectsApi) });
   const navigate = useNavigate();
 
   const [name, setName] = useState('');

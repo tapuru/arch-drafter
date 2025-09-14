@@ -1,10 +1,9 @@
-import { Button } from '@bc-arch-drafter/ui';
+import { ArrowToolButton } from '../../arrow';
 import { RectangleToolButton } from '../../rectangle';
+import { ScribbleToolButton } from '../../scribble';
+import { SelectToolButton } from '../../select';
 import { LoadExampleButton } from './load-example-button';
 import { SaveButton } from './save-button';
-import { ArrowToolButton } from '../../arrow';
-import { SelectToolButton } from '../../select';
-import { ScribbleToolButton } from '../../scribble';
 
 export const ToolBar = () => {
   return (

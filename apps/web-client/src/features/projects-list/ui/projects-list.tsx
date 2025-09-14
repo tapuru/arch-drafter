@@ -1,7 +1,10 @@
-import { MEMBERSHIPS_ACTIONS } from '@bc-arch-drafter/model';
 import { useQuery } from '@tanstack/react-query';
-import { membershipsApi } from '@bc-arch-drafter/client-services';
+
+import { MEMBERSHIPS_ACTIONS } from '@bc-arch-drafter/model';
+
+import { membershipsApi } from '@/shared/api';
 import { MOCK_USER_ID } from '@/shared/mocks';
+
 import { ProjectsListItem } from './projects-list-item';
 
 export const ProjectsList = () => {

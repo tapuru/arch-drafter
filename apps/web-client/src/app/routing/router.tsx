@@ -4,13 +4,13 @@ import { Navigate } from 'react-router-dom';
 import { WEB_ROUTES } from '@bc-arch-drafter/contracts';
 
 import { DefaultLayout } from '@/app/layouts';
+import { CreateProjectPage } from '@/pages/create-project';
 import { ErrorPage } from '@/pages/error';
 import { BaseForm } from '@/pages/example';
 import { HomePage } from '@/pages/home';
 import { ProjectPage } from '@/pages/project';
 
 import { ProtectedRoute } from './protected-route';
-import { CreateProjectPage } from '@/pages/create-project';
 
 export const createAppRouter = () => {
   return createBrowserRouter([

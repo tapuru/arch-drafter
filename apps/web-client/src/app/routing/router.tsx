@@ -10,6 +10,7 @@ import { HomePage } from '@/pages/home';
 import { ProjectPage } from '@/pages/project';
 
 import { ProtectedRoute } from './protected-route';
+import { CreateProjectPage } from '@/pages/create-project';
 
 export const createAppRouter = () => {
   return createBrowserRouter([
@@ -72,8 +73,14 @@ export const createAppRouter = () => {
           ),
         },
         {
-          path: '/project/:projectId',
-          element: <ProjectPage />,
+          path: '/projects',
+          children: [
+            {
+              path: '/projects/:projectId',
+              element: <ProjectPage />,
+            },
+            { path: '/projects/create', element: <CreateProjectPage /> },
+          ],
         },
       ],
       errorElement: <ErrorPage />,

@@ -23,6 +23,8 @@ export const API_ROUTES = {
     ME: '/me',
     REGISTER: '/register',
     LOGIN: '/login',
+    LOGOUT: '/logout',
+    UPDATE_TOKEN: '/update-token',
     PASSWORD_RECOVERY: '/recovery',
   },
   USERS: '/users',

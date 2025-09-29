@@ -28,6 +28,11 @@ export const DEFAULT_CONFIG: ConfigData = {
     USERS_SERVICE: {
       options: { host: '127.0.0.1', port: 3005 },
       transport: Transport.TCP,
+      payload: {
+        TOKEN_SECRET: 'qwerty',
+        TOKEN_ACCESS_TTL: '30m',
+        TOKEN_REFRESH_TTL: '7d',
+      },
     },
   },
 };

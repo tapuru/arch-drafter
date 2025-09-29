@@ -9,6 +9,12 @@ export interface MicroserviceConfig {
   };
   //TODO: find a way to include any transport type not only TCP
   transport: Transport.TCP;
+  payload?: {
+    TOKEN_SECRET?: string;
+    TOKEN_ACCESS_TTL?: string;
+    TOKEN_REFRESH_TTL?: string;
+    TOKEN_VERIFY_TTL?: string;
+  };
 }
 
 export interface PostgresConfig {

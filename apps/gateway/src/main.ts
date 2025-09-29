@@ -1,8 +1,9 @@
 import { DEFAULT_CONFIG } from '@bc-arch-drafter/api-config';
 import { RpcExceptionsInterceptor } from '@bc-arch-drafter/lib';
 import { NestFactory } from '@nestjs/core';
+import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 import { AppModule } from './app.module';
 
@@ -21,6 +22,7 @@ async function bootstrap() {
   });
   app.setGlobalPrefix('api');
   app.useGlobalInterceptors(new RpcExceptionsInterceptor());
+  app.use(cookieParser());
 
   await app.listen(PORT, () => console.log(`Gateway app started at port ${PORT}`));
 }

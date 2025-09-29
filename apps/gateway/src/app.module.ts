@@ -2,14 +2,15 @@ import { ConfigModule, Microservice, ConfigService } from '@bc-arch-drafter/api-
 import { Module } from '@nestjs/common';
 import { ClientProxyFactory } from '@nestjs/microservices';
 
+import { AuthModule } from '@/auth/auth.module';
 import { ExportController } from '@/export';
 import { InvitesController, MembeshipsController, ProjectsController } from '@/projects';
 import { SessionsController } from '@/sessions';
 import { StorageController } from '@/storage';
-import { UsersController, AuthController } from '@/users';
+import { UsersController } from '@/users';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [ConfigModule, AuthModule],
   providers: [
     {
       provide: Microservice.PROJECTS,
@@ -57,7 +58,6 @@ import { UsersController, AuthController } from '@/users';
     SessionsController,
     ExportController,
     StorageController,
-    AuthController,
     UsersController,
     InvitesController,
     MembeshipsController,

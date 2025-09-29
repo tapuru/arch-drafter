@@ -2,7 +2,8 @@
 //reexport all the defined db schemas for drizzle kit to work
 
 export { projects, projectsRelations } from '@/projects';
-export { users, tokens, tokenType, userRole } from '@/users';
+export { users, userRole } from '@/users';
+export { tokens, tokenType } from '@/tokens';
 export { memberships, membershipsRelations, userProjectRole } from '@/memberships';
 export { invites, invitesRelations, inviteStatus } from '@/invites';
 

@@ -6,6 +6,8 @@ import { invites } from '@/invites';
 import { memberships } from '@/memberships';
 import { createdAtColumn, primaryKeyColumn, updatedAtColumn, deletedAtColumn } from '@/shared';
 
+import { tokens } from '../tokens/token.schema';
+
 export const userRole = pgEnum('role_enum', [UserGlobalRoleSchema.enum.admin, UserGlobalRoleSchema.enum.user]);
 
 export const users = pgTable('users', {
@@ -21,8 +23,9 @@ export const users = pgTable('users', {
   updatedAt: updatedAtColumn('updated_at'),
 });
 
-export const usersRelations = relations(users, ({ one, many }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
   sentInvites: many(invites, { relationName: 'user' }),
   invites: many(invites, { relationName: 'sender' }),
+  tokens: many(tokens, { relationName: 'token' }),
   memberships: many(memberships),
 }));

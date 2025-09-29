@@ -49,6 +49,13 @@ export class ConfigService {
         USERS_SERVICE: {
           options: this.parseServiceOptionsFromEnv(Microservice.USERS, env),
           transport: Transport.TCP,
+          payload: {
+            TOKEN_SECRET: env.TOKEN_SECRET || DEFAULT_CONFIG.services.USERS_SERVICE.payload?.TOKEN_SECRET,
+            TOKEN_ACCESS_TTL: env.TOKEN_ACCESS_TTL || DEFAULT_CONFIG.services.USERS_SERVICE.payload?.TOKEN_ACCESS_TTL,
+            TOKEN_REFRESH_TTL:
+              env.TOKEN_REFRESH_TTL || DEFAULT_CONFIG.services.USERS_SERVICE.payload?.TOKEN_REFRESH_TTL,
+            TOKEN_VERIFY_TTL: env.TOKEN_VERIFY_TTL || DEFAULT_CONFIG.services.USERS_SERVICE.payload?.TOKEN_VERIFY_TTL,
+          },
         },
       },
     };

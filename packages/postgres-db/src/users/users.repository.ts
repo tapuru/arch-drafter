@@ -17,9 +17,9 @@ type UsersRelations = {
 export class UsersRepository {
   constructor(@Inject(Connections.POSTGRES) private readonly db: Database) {}
   public async createUser(name: UserName, email: Email, password: Password) {
-    await this.db.insert(users).values({ name, email, password, isVerified: true });
+    const [user] = await this.db.insert(users).values({ name, email, password, isVerified: true }).returning();
 
-    return this.db.select().from(users).where(eq(users.email, email));
+    return user;
   }
 
   public async findById<TRelations extends UsersRelations>(userId: User['id'], options?: { relations: TRelations }) {

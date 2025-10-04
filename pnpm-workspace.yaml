@@ -14,3 +14,4 @@ packages:
   - 'packages/postgres-db'
   - 'packages/contracts'
   - 'packages/client-services'
+  - 'packages/redis'

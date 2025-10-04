@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "pnpm -r run build",
+    "build": "pnpm run build:packages && pnpm -r run build",
     "clean": "pnpm -r run clean",
     "dev:web-client": "pnpm --filter \"web-client\" run dev",
     "dev:api": "concurrently \"pnpm:dev:api:*\"",
@@ -20,7 +20,8 @@
     "format:fix": "prettier . --write",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build:packages": "pnpm -r --filter \"./packages/*\" run build",
+    "build:packages": "pnpm --filter '@bc-arch-drafter/model' run build && pnpm --filter '@bc-arch-drafter/contracts' run build && pnpm --filter '@bc-arch-drafter/api-config' run build && pnpm -r --filter '@bc-arch-drafter/*...' run build",
+    "clean:packages": "pnpm -r --filter \"./packages/*\" run clean",
     "build:gateway": "pnpm -r --filter \"./packages/*\" run build",
     "build:watch:model": "pnpm --filter \"@bc-arch-drafter/model\" run build:watch",
     "build:watch:ui": "pnpm --filter \"@bc-arch-drafter/shared-ui\" run build:watch",

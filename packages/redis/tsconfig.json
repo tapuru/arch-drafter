@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+    "module": "esnext",
+    "target": "es2017",
+    "outDir": "./build",
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "exclude": ["build", "node_modules"]
+}

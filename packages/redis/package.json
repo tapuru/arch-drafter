@@ -1,0 +1,27 @@
+{
+  "name": "@bc-arch-drafter/redis",
+  "version": "0.0.1",
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "lint": "eslint --cache ."
+  },
+  "type": "module",
+  "main": "./build/index.cjs",
+  "types": "./build/index.d.ts",
+  "exports": {
+    "require": "./build/index.cjs",
+    "import": "./build/index.js"
+  },
+  "dependencies": {
+    "@bc-arch-drafter/api-config": "workspace:*",
+    "@nestjs/cache-manager": "^3.0.1",
+    "@nestjs/common": "^11.1.6",
+    "cache-manager-redis-store": "^3.0.1",
+    "ioredis": "^5.8.0"
+  },
+  "devDependencies": {
+    "@types/cache-manager-redis-store": "^3.0.0"
+  }
+}

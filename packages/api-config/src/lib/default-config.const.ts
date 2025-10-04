@@ -8,6 +8,12 @@ export const DEFAULT_CONFIG: ConfigData = {
   postgres: {
     url: process.env.POSTGRES_URL!,
   },
+  redis: {
+    host: 'localhost',
+    port: 6379,
+    cacheDb: 0,
+    wsDb: 1,
+  },
   services: {
     PROJECTS_SERVICE: {
       options: { host: '127.0.0.1', port: 3001 },

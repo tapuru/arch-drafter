@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Transport } from '@nestjs/microservices';
 
-import type { ConfigData } from '@/lib/config.type';
+import type { ConfigData, RedisConfig } from '@/lib/config.type';
 
 import { MicroserviceConfig, PostgresConfig } from '@/lib/config.type';
 import { Microservice } from '@/lib/microservices.enum';
@@ -29,6 +29,7 @@ export class ConfigService {
       env: env.NODE_ENV || DEFAULT_CONFIG.env,
       port: parseInt(env.GATEWAY_PORT || `${DEFAULT_CONFIG.port}`),
       postgres: this.parsePostgresConfigFromEnv(env),
+      redis: this.parseRedisConfigFromEnv(env),
       services: {
         PROJECTS_SERVICE: {
           options: this.parseServiceOptionsFromEnv(Microservice.PROJECTS, env),
@@ -65,6 +66,15 @@ export class ConfigService {
     return {
       host: env[`${name}_HOST`] || `${DEFAULT_CONFIG.services[name].options.host}`,
       port: parseInt(env[`${name}_PORT`] || `${DEFAULT_CONFIG.services[name].options.port}`),
+    };
+  }
+
+  private parseRedisConfigFromEnv(env: NodeJS.ProcessEnv): RedisConfig {
+    return {
+      host: env.REDIS_HOST || DEFAULT_CONFIG.redis.host,
+      port: parseInt(env.REDIS_PORT || `${DEFAULT_CONFIG.redis.port}`),
+      cacheDb: parseInt(env.REDIS_CACHE_DB || `${DEFAULT_CONFIG.redis.cacheDb}`),
+      wsDb: parseInt(env.REDIS_WS_DB || `${DEFAULT_CONFIG.redis.wsDb}`),
     };
   }
 

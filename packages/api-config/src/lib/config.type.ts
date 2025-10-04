@@ -21,9 +21,17 @@ export interface PostgresConfig {
   url: string;
 }
 
+export interface RedisConfig {
+  host: string;
+  port: number;
+  cacheDb: number;
+  wsDb: number;
+}
+
 export interface ConfigData {
   env: string;
   port: number;
   services: Record<Microservice, MicroserviceConfig>;
   postgres: PostgresConfig;
+  redis: RedisConfig;
 }

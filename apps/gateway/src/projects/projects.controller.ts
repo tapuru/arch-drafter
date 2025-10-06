@@ -11,7 +11,8 @@ import {
 } from '@bc-arch-drafter/contracts';
 import { AppHttpException, sendMessage, ZodValidationPipe } from '@bc-arch-drafter/lib';
 import { isProjectId, parseProjectId, PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
-import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Post, Put } from '@nestjs/common';
+import { CacheInterceptor, CacheTTL } from '@bc-arch-drafter/redis';
+import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Controller()
@@ -19,8 +20,9 @@ export class ProjectsController {
   constructor(@Inject(Microservice.PROJECTS) private readonly client: ClientProxy) {}
 
   @Get(API_ROUTES.PROJECTS.LOAD_EXAMPLE())
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(60 * 60 * 24)
   async loadExample(): Promise<CanvasResponseDto> {
-    console.log('HERE');
     const res = await sendMessage({
       client: this.client,
       pattern: { cmd: PROJECTS_ACTIONS.LOAD_EXAMPLE },

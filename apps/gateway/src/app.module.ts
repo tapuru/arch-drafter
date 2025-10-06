@@ -8,9 +8,10 @@ import { InvitesController, MembeshipsController, ProjectsController } from '@/p
 import { SessionsController } from '@/sessions';
 import { StorageController } from '@/storage';
 import { UsersController } from '@/users';
+import { RedisCacheModule } from '@bc-arch-drafter/redis';
 
 @Module({
-  imports: [ConfigModule, AuthModule],
+  imports: [ConfigModule, AuthModule, RedisCacheModule],
   providers: [
     {
       provide: Microservice.PROJECTS,

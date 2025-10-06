@@ -1,7 +1,7 @@
 import { ServiceFromActions } from '@/shared';
 
 import { PROJECTS_ACTIONS } from './actions.const';
-import { Project, ProjectId } from './project.schema';
+import { CanvasJson, Project, ProjectId } from './project.schema';
 
 export type GetProjectById = (id: ProjectId) => Promise<Project>;
 
@@ -14,6 +14,8 @@ export type UpdateProject = (
 
 export type DeleteProject = (id: ProjectId) => Promise<{ success: boolean }>;
 
+export type LoadExampleProject = () => Promise<CanvasJson>;
+
 export interface ProjectsService
   extends ServiceFromActions<
     typeof PROJECTS_ACTIONS,
@@ -22,5 +24,6 @@ export interface ProjectsService
       [PROJECTS_ACTIONS.CREATE]: CreateProject;
       [PROJECTS_ACTIONS.UPDATE]: UpdateProject;
       [PROJECTS_ACTIONS.DELETE]: DeleteProject;
+      [PROJECTS_ACTIONS.LOAD_EXAMPLE]: LoadExampleProject;
     }
   > {}

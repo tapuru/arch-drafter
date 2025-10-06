@@ -5,6 +5,7 @@ import {
   DeleteProjectRequestSchema,
   GetProjectByIdRequestDto,
   GetProjectByIdRequestSchema,
+  parseCanvasResponse,
   parseProjectResponse,
   parseSuccessTrueResponse,
   ProjectsApi,
@@ -13,11 +14,11 @@ import {
   UpdateProjectRequestSchema,
 } from '@bc-arch-drafter/contracts';
 import { ZodValidationPipe } from '@bc-arch-drafter/lib';
+import { PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
 import { Controller, UsePipes } from '@nestjs/common';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 
 import { ProjectsServiceImpl } from './projects.service';
-import { PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
 
 //TODO: add strict typing
 @Controller()
@@ -50,5 +51,11 @@ export class ProjectsController implements ProjectsApi {
   async deleteProject(@Payload() payload: DeleteProjectRequestDto): Promise<SuccessTrueResponseDto> {
     const data = await this.projectsService.deleteProject(payload.id);
     return parseSuccessTrueResponse({ success: true, data });
+  }
+
+  @MessagePattern({ cmd: PROJECTS_ACTIONS.LOAD_EXAMPLE })
+  async loadExample() {
+    const data = await this.projectsService.loadExample();
+    return parseCanvasResponse({ success: true, data });
   }
 }

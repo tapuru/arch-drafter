@@ -1,6 +1,7 @@
 import { Microservice } from '@bc-arch-drafter/api-config';
 import {
   API_ROUTES,
+  CanvasResponseDto,
   CreateProjectRequestDto,
   CreateProjectRequestSchema,
   ProjectResponseDto,
@@ -16,6 +17,18 @@ import { ClientProxy } from '@nestjs/microservices';
 @Controller()
 export class ProjectsController {
   constructor(@Inject(Microservice.PROJECTS) private readonly client: ClientProxy) {}
+
+  @Get(API_ROUTES.PROJECTS.LOAD_EXAMPLE())
+  async loadExample(): Promise<CanvasResponseDto> {
+    console.log('HERE');
+    const res = await sendMessage({
+      client: this.client,
+      pattern: { cmd: PROJECTS_ACTIONS.LOAD_EXAMPLE },
+      //TODO: assign a correct type
+      payload: {} as any,
+    });
+    return res;
+  }
 
   @Get(API_ROUTES.PROJECTS.GET_BY_ID(':id'))
   async getProjectById(@Param('id') id: string): Promise<ProjectResponseDto> {

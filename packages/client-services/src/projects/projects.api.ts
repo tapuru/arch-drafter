@@ -1,4 +1,10 @@
-import { ProjectsApi, API_ROUTES, parseProjectResponse, parseSuccessTrueResponse } from '@bc-arch-drafter/contracts';
+import {
+  ProjectsApi,
+  API_ROUTES,
+  parseProjectResponse,
+  parseSuccessTrueResponse,
+  parseCanvasResponse,
+} from '@bc-arch-drafter/contracts';
 
 import { createApi } from '@/api';
 
@@ -27,5 +33,10 @@ export class ProjectsApiImpl implements ProjectsApi {
   async updateProject({ id, data }: Parameters<ProjectsApi['updateProject']>[0]) {
     const res = await this.api.put(API_ROUTES.PROJECTS.UPDATE(id), data);
     return parseProjectResponse(res.data);
+  }
+
+  async loadExample() {
+    const res = await this.api.get(API_ROUTES.PROJECTS.LOAD_EXAMPLE());
+    return parseCanvasResponse(res.data);
   }
 }

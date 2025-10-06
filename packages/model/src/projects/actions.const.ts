@@ -3,4 +3,5 @@ export const PROJECTS_ACTIONS = {
   CREATE: 'projects.createProject',
   UPDATE: 'projects.updateProject',
   DELETE: 'projects.deleteProject',
+  LOAD_EXAMPLE: 'projects.loadExample',
 } as const;

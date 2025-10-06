@@ -3,6 +3,8 @@ import { Project, ProjectId, ProjectsService, UserProjectRoleSchema } from '@bc-
 import { ProjectsRepository, TransactionManager } from '@bc-arch-drafter/postgres-db';
 import { HttpStatus, Injectable } from '@nestjs/common';
 
+import { EXAMPLE_PROJECT_ID } from './lib/consts';
+
 @Injectable()
 export class ProjectsServiceImpl implements ProjectsService {
   constructor(
@@ -51,5 +53,13 @@ export class ProjectsServiceImpl implements ProjectsService {
 
     await this.projectsRepository.delete(id);
     return { success: true };
+  }
+
+  async loadExample() {
+    const example = await this.projectsRepository.findById(EXAMPLE_PROJECT_ID);
+    console.log('load example');
+    if (!example || !example.canvasJson)
+      throw new AppRpcException('Unexpected error during loading example', HttpStatus.INTERNAL_SERVER_ERROR);
+    return example.canvasJson;
   }
 }

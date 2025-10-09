@@ -1,11 +1,12 @@
 export const WEB_ROUTES = {
   //main
   MAIN_HOME: '/',
-  EXAMPLE: '/example',
   //auth
   AUTH: '/auth',
   REGISTER: '/auth/register',
   LOGIN: '/auth/login',
+  FORGOT_PASSWORD: '/auth/forgot-password',
+  RESET_PASSWORD: '/auth/reset-password',
   //profile
   PROFILE: '/profile',
   SETTINGS: '/profile/settings',

@@ -26,6 +26,7 @@ services:
     env_file: .env.production
     depends_on:
       - postgres-db
+      - redis
     restart: unless-stopped
 
   projects-service:
@@ -35,6 +36,7 @@ services:
     env_file: .env.production
     depends_on:
       - postgres-db
+      - redis
     restart: unless-stopped
 
   users-service:
@@ -44,6 +46,7 @@ services:
     env_file: .env.production
     depends_on:
       - postgres-db
+      - redis
     restart: unless-stopped
 
   web:

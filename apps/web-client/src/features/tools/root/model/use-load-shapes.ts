@@ -6,12 +6,15 @@ import { useLoadArrows } from '@/features/tools/arrow';
 import { useLoadRectangles } from '@/features/tools/rectangle';
 import { useLoadScribbles } from '@/features/tools/scribble';
 
-import json from '../../example.json';
+import { useQuery } from '@tanstack/react-query';
+import { projectsApi } from '@/shared/api';
+import { PROJECTS_ACTIONS } from '@bc-arch-drafter/model';
 
 export const useLoadShapes = () => {
   const { loadRectangles, clearRectangles } = useLoadRectangles();
   const { loadArrows, clearArrows } = useLoadArrows();
   const { loadSapes: loadScribbles, clearScribbles } = useLoadScribbles();
+  const { data, isLoading } = useQuery({ queryFn: projectsApi.loadExample, queryKey: [PROJECTS_ACTIONS.LOAD_EXAMPLE] });
 
   const handleLoad = ({
     arrows,
@@ -33,9 +36,12 @@ export const useLoadShapes = () => {
     clearScribbles();
   };
 
+  console.log('AAAAAAA');
+  console.log(data);
+
   const handleLoadExample = () => {
-    if (!json) return;
-    handleLoad(json.shapes);
+    if (isLoading || !data) return;
+    handleLoad(data.data as any);
   };
 
   return { handleLoadExample, handleClearAll, handleLoad };

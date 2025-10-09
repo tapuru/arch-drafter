@@ -1,14 +1,14 @@
 import { ConfigModule, Microservice, ConfigService } from '@bc-arch-drafter/api-config';
+import { RedisCacheModule } from '@bc-arch-drafter/redis';
 import { Module } from '@nestjs/common';
 import { ClientProxyFactory } from '@nestjs/microservices';
 
 import { AuthModule } from '@/auth/auth.module';
 import { ExportController } from '@/export';
 import { InvitesController, MembeshipsController, ProjectsController } from '@/projects';
-import { SessionsController } from '@/sessions';
+import { RoomsController } from '@/rooms';
 import { StorageController } from '@/storage';
 import { UsersController } from '@/users';
-import { RedisCacheModule } from '@bc-arch-drafter/redis';
 
 @Module({
   imports: [ConfigModule, AuthModule, RedisCacheModule],
@@ -22,9 +22,9 @@ import { RedisCacheModule } from '@bc-arch-drafter/redis';
       inject: [ConfigService],
     },
     {
-      provide: Microservice.SESSIONS,
+      provide: Microservice.ROOMS,
       useFactory: (configService: ConfigService) => {
-        const options = configService.get().services.SESSIONS_SERVICE;
+        const options = configService.get().services.ROOMS_SERVICE;
         return ClientProxyFactory.create(options);
       },
       inject: [ConfigService],
@@ -56,7 +56,7 @@ import { RedisCacheModule } from '@bc-arch-drafter/redis';
   ],
   controllers: [
     ProjectsController,
-    SessionsController,
+    RoomsController,
     ExportController,
     StorageController,
     UsersController,

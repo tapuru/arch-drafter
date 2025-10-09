@@ -3,7 +3,7 @@ packages:
   - 'apps/landing'
   - 'apps/export-service'
   - 'apps/projects-service'
-  - 'apps/sessions-service'
+  - 'apps/rooms-service'
   - 'apps/storage-service'
   - 'apps/users-service'
   - 'apps/gateway'

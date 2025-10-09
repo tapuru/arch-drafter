@@ -9,7 +9,7 @@
     "dev:api": "concurrently \"pnpm:dev:api:*\"",
     "dev:api:gateway": "pnpm --filter @bc-arch-drafter/gateway start:dev",
     "dev:api:projects": "pnpm --filter @bc-arch-drafter/projects-service start:dev",
-    "dev:api:sessions": "pnpm --filter @bc-arch-drafter/sessions-service start:dev",
+    "dev:api:rooms": "pnpm --filter @bc-arch-drafter/rooms-service start:dev",
     "dev:api:export": "pnpm --filter @bc-arch-drafter/export-service start:dev",
     "dev:api:storage": "pnpm --filter @bc-arch-drafter/storage-service start:dev",
     "lint": "pnpm -r run lint",

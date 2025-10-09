@@ -35,8 +35,8 @@ export class ConfigService {
           options: this.parseServiceOptionsFromEnv(Microservice.PROJECTS, env),
           transport: Transport.TCP,
         },
-        SESSIONS_SERVICE: {
-          options: this.parseServiceOptionsFromEnv(Microservice.SESSIONS, env),
+        ROOMS_SERVICE: {
+          options: this.parseServiceOptionsFromEnv(Microservice.ROOMS, env),
           transport: Transport.TCP,
         },
         STORAGE_SERVICE: {

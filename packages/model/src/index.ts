@@ -6,3 +6,4 @@ export * from '@/tokens';
 export * from '@/memberships';
 export * from '@/projects';
 export * from '@/invites';
+export * from '@/rooms';

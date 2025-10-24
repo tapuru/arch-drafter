@@ -7,6 +7,8 @@ export const WEB_ROUTES = {
   LOGIN: '/auth/login',
   FORGOT_PASSWORD: '/auth/forgot-password',
   RESET_PASSWORD: '/auth/reset-password',
+  VERIFICATION_LINK_EXPIRED: '/auth/verification-link-expired',
+  EMAIL_SUCCESS_CONFIRMED: '/auth/email-success-confirmed',
   //profile
   PROFILE: '/profile',
   SETTINGS: '/profile/settings',

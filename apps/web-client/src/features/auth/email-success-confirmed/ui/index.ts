@@ -1,0 +1,1 @@
+export { EmailSuccessConfirmedForm } from './email-success-confirmed-form';

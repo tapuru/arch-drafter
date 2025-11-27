@@ -4,9 +4,16 @@ import { Navigate } from 'react-router-dom';
 import { WEB_ROUTES } from '@bc-arch-drafter/contracts';
 
 import { DefaultLayout } from '@/app/layouts';
+import {
+  LoginPage,
+  RegistrationPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  VerificationLinkExpiredPage,
+  EmailSuccessConfirmedPage,
+} from '@/pages/auth';
 import { CreateProjectPage } from '@/pages/create-project';
 import { ErrorPage } from '@/pages/error';
-import { BaseForm } from '@/pages/example';
 import { HomePage } from '@/pages/home';
 import { ProjectPage } from '@/pages/project';
 
@@ -26,18 +33,30 @@ export const createAppRouter = () => {
             </ProtectedRoute>
           ),
         },
-        {
-          path: WEB_ROUTES.EXAMPLE,
-          element: <BaseForm />,
-        },
         //auth
         {
           path: WEB_ROUTES.REGISTER,
-          element: <div>registration</div>,
+          element: <RegistrationPage />,
         },
         {
           path: WEB_ROUTES.LOGIN,
-          element: <div>login</div>,
+          element: <LoginPage />,
+        },
+        {
+          path: WEB_ROUTES.FORGOT_PASSWORD,
+          element: <ForgotPasswordPage />,
+        },
+        {
+          path: WEB_ROUTES.RESET_PASSWORD,
+          element: <ResetPasswordPage />,
+        },
+        {
+          path: WEB_ROUTES.VERIFICATION_LINK_EXPIRED,
+          element: <VerificationLinkExpiredPage />,
+        },
+        {
+          path: WEB_ROUTES.EMAIL_SUCCESS_CONFIRMED,
+          element: <EmailSuccessConfirmedPage />,
         },
         //profile
         {
